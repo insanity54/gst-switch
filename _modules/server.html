@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>server &mdash; Gst-Switch  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gst-Switch  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Gst-Switch  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for server</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="kn">from</span> <span class="nn">exception</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">controller</span> <span class="kn">import</span> <span class="n">Controller</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+
+<div class="viewcode-block" id="BaseServer"><a class="viewcode-back" href="../server.html#server.BaseServer">[docs]</a><span class="k">class</span> <span class="nc">BaseServer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Properties of the Server</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BaseServer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BaseServer.set_video_port"><a class="viewcode-back" href="../server.html#server.BaseServer.set_video_port">[docs]</a>    <span class="k">def</span> <span class="nf">set_video_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">VIDEO_PORT</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">video_port</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BaseServer.set_audio_port"><a class="viewcode-back" href="../server.html#server.BaseServer.set_audio_port">[docs]</a>    <span class="k">def</span> <span class="nf">set_audio_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">audio_port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">AUDIO_PORT</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">audio_port</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BaseServer.set_control_port"><a class="viewcode-back" href="../server.html#server.BaseServer.set_control_port">[docs]</a>    <span class="k">def</span> <span class="nf">set_control_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control_port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CONTROL_PORT</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">control_port</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BaseServer.set_record_file"><a class="viewcode-back" href="../server.html#server.BaseServer.set_record_file">[docs]</a>    <span class="k">def</span> <span class="nf">set_record_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record_file</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RECORD_FILE</span> <span class="o">=</span> <span class="n">record_file</span>
+</div>
+<div class="viewcode-block" id="BaseServer.get_video_port"><a class="viewcode-back" href="../server.html#server.BaseServer.get_video_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_video_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">VIDEO_PORT</span>
+</div>
+<div class="viewcode-block" id="BaseServer.get_audio_port"><a class="viewcode-back" href="../server.html#server.BaseServer.get_audio_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_audio_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">AUDIO_PORT</span>
+</div>
+<div class="viewcode-block" id="BaseServer.get_control_port"><a class="viewcode-back" href="../server.html#server.BaseServer.get_control_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_control_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONTROL_PORT</span>
+</div>
+<div class="viewcode-block" id="BaseServer.get_record_file"><a class="viewcode-back" href="../server.html#server.BaseServer.get_record_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_record_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECORD_FILE</span>
+
+</div></div>
+<div class="viewcode-block" id="ServerProcess"><a class="viewcode-back" href="../server.html#server.ServerProcess">[docs]</a><span class="k">class</span> <span class="nc">ServerProcess</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Handles all processes created. This includes the server process</span>
+<span class="sd">    and test sources added to the gst-switch-srv</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ServerProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="ServerProcess.run"><a class="viewcode-back" href="../server.html#server.ServerProcess.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Launches the server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">print</span> <span class="s">&quot;Starting server&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_process</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ServerProcess.run_process"><a class="viewcode-back" href="../server.html#server.ServerProcess.run_process">[docs]</a>    <span class="k">def</span> <span class="nf">run_process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span>
+        <span class="c"># cmd = &#39;&#39;</span>
+        <span class="n">cmd</span> <span class="o">+=</span> <span class="s">&quot;&quot;&quot;gst-switch-srv </span><span class="se">\</span>
+<span class="s">                    --video-input-port=</span><span class="si">%s</span><span class="s"> </span><span class="se">\</span>
+<span class="s">                    --audio-input-port=</span><span class="si">%s</span><span class="s"> </span><span class="se">\</span>
+<span class="s">                    --control-port=</span><span class="si">%s</span><span class="s"> </span><span class="se">\</span>
+<span class="s">                    --record=</span><span class="si">%s</span><span class="s"> &quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">VIDEO_PORT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">AUDIO_PORT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONTROL_PORT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECORD_FILE</span><span class="p">)</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_process</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&quot;process:&quot;</span><span class="p">,</span> <span class="n">proc</span>
+        <span class="k">if</span> <span class="n">proc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;ERROR: Server unable to create process&#39;</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;Created process with PID:</span><span class="si">%s</span><span class="s">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">proc</span>
+</div>
+<div class="viewcode-block" id="ServerProcess.start_process"><a class="viewcode-back" href="../server.html#server.ServerProcess.start_process">[docs]</a>    <span class="k">def</span> <span class="nf">start_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;Creating process </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tempf</span><span class="p">:</span>
+            <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">stdout</span><span class="o">=</span><span class="n">tempf</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">tempf</span><span class="p">,</span>  <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">process</span>
+</div>
+<div class="viewcode-block" id="ServerProcess.terminate"><a class="viewcode-back" href="../server.html#server.ServerProcess.terminate">[docs]</a>    <span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Stops the server</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True on success</span>
+<span class="sd">            False on failure</span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span> <span class="s">&#39;Killing server&#39;</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">proc</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">proc</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+            <span class="k">print</span> <span class="s">&#39;Server Killed&#39;</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;Error killing server&#39;</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="n">ret</span>
+</div>
+<div class="viewcode-block" id="ServerProcess.kill"><a class="viewcode-back" href="../server.html#server.ServerProcess.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGKILL</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ServerProcess.set_executable_path"><a class="viewcode-back" href="../server.html#server.ServerProcess.set_executable_path">[docs]</a>    <span class="k">def</span> <span class="nf">set_executable_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATH</span> <span class="o">=</span> <span class="n">path</span>
+
+</div></div>
+<div class="viewcode-block" id="Server"><a class="viewcode-back" href="../server.html#server.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">BaseServer</span><span class="p">,</span> <span class="n">ServerProcess</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Controls all Server operations and Test Video Sources</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">video_port</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">audio_port</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">control_port</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">record_file</span><span class="o">=</span><span class="s">&#39;record.data&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Contructor for the Server class</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Server() object</span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            video_port(optional)</span>
+<span class="sd">            audio_port(optional)</span>
+<span class="sd">            control_port(optional)</span>
+<span class="sd">            record_file(optional)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Server</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_executable_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_video_port</span><span class="p">(</span><span class="n">video_port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_audio_port</span><span class="p">(</span><span class="n">audio_port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_control_port</span><span class="p">(</span><span class="n">control_port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_record_file</span><span class="p">(</span><span class="n">record_file</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Gst-Switch  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Aayush Ahuja.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>testsource &mdash; Gst-Switch  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gst-Switch  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Gst-Switch  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for testsource</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">gi</span>
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span class="s">&#39;Gst&#39;</span><span class="p">,</span> <span class="s">&#39;1.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span class="n">GObject</span><span class="p">,</span> <span class="n">Gst</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c"># from pipeline import *</span>
+<span class="c">#IMPORTS</span>
+
+<span class="n">GObject</span><span class="o">.</span><span class="n">threads_init</span><span class="p">()</span>
+<span class="n">Gst</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BasePipeline"><a class="viewcode-back" href="../testsource.html#testsource.BasePipeline">[docs]</a><span class="k">class</span> <span class="nc">BasePipeline</span><span class="p">(</span><span class="n">Gst</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Basic pipeline</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BasePipeline</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="n">Gst</span><span class="o">.</span><span class="n">Pipeline</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_playing</span> <span class="o">=</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="BasePipeline.play"><a class="viewcode-back" href="../testsource.html#testsource.BasePipeline.play">[docs]</a>    <span class="k">def</span> <span class="nf">play</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_playing</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">Gst</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">PLAYING</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BasePipeline.pause"><a class="viewcode-back" href="../testsource.html#testsource.BasePipeline.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_playing</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">Gst</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">PAUSED</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BasePipeline.disable"><a class="viewcode-back" href="../testsource.html#testsource.BasePipeline.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_playing</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">Gst</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">NULL</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BasePipeline.make"><a class="viewcode-back" href="../testsource.html#testsource.BasePipeline.make">[docs]</a>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">Gst</span><span class="o">.</span><span class="n">ElementFactory</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+
+</div></div>
+<div class="viewcode-block" id="VideoPipeline"><a class="viewcode-back" href="../testsource.html#testsource.VideoPipeline">[docs]</a><span class="k">class</span> <span class="nc">VideoPipeline</span><span class="p">(</span><span class="n">BasePipeline</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Video Pipeline which can be used by a video test Source</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">timeoverlay</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">clockoverlay</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">VideoPipeline</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s">&#39;127.0.0.1&#39;</span>
+
+        <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_videotestsrc</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">vfilter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_capsfilter</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vfilter</span><span class="p">)</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">vfilter</span><span class="p">)</span>
+        <span class="n">gdppay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_gdppay</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gdppay</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">timeoverlay</span><span class="p">:</span>
+            <span class="n">_timeoverlay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_timeoverlay</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">clockoverlay</span><span class="p">:</span>
+            <span class="n">_clockoverlay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_clockoverlay</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">timeoverlay</span> <span class="ow">and</span> <span class="n">clockoverlay</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_timeoverlay</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_clockoverlay</span><span class="p">)</span>
+            <span class="n">vfilter</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">_timeoverlay</span><span class="p">)</span>
+            <span class="n">_timeoverlay</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">_clockoverlay</span><span class="p">)</span>
+            <span class="n">_clockoverlay</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">gdppay</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">timeoverlay</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_timeoverlay</span><span class="p">)</span>
+            <span class="n">vfilter</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">_timeoverlay</span><span class="p">)</span>
+            <span class="n">_timeoverlay</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">gdppay</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">clockoverlay</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">_clockoverlay</span><span class="p">)</span>
+            <span class="n">vfilter</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">_clockoverlay</span><span class="p">)</span>
+            <span class="n">_clockoverlay</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">gdppay</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vfilter</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">gdppay</span><span class="p">)</span>
+
+        <span class="n">sink</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_tcpclientsink</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sink</span><span class="p">)</span>
+        <span class="n">gdppay</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">sink</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VideoPipeline.make_videotestsrc"><a class="viewcode-back" href="../testsource.html#testsource.VideoPipeline.make_videotestsrc">[docs]</a>    <span class="k">def</span> <span class="nf">make_videotestsrc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;videotestsrc&#39;</span><span class="p">,</span> <span class="s">&#39;src&#39;</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;pattern&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">element</span>
+</div>
+<div class="viewcode-block" id="VideoPipeline.make_capsfilter"><a class="viewcode-back" href="../testsource.html#testsource.VideoPipeline.make_capsfilter">[docs]</a>    <span class="k">def</span> <span class="nf">make_capsfilter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&quot;capsfilter&quot;</span><span class="p">,</span> <span class="s">&quot;vfilter&quot;</span><span class="p">)</span>
+        <span class="n">capsstring</span> <span class="o">=</span> <span class="s">&quot;video/x-raw, format=(string)I420, width=</span><span class="si">%s</span><span class="s">, height=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">width</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">height</span><span class="p">))</span>
+        <span class="n">caps</span> <span class="o">=</span> <span class="n">Gst</span><span class="o">.</span><span class="n">Caps</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">capsstring</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;caps&#39;</span><span class="p">,</span> <span class="n">caps</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+</div>
+<div class="viewcode-block" id="VideoPipeline.make_gdppay"><a class="viewcode-back" href="../testsource.html#testsource.VideoPipeline.make_gdppay">[docs]</a>    <span class="k">def</span> <span class="nf">make_gdppay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;gdppay&#39;</span><span class="p">,</span> <span class="s">&#39;gdppay&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+</div>
+<div class="viewcode-block" id="VideoPipeline.make_timeoverlay"><a class="viewcode-back" href="../testsource.html#testsource.VideoPipeline.make_timeoverlay">[docs]</a>    <span class="k">def</span> <span class="nf">make_timeoverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;timeoverlay&#39;</span><span class="p">,</span> <span class="s">&#39;timeoverlay&#39;</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;font-desc&#39;</span><span class="p">,</span> <span class="s">&quot;Verdana bold 50&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+</div>
+<div class="viewcode-block" id="VideoPipeline.make_clockoverlay"><a class="viewcode-back" href="../testsource.html#testsource.VideoPipeline.make_clockoverlay">[docs]</a>    <span class="k">def</span> <span class="nf">make_clockoverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;clockoverlay&#39;</span><span class="p">,</span> <span class="s">&#39;clockoverlay&#39;</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;font-desc&#39;</span><span class="p">,</span> <span class="s">&quot;Verdana bold 50&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+</div>
+<div class="viewcode-block" id="VideoPipeline.make_tcpclientsink"><a class="viewcode-back" href="../testsource.html#testsource.VideoPipeline.make_tcpclientsink">[docs]</a>    <span class="k">def</span> <span class="nf">make_tcpclientsink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;tcpclientsink&#39;</span><span class="p">,</span> <span class="s">&#39;tcpclientsink&#39;</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;host&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;port&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">element</span>
+
+</div></div>
+<div class="viewcode-block" id="PreviewPipeline"><a class="viewcode-back" href="../testsource.html#testsource.PreviewPipeline">[docs]</a><span class="k">class</span> <span class="nc">PreviewPipeline</span><span class="p">(</span><span class="n">BasePipeline</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;docstring for PreviewPipeline&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PreviewPipeline</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_host</span><span class="p">(</span><span class="s">&#39;127.0.0.1&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_tcpclientsrc</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">gdpdepay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_gdpdepay</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gdpdepay</span><span class="p">)</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">gdpdepay</span><span class="p">)</span>
+        <span class="n">sink</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_autovideosink</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sink</span><span class="p">)</span>
+        <span class="n">gdpdepay</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">sink</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PreviewPipeline.set_host"><a class="viewcode-back" href="../testsource.html#testsource.PreviewPipeline.set_host">[docs]</a>    <span class="k">def</span> <span class="nf">set_host</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HOST</span> <span class="o">=</span> <span class="n">host</span>
+</div>
+<div class="viewcode-block" id="PreviewPipeline.set_port"><a class="viewcode-back" href="../testsource.html#testsource.PreviewPipeline.set_port">[docs]</a>    <span class="k">def</span> <span class="nf">set_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PORT</span> <span class="o">=</span> <span class="n">port</span>
+</div>
+<div class="viewcode-block" id="PreviewPipeline.make_tcpclientsrc"><a class="viewcode-back" href="../testsource.html#testsource.PreviewPipeline.make_tcpclientsrc">[docs]</a>    <span class="k">def</span> <span class="nf">make_tcpclientsrc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;tcpclientsrc&#39;</span><span class="p">,</span> <span class="s">&#39;tcpclientsrc&#39;</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;host&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HOST</span><span class="p">)</span>
+        <span class="n">element</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s">&#39;port&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">PORT</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+</div>
+<div class="viewcode-block" id="PreviewPipeline.make_gdpdepay"><a class="viewcode-back" href="../testsource.html#testsource.PreviewPipeline.make_gdpdepay">[docs]</a>    <span class="k">def</span> <span class="nf">make_gdpdepay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;gdpdepay&#39;</span><span class="p">,</span> <span class="s">&#39;gdpdepay&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+</div>
+<div class="viewcode-block" id="PreviewPipeline.make_autovideosink"><a class="viewcode-back" href="../testsource.html#testsource.PreviewPipeline.make_autovideosink">[docs]</a>    <span class="k">def</span> <span class="nf">make_autovideosink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s">&#39;autovideosink&#39;</span><span class="p">,</span> <span class="s">&#39;autovideosink&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span>
+
+</div></div>
+<div class="viewcode-block" id="VideoSrc"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc">[docs]</a><span class="k">class</span> <span class="nc">VideoSrc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Test Video Source</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">timeoverlay</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">clockoverlay</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">VideoSrc</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_width</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_pattern</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_pattern</span><span class="p">(</span><span class="n">pattern</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_timeoverlay</span><span class="p">(</span><span class="n">timeoverlay</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_clockoverlay</span><span class="p">(</span><span class="n">clockoverlay</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">VideoPipeline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PORT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATTERN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIMEOVERLAY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CLOCKOVERLAY</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<div class="viewcode-block" id="VideoSrc.set_port"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.set_port">[docs]</a>    <span class="k">def</span> <span class="nf">set_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PORT</span> <span class="o">=</span> <span class="n">port</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.set_width"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.set_width">[docs]</a>    <span class="k">def</span> <span class="nf">set_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="n">width</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.set_height"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.set_height">[docs]</a>    <span class="k">def</span> <span class="nf">set_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span> <span class="o">=</span> <span class="n">height</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.set_pattern"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.set_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">set_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATTERN</span> <span class="o">=</span> <span class="n">pattern</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.set_timeoverlay"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.set_timeoverlay">[docs]</a>    <span class="k">def</span> <span class="nf">set_timeoverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeoverlay</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">TIMEOVERLAY</span> <span class="o">=</span> <span class="n">timeoverlay</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.set_clockoverlay"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.set_clockoverlay">[docs]</a>    <span class="k">def</span> <span class="nf">set_clockoverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clockoverlay</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CLOCKOVERLAY</span> <span class="o">=</span> <span class="n">clockoverlay</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.get_port"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.get_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">PORT</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.get_width"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.get_height"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.get_pattern"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.get_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">get_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">PATTERN</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.get_timeoverlay"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.get_timeoverlay">[docs]</a>    <span class="k">def</span> <span class="nf">get_timeoverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIMEOVERLAY</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.get_clockoverlay"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.get_clockoverlay">[docs]</a>    <span class="k">def</span> <span class="nf">get_clockoverlay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CLOCKOVERLAY</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.run"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.pause"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.end"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.end">[docs]</a>    <span class="k">def</span> <span class="nf">end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="VideoSrc.generate_pattern"><a class="viewcode-back" href="../testsource.html#testsource.VideoSrc.generate_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">generate_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates a random patern if not specified</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">pattern</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PATTERN</span> <span class="o">=</span> <span class="n">pattern</span>
+        <span class="k">return</span> <span class="n">pattern</span>
+
+</div></div>
+<div class="viewcode-block" id="Preview"><a class="viewcode-back" href="../testsource.html#testsource.Preview">[docs]</a><span class="k">class</span> <span class="nc">Preview</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;docstring for Preview&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Preview</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_preview_port</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">PreviewPipeline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_preview_port</span><span class="p">())</span>
+
+<div class="viewcode-block" id="Preview.set_preview_port"><a class="viewcode-back" href="../testsource.html#testsource.Preview.set_preview_port">[docs]</a>    <span class="k">def</span> <span class="nf">set_preview_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PORT</span> <span class="o">=</span> <span class="n">port</span>
+</div>
+<div class="viewcode-block" id="Preview.get_preview_port"><a class="viewcode-back" href="../testsource.html#testsource.Preview.get_preview_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_preview_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">PORT</span>
+</div>
+<div class="viewcode-block" id="Preview.run"><a class="viewcode-back" href="../testsource.html#testsource.Preview.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Preview.pause"><a class="viewcode-back" href="../testsource.html#testsource.Preview.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Preview.end"><a class="viewcode-back" href="../testsource.html#testsource.Preview.end">[docs]</a>    <span class="k">def</span> <span class="nf">end</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Gst-Switch  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Aayush Ahuja.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+testsource Module
+=================
+
+.. automodule:: testsource
+    :members:
+    :undoc-members:
+    :show-inheritance:

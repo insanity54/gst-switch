@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>controller &mdash; Gst-Switch  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Gst-Switch  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Gst-Switch  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for controller</h1><div class="highlight"><pre>
+<span class="c">#IMPORTS</span>
+<span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">from</span> <span class="nn">connection</span> <span class="kn">import</span> <span class="n">Connection</span>
+
+
+<div class="viewcode-block" id="Controller"><a class="viewcode-back" href="../controller.html#controller.Controller">[docs]</a><span class="k">class</span> <span class="nc">Controller</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Class to control all interactions with the gst-switch-srv over dbus.</span>
+<span class="sd">    Provides the interface for interactions</span>
+
+<span class="sd">    :param: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Controller</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Controller.establish_connection"><a class="viewcode-back" href="../controller.html#controller.Controller.establish_connection">[docs]</a>    <span class="k">def</span> <span class="nf">establish_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Establishes a fresh connection to the dbus</span>
+<span class="sd">        Connection stored as self.connection</span>
+
+<span class="sd">        :param: None</span>
+<span class="sd">        :returns: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">connect_dbus</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Controller.get_compose_port"><a class="viewcode-back" href="../controller.html#controller.Controller.get_compose_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_compose_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the compose port number</span>
+
+<span class="sd">        :param: None</span>
+<span class="sd">        :returns: compose port number</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">get_compose_port</span><span class="p">()</span>
+        <span class="n">compose_port</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">compose_port</span>
+</div>
+<div class="viewcode-block" id="Controller.get_encode_port"><a class="viewcode-back" href="../controller.html#controller.Controller.get_encode_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_encode_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the encode port number</span>
+
+<span class="sd">        :param: None</span>
+<span class="sd">        :returns: encode port number</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">get_encode_port</span><span class="p">()</span>
+        <span class="n">encode_port</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">encode_port</span>
+</div>
+<div class="viewcode-block" id="Controller.get_audio_port"><a class="viewcode-back" href="../controller.html#controller.Controller.get_audio_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_audio_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the audio port number</span>
+
+<span class="sd">        :param: None</span>
+<span class="sd">        :returns: audio port number</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">get_audio_port</span><span class="p">()</span>
+        <span class="n">audio_port</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">audio_port</span>
+</div>
+<div class="viewcode-block" id="Controller.get_preview_ports"><a class="viewcode-back" href="../controller.html#controller.Controller.get_preview_ports">[docs]</a>    <span class="k">def</span> <span class="nf">get_preview_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all the preview ports</span>
+
+<span class="sd">        :param: None</span>
+<span class="sd">        :returns: list of all preview ports</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">get_preview_ports</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">preview_ports</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_preview_ports</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">preview_ports</span>
+</div>
+<div class="viewcode-block" id="Controller.set_composite_mode"><a class="viewcode-back" href="../controller.html#controller.Controller.set_composite_mode">[docs]</a>    <span class="k">def</span> <span class="nf">set_composite_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the current composite mode. Modes between 0 and 3 are allowed.</span>
+
+<span class="sd">        :param mode: new composite mode</span>
+<span class="sd">        :returns: True when requested</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="c"># only modes from 0 to 3 are supported</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">mode</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">set_composite_mode</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&quot;Set composite mode to </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+            <span class="c"># raise some Exception</span>
+        <span class="k">return</span> <span class="n">res</span>
+</div>
+<div class="viewcode-block" id="Controller.set_encode_mode"><a class="viewcode-back" href="../controller.html#controller.Controller.set_encode_mode">[docs]</a>    <span class="k">def</span> <span class="nf">set_encode_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the encode mode</span>
+<span class="sd">        WARNING: THIS DOES NOT WORK.</span>
+
+<span class="sd">        :param: channel</span>
+<span class="sd">        :returns: True when requested</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">set_encode_mode</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Set encode mode to </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">channel</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+            <span class="c"># raise some exception</span>
+        <span class="k">return</span> <span class="n">res</span>
+</div>
+<div class="viewcode-block" id="Controller.new_record"><a class="viewcode-back" href="../controller.html#controller.Controller.new_record">[docs]</a>    <span class="k">def</span> <span class="nf">new_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start a new recording</span>
+
+<span class="sd">        :param: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">new_record</span><span class="p">()</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="c">#logging</span>
+            <span class="k">print</span> <span class="s">&quot;New record&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">res</span>
+</div>
+<div class="viewcode-block" id="Controller.adjust_pip"><a class="viewcode-back" href="../controller.html#controller.Controller.adjust_pip">[docs]</a>    <span class="k">def</span> <span class="nf">adjust_pip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Change the PIP position and size</span>
+
+<span class="sd">        :param x: the X position of the PIP</span>
+<span class="sd">        :param y: the Y position of the PIP</span>
+<span class="sd">        :param w: the width of the PIP</span>
+<span class="sd">        :param h: the height of the PIP</span>
+<span class="sd">        :returns: result - PIP has been changed succefully</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">adjust_pip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">print</span> <span class="s">&quot;adjust pip x:</span><span class="si">%s</span><span class="s"> y:</span><span class="si">%s</span><span class="s"> w:</span><span class="si">%s</span><span class="s"> h:</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+        <span class="c">#to-do - parse</span>
+        <span class="k">return</span> <span class="n">res</span>
+</div>
+<div class="viewcode-block" id="Controller.switch"><a class="viewcode-back" href="../controller.html#controller.Controller.switch">[docs]</a>    <span class="k">def</span> <span class="nf">switch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Switch the channel to the target port</span>
+
+<span class="sd">        :param channel: The channel to be switched, &#39;A&#39;, &#39;B&#39;, &#39;a&#39;</span>
+<span class="sd">        :param port: The target port number</span>
+<span class="sd">        :returns: True when requested</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">switch</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Switch channel:</span><span class="si">%s</span><span class="s"> port:</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">channel</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Controller.click_video"><a class="viewcode-back" href="../controller.html#controller.Controller.click_video">[docs]</a>    <span class="k">def</span> <span class="nf">click_video</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fw</span><span class="p">,</span> <span class="n">fh</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;User click on the video</span>
+
+<span class="sd">        :param x:</span>
+<span class="sd">        :param y:</span>
+<span class="sd">        :param fw:</span>
+<span class="sd">        :param fh:</span>
+<span class="sd">        :returns: True when requested</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">click_video</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fw</span><span class="p">,</span> <span class="n">fh</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">unpack</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Click video: x:</span><span class="si">%s</span><span class="s"> y:</span><span class="si">%s</span><span class="s"> fw:</span><span class="si">%s</span><span class="s"> fh:</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">fw</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">fh</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">res</span>
+</div>
+<div class="viewcode-block" id="Controller.mark_face"><a class="viewcode-back" href="../controller.html#controller.Controller.mark_face">[docs]</a>    <span class="k">def</span> <span class="nf">mark_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">faces</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Mark faces</span>
+
+<span class="sd">        :param faces: tuple having four elements</span>
+<span class="sd">        :returns: True when requested</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># faces is dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">mark_face</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Controller.mark_tracking"><a class="viewcode-back" href="../controller.html#controller.Controller.mark_tracking">[docs]</a>    <span class="k">def</span> <span class="nf">mark_tracking</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">faces</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Mark tracking</span>
+
+<span class="sd">        :param faces: tuple having four elements</span>
+<span class="sd">        :returns: True when requested</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">establish_connection</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">mark_tracking</span><span class="p">(</span><span class="n">faces</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_parse_preview_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+        <span class="c"># res = &#39;[(a, b, c), (a, b, c)*]&#39;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">preview_ports</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tupl</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">preview_ports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">tupl</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">preview_ports</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">Gst-Switch  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Aayush Ahuja.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

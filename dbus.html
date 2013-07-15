@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dbus Module &mdash; Gst-Switch  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Gst-Switch  documentation" href="index.html" />
+    <link rel="next" title="exception Module" href="exception.html" />
+    <link rel="prev" title="controller Module" href="controller.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="exception.html" title="exception Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="controller.html" title="controller Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Gst-Switch  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-dbus">
+<span id="dbus-module"></span><h1>dbus Module<a class="headerlink" href="#module-dbus" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dbus.DBus">
+<em class="property">class </em><tt class="descclassname">dbus.</tt><tt class="descname">DBus</tt><a class="reference internal" href="_modules/dbus.html#DBus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Class which connects to the dbus</p>
+<dl class="method">
+<dt id="dbus.DBus.connect_dbus">
+<tt class="descname">connect_dbus</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.connect_dbus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.connect_dbus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a new connection using the parameters belonging to the class
+to the gst-switch-srv over dbus.
+Sets the self.connection</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Params :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Nothing</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.get_address">
+<tt class="descname">get_address</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.get_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.get_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the bus address</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Params :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Bus Address</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.get_busname">
+<tt class="descname">get_busname</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.get_busname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.get_busname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the bus name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Params :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Bus Name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.get_connection">
+<tt class="descname">get_connection</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.get_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.get_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the connection made over dbus</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Paramss :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">connection</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.get_default_interface">
+<tt class="descname">get_default_interface</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.get_default_interface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.get_default_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the object&#8217;s default interface</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Params :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Default interface</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.get_objectpath">
+<tt class="descname">get_objectpath</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.get_objectpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.get_objectpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the object path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Params :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Object path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.set_address">
+<tt class="descname">set_address</tt><big>(</big><em>address</em><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.set_address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.set_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the bus address</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> &#8211; New bus address</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">nothing</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.set_busname">
+<tt class="descname">set_busname</tt><big>(</big><em>busname</em><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.set_busname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.set_busname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the bus name
+Not used for default usage with gst-switch</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>busname</strong> &#8211; New bus name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">nothing</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.set_default_interface">
+<tt class="descname">set_default_interface</tt><big>(</big><em>interface</em><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.set_default_interface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.set_default_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the object&#8217;s default interface</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>interface</strong> &#8211; The new interfaces</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">nothing</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dbus.DBus.set_objectpath">
+<tt class="descname">set_objectpath</tt><big>(</big><em>objectpath</em><big>)</big><a class="reference internal" href="_modules/dbus.html#DBus.set_objectpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dbus.DBus.set_objectpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the object path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>objectpath</strong> &#8211; The new object paths</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Nothing</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="controller.html"
+                        title="previous chapter">controller Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="exception.html"
+                        title="next chapter">exception Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/dbus.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="exception.html" title="exception Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="controller.html" title="controller Module"
+             >previous</a> |</li>
+        <li><a href="index.html">Gst-Switch  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Aayush Ahuja.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

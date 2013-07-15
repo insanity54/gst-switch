@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>controller Module &mdash; Gst-Switch  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Gst-Switch  documentation" href="index.html" />
+    <link rel="next" title="dbus Module" href="dbus.html" />
+    <link rel="prev" title="connection Module" href="connection.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dbus.html" title="dbus Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="connection.html" title="connection Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Gst-Switch  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-controller">
+<span id="controller-module"></span><h1>controller Module<a class="headerlink" href="#module-controller" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="controller.Controller">
+<em class="property">class </em><tt class="descclassname">controller.</tt><tt class="descname">Controller</tt><a class="reference internal" href="_modules/controller.html#Controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A Class to control all interactions with the gst-switch-srv over dbus.
+Provides the interface for interactions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="controller.Controller.adjust_pip">
+<tt class="descname">adjust_pip</tt><big>(</big><em>x</em>, <em>y</em>, <em>w</em>, <em>h</em><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.adjust_pip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.adjust_pip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the PIP position and size</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; the X position of the PIP</li>
+<li><strong>y</strong> &#8211; the Y position of the PIP</li>
+<li><strong>w</strong> &#8211; the width of the PIP</li>
+<li><strong>h</strong> &#8211; the height of the PIP</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">result - PIP has been changed succefully</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.click_video">
+<tt class="descname">click_video</tt><big>(</big><em>x</em>, <em>y</em>, <em>fw</em>, <em>fh</em><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.click_video"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.click_video" title="Permalink to this definition">¶</a></dt>
+<dd><p>User click on the video</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; </li>
+<li><strong>y</strong> &#8211; </li>
+<li><strong>fw</strong> &#8211; </li>
+<li><strong>fh</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when requested</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.establish_connection">
+<tt class="descname">establish_connection</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.establish_connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.establish_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Establishes a fresh connection to the dbus
+Connection stored as self.connection</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.get_audio_port">
+<tt class="descname">get_audio_port</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.get_audio_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.get_audio_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the audio port number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">audio port number</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.get_compose_port">
+<tt class="descname">get_compose_port</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.get_compose_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.get_compose_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the compose port number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">compose port number</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.get_encode_port">
+<tt class="descname">get_encode_port</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.get_encode_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.get_encode_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the encode port number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">encode port number</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.get_preview_ports">
+<tt class="descname">get_preview_ports</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.get_preview_ports"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.get_preview_ports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the preview ports</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of all preview ports</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.mark_face">
+<tt class="descname">mark_face</tt><big>(</big><em>faces</em><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.mark_face"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.mark_face" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark faces</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>faces</strong> &#8211; tuple having four elements</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True when requested</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.mark_tracking">
+<tt class="descname">mark_tracking</tt><big>(</big><em>faces</em><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.mark_tracking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.mark_tracking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark tracking</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>faces</strong> &#8211; tuple having four elements</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True when requested</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.new_record">
+<tt class="descname">new_record</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.new_record"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.new_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a new recording</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.set_composite_mode">
+<tt class="descname">set_composite_mode</tt><big>(</big><em>mode</em><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.set_composite_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.set_composite_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the current composite mode. Modes between 0 and 3 are allowed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mode</strong> &#8211; new composite mode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True when requested</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.set_encode_mode">
+<tt class="descname">set_encode_mode</tt><big>(</big><em>channel</em><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.set_encode_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.set_encode_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the encode mode
+WARNING: THIS DOES NOT WORK.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param :</th><td class="field-body">channel</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True when requested</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="controller.Controller.switch">
+<tt class="descname">switch</tt><big>(</big><em>channel</em>, <em>port</em><big>)</big><a class="reference internal" href="_modules/controller.html#Controller.switch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controller.Controller.switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch the channel to the target port</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>channel</strong> &#8211; The channel to be switched, &#8216;A&#8217;, &#8216;B&#8217;, &#8216;a&#8217;</li>
+<li><strong>port</strong> &#8211; The target port number</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True when requested</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="connection.html"
+                        title="previous chapter">connection Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dbus.html"
+                        title="next chapter">dbus Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/controller.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dbus.html" title="dbus Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="connection.html" title="connection Module"
+             >previous</a> |</li>
+        <li><a href="index.html">Gst-Switch  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Aayush Ahuja.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
