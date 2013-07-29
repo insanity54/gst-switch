@@ -1,0 +1,308 @@
+<html>
+<body>
+<div>
+<div>
+<h2>Messages</h2>
+<table>
+<tr class="header">
+<th>type</th>
+<th>module</th>
+<th>object</th>
+<th>line</th>
+<th>col_offset</th>
+<th>message</th>
+</tr>
+<tr class="even">
+<td>C</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>35</td>
+<td>0</td>
+<td>Line too long (105/80)</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Missing docstring</td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>UI.run</td>
+<td>29</td>
+<td>4</td>
+<td>Method could be a function</td>
+</tr>
+<tr class="odd">
+<td>W</td>
+<td>gstswitch.ui</td>
+<td>UI.end</td>
+<td>52</td>
+<td>8</td>
+<td>No exception type(s) specified</td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td>gstswitch.ui</td>
+<td>UI.connect_controller</td>
+<td>56</td>
+<td>4</td>
+<td>Invalid name "Controller" (should match [a-z_][a-z0-9_]{2,30}$)</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>gstswitch.ui</td>
+<td>UI.connect_controller</td>
+<td>56</td>
+<td>33</td>
+<td>Invalid name "Controller" (should match [a-z_][a-z0-9_]{2,30}$)</td>
+</tr>
+<tr class="even">
+<td>W</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>4</td>
+<td>0</td>
+<td>Unused import sys</td>
+</tr>
+<tr class="odd">
+<td>W</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>5</td>
+<td>0</td>
+<td>Unused import signal</td>
+</tr>
+<tr class="even">
+<td>W</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>7</td>
+<td>0</td>
+<td>Unused import random</td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td>gstswitch.test_connection</td>
+<td>TestInterface</td>
+<td>61</td>
+<td>0</td>
+<td>Interface not implemented</td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td>gstswitch.test_controller</td>
+<td>TestInterface</td>
+<td>61</td>
+<td>0</td>
+<td>Interface not implemented</td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Similar lines in 2 files
+==gstswitch.connection:29
+==gstswitch.controller:22
+        self.address = address
+        self.bus_name = bus_name
+        self.object_path = object_path
+        self.default_interface = default_interface
+
+    @property
+    def address(self):
+        return self._address
+
+    @address.setter
+    def address(self, address):
+        """Set the Address
+        http://dbus.freedesktop.org/doc/dbus-specification.html#addresses
+        """
+        if not address:
+            raise ValueError("Address '{0}' cannot be blank")
+        else:
+            adr = str(address)
+            if adr.find(':') &amp;gt; 0:
+                self._address = adr
+            else:
+                raise ValueError("Address must follow specifications mentioned"
+                                 " at http://dbus.freedesktop.org/doc/"
+                                 "dbus-specification.html#addresses")
+
+    @property
+    def bus_name(self):
+        if self._bus_name is None:
+            return None
+        return self._bus_name
+
+    @bus_name.setter
+    def bus_name(self, bus_name):
+        """Set the Bus Name
+        http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus
+        """
+        if bus_name is None:
+            self._bus_name = None
+            return
+        bus = str(bus_name)
+        self._bus_name = bus
+
+    @property
+    def object_path(self):
+        return self._object_path
+
+    @object_path.setter
+    def object_path(self, object_path):
+        """Set the object_path
+        http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-marshaling-object-path
+        """
+        if not object_path:
+            raise ValueError("object_path '{0} cannot be blank'")
+        else:
+            obj = str(object_path)
+            if obj[0] == '/':
+                self._object_path = obj
+            else:
+                raise ValueError("object_path must follow specifications"
+                                 " mentioned at "
+                                 "http://dbus.freedesktop.org/doc/"
+                                 "dbus-specification.html"
+                                 "#message-protocol-marshaling-object-path""")
+
+    @property
+    def default_interface(self):
+        return self._default_interface
+
+    @default_interface.setter
+    def default_interface(self, default_interface):
+        """Set the default_interface
+        http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-interface
+        """
+        if not default_interface:
+            raise ValueError("default_interface '{0} cannot be blank'")
+        else:
+            intr = str(default_interface)
+            if intr.count('.') &amp;gt; 1:
+                self._default_interface = intr
+            else:
+                raise ValueError("default_interface must follow "
+                                 "specifications mentioned at "
+                                 "http://dbus.freedesktop.org/"
+                                 "doc/dbus-specification.html"
+                                 "#message-protocol-names-interface")
+</td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Similar lines in 2 files
+==gstswitch.test_connection:57
+==gstswitch.test_controller:57
+        assert conn.object_path == object_path
+
+
+class TestInterface(object):
+
+    def test_interface_none(self):
+        default_interface = [None, '', [], {}]
+        for x in default_interface:
+            with pytest.raises(ValueError):</td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Similar lines in 2 files
+==gstswitch.test_connection:38
+==gstswitch.test_controller:38
+        assert conn.bus_name == name
+
+
+class TestObjectPath(object):
+
+    def test_object_path_blank(self):
+        paths = [None, '', {}, []]
+        for object_path in paths:
+            with pytest.raises(ValueError):</td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Similar lines in 2 files
+==gstswitch.test_connection:24
+==gstswitch.test_controller:24
+            assert conn.address == x
+
+
+class TestBusName(object):
+
+    def test_normal(self):
+        names = ['', 'abcd', 12345]
+        for bus in names:</td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Similar lines in 2 files
+==gstswitch.connection:19
+==gstswitch.controller:14
+    def __init__(
+            self,
+            address="unix:abstract=gstswitch",
+            bus_name=None,
+            object_path="/info/duzy/gst/switch/SwitchController",
+            default_interface="info.duzy.gst.switch.SwitchControllerInterface"):
+</td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Similar lines in 2 files
+==gstswitch.test_connection:7
+==gstswitch.test_controller:7
+class TestAddress(object):
+
+    def test_address_null(self):
+        address = ['', None, [], {}]
+        for x in address:
+            with pytest.raises(ValueError):</td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td>gstswitch.ui</td>
+<td>&#160;</td>
+<td>1</td>
+<td>0</td>
+<td>Similar lines in 3 files
+==gstswitch.helpers:21
+==gstswitch.testsource:217
+==gstswitch.testsource:63
+            width=300,
+            height=200,
+            pattern=None,
+            timeoverlay=False,
+            clockoverlay=False):</td>
+</tr>
+</table>
+</div>
+</div>
+</body>
+</html>
