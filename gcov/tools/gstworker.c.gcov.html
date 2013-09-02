@@ -1,0 +1,1016 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - app.info - tools/gstworker.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">tools</a> - gstworker.c<span style="font-size: 80%;"> (source / <a href="gstworker.c.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">app.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">186</td>
+            <td class="headerCovTableEntry">348</td>
+            <td class="headerCovTableEntryLo">53.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2013-09-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntryLo">62.5 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">90</td>
+            <td class="headerCovTableEntry">248</td>
+            <td class="headerCovTableEntryLo">36.3 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>                :            : /* GstSwitchSrv</a>
+<span class="lineNum">       2 </span>                :            :  * Copyright (C) 2012 Duzy Chan &lt;code@duzy.info&gt;
+<span class="lineNum">       3 </span>                :            :  *
+<span class="lineNum">       4 </span>                :            :  * Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>                :            :  * modification, are permitted provided that the following conditions
+<span class="lineNum">       6 </span>                :            :  * are met:
+<span class="lineNum">       7 </span>                :            :  * 1. Redistributions of source code must retain the above copyright
+<span class="lineNum">       8 </span>                :            :  *    notice, this list of conditions and the following disclaimer.
+<span class="lineNum">       9 </span>                :            :  * 2. Redistributions in binary form must reproduce the above copyright
+<span class="lineNum">      10 </span>                :            :  *    notice, this list of conditions and the following disclaimer in the
+<span class="lineNum">      11 </span>                :            :  *    documentation and/or other materials provided with the distribution.
+<span class="lineNum">      12 </span>                :            :  *
+<span class="lineNum">      13 </span>                :            :  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AS IS'' AND ANY EXPRESS OR
+<span class="lineNum">      14 </span>                :            :  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+<span class="lineNum">      15 </span>                :            :  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+<span class="lineNum">      16 </span>                :            :  * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+<span class="lineNum">      17 </span>                :            :  * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+<span class="lineNum">      18 </span>                :            :  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+<span class="lineNum">      19 </span>                :            :  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+<span class="lineNum">      20 </span>                :            :  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+<span class="lineNum">      21 </span>                :            :  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+<span class="lineNum">      22 </span>                :            :  * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+<span class="lineNum">      23 </span>                :            :  * POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      24 </span>                :            :  */
+<span class="lineNum">      25 </span>                :            : 
+<span class="lineNum">      26 </span>                :            : /*! @file */
+<span class="lineNum">      27 </span>                :            : 
+<span class="lineNum">      28 </span>                :            : #ifdef HAVE_CONFIG_H
+<span class="lineNum">      29 </span>                :            : #include &quot;config.h&quot;
+<span class="lineNum">      30 </span>                :            : #endif
+<span class="lineNum">      31 </span>                :            : 
+<span class="lineNum">      32 </span>                :            : #include &quot;gstworker.h&quot;
+<span class="lineNum">      33 </span>                :            : #include &quot;gstswitchserver.h&quot;
+<span class="lineNum">      34 </span>                :            : 
+<span class="lineNum">      35 </span>                :            : #define GST_WORKER_LOCK_PIPELINE(srv) (g_mutex_lock (&amp;(srv)-&gt;pipeline_lock))
+<span class="lineNum">      36 </span>                :            : #define GST_WORKER_UNLOCK_PIPELINE(srv) (g_mutex_unlock (&amp;(srv)-&gt;pipeline_lock))
+<span class="lineNum">      37 </span>                :            : 
+<span class="lineNum">      38 </span>                :            : enum
+<span class="lineNum">      39 </span>                :            : {
+<span class="lineNum">      40 </span>                :            :   PROP_0,
+<span class="lineNum">      41 </span>                :            :   PROP_NAME,
+<span class="lineNum">      42 </span>                :            : };
+<span class="lineNum">      43 </span>                :            : 
+<span class="lineNum">      44 </span>                :            : enum
+<span class="lineNum">      45 </span>                :            : {
+<span class="lineNum">      46 </span>                :            :   SIGNAL_PREPARE_WORKER,
+<span class="lineNum">      47 </span>                :            :   SIGNAL_START_WORKER,
+<span class="lineNum">      48 </span>                :            :   SIGNAL_END_WORKER,
+<span class="lineNum">      49 </span>                :            :   SIGNAL_WORKER_NULL,
+<span class="lineNum">      50 </span>                :            :   SIGNAL__LAST,                 /*!&lt; @internal */
+<span class="lineNum">      51 </span>                :            : };
+<span class="lineNum">      52 </span>                :            : 
+<span class="lineNum">      53 </span>                :            : /*!&lt; @internal */
+<span class="lineNum">      54 </span>                :            : static guint gst_worker_signals[SIGNAL__LAST] = { 0 };
+<span class="lineNum">      55 </span>                :            : 
+<span class="lineNum">      56 </span>                :            : extern gboolean verbose;
+<span class="lineNum">      57 </span>                :            : 
+<span class="lineNum">      58 </span>                :            : #if ENABLE_ASSESSMENT
+<span class="lineNum">      59 </span>                :            : guint assess_number = 0;
+<span class="lineNum">      60 </span>                :            : #endif //ENABLE_ASSESSMENT
+<span class="lineNum">      61 </span>                :            : 
+<span class="lineNum">      62 </span>                :            : /*!&lt; @internal */
+<span class="lineNum">      63 </span>                :            : #define gst_worker_parent_class parent_class
+<a name="64"><span class="lineNum">      64 </span>                :            : </a>
+<span class="lineNum">      65 </span>                :            : /*!&lt; @internal */
+<span class="lineNum">      66 </span>[<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 448 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        456 : G_DEFINE_TYPE (GstWorker, gst_worker, G_TYPE_OBJECT);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 4 times"> + </span><span class="branchCov" title="Branch 6 was taken 448 times"> + </span>]
+<span class="lineNum">      67 </span>                :            : 
+<span class="lineNum">      68 </span>                :            : /**
+<span class="lineNum">      69 </span>                :            :  * @brief Initialize GstWorker instances.
+<span class="lineNum">      70 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">      71 </span>                :            :  * @memberof GstWorker
+<a name="72"><span class="lineNum">      72 </span>                :            :  */</a>
+<span class="lineNum">      73 </span>                :            : static void
+<span class="lineNum">      74 </span>                :<span class="lineCov">         13 : gst_worker_init (GstWorker * worker)</span>
+<span class="lineNum">      75 </span>                :            : {
+<span class="lineNum">      76 </span>                :<span class="lineCov">         13 :   worker-&gt;name = NULL;</span>
+<span class="lineNum">      77 </span>                :            :   //worker-&gt;server = NULL;
+<span class="lineNum">      78 </span>                :<span class="lineCov">         13 :   worker-&gt;bus = NULL;</span>
+<span class="lineNum">      79 </span>                :<span class="lineCov">         13 :   worker-&gt;pipeline = NULL;</span>
+<span class="lineNum">      80 </span>                :<span class="lineCov">         13 :   worker-&gt;pipeline_func = NULL;</span>
+<span class="lineNum">      81 </span>                :<span class="lineCov">         13 :   worker-&gt;pipeline_func_data = NULL;</span>
+<span class="lineNum">      82 </span>                :<span class="lineCov">         13 :   worker-&gt;pipeline_string = NULL;</span>
+<span class="lineNum">      83 </span>                :<span class="lineCov">         13 :   worker-&gt;paused_for_buffering = FALSE;</span>
+<span class="lineNum">      84 </span>                :<span class="lineCov">         13 :   worker-&gt;watch = 0;</span>
+<span class="lineNum">      85 </span>                :            : 
+<span class="lineNum">      86 </span>                :<span class="lineCov">         13 :   g_mutex_init (&amp;worker-&gt;pipeline_lock);</span>
+<span class="lineNum">      87 </span>                :            : 
+<span class="lineNum">      88 </span>                :            :   //INFO (&quot;gst_worker init %p&quot;, worker);
+<span class="lineNum">      89 </span>                :<span class="lineCov">         13 : }</span>
+<span class="lineNum">      90 </span>                :            : 
+<span class="lineNum">      91 </span>                :            : /**
+<span class="lineNum">      92 </span>                :            :  * @brief Free GstWorker instances.
+<span class="lineNum">      93 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">      94 </span>                :            :  * @memberof GstWorker
+<a name="95"><span class="lineNum">      95 </span>                :            :  */</a>
+<span class="lineNum">      96 </span>                :            : static void
+<span class="lineNum">      97 </span>                :<span class="lineCov">          6 : gst_worker_dispose (GstWorker * worker)</span>
+<span class="lineNum">      98 </span>                :            : {
+<span class="lineNum">      99 </span>                :            :   //INFO (&quot;gst_worker dispose %p&quot;, worker);
+<span class="lineNum">     100 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   if (worker-&gt;pipeline) {</span>
+<span class="lineNum">     101 </span>                :<span class="lineCov">          3 :     gst_element_set_state (worker-&gt;pipeline, GST_STATE_NULL);</span>
+<span class="lineNum">     102 </span>                :            :   }
+<span class="lineNum">     103 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   if (worker-&gt;bus) {</span>
+<span class="lineNum">     104 </span>                :<span class="lineCov">          3 :     gst_bus_set_flushing (worker-&gt;bus, TRUE);</span>
+<span class="lineNum">     105 </span>                :            :   }
+<span class="lineNum">     106 </span>                :            : 
+<span class="lineNum">     107 </span>                :<span class="lineCov">          6 :   G_OBJECT_CLASS (parent_class)-&gt;dispose (G_OBJECT (worker));</span>
+<span class="lineNum">     108 </span>                :<span class="lineCov">          6 : }</span>
+<span class="lineNum">     109 </span>                :            : 
+<span class="lineNum">     110 </span>                :            : /**
+<span class="lineNum">     111 </span>                :            :  * @brief Destroy GstWorker instances.
+<span class="lineNum">     112 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     113 </span>                :            :  * @memberof GstWorker
+<a name="114"><span class="lineNum">     114 </span>                :            :  */</a>
+<span class="lineNum">     115 </span>                :            : static void
+<span class="lineNum">     116 </span>                :<span class="lineCov">          6 : gst_worker_finalize (GstWorker * worker)</span>
+<span class="lineNum">     117 </span>                :            : {
+<span class="lineNum">     118 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   if (worker-&gt;watch) {</span>
+<span class="lineNum">     119 </span>                :<span class="lineCov">          3 :     g_source_remove (worker-&gt;watch);</span>
+<span class="lineNum">     120 </span>                :<span class="lineCov">          3 :     worker-&gt;watch = 0;</span>
+<span class="lineNum">     121 </span>                :            :   }
+<span class="lineNum">     122 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   if (worker-&gt;pipeline) {</span>
+<span class="lineNum">     123 </span>                :<span class="lineCov">          3 :     INFO (&quot;pipeline ref %d&quot;, GST_OBJECT_REFCOUNT (worker-&gt;pipeline));</span>
+<span class="lineNum">     124 </span>                :<span class="lineCov">          3 :     gst_object_unref (worker-&gt;pipeline);</span>
+<span class="lineNum">     125 </span>                :<span class="lineCov">          3 :     worker-&gt;pipeline = NULL;</span>
+<span class="lineNum">     126 </span>                :            :   }
+<span class="lineNum">     127 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   if (worker-&gt;bus) {</span>
+<span class="lineNum">     128 </span>                :<span class="lineCov">          3 :     INFO (&quot;bus ref %d&quot;, GST_OBJECT_REFCOUNT (worker-&gt;bus));</span>
+<span class="lineNum">     129 </span>                :<span class="lineCov">          3 :     gst_object_unref (worker-&gt;bus);</span>
+<span class="lineNum">     130 </span>                :<span class="lineCov">          3 :     worker-&gt;bus = NULL;</span>
+<span class="lineNum">     131 </span>                :            :   }
+<span class="lineNum">     132 </span>                :            : 
+<span class="lineNum">     133 </span>                :            :   /*
+<span class="lineNum">     134 </span>                :            :      if (worker-&gt;server) {
+<span class="lineNum">     135 </span>                :            :      g_object_unref (worker-&gt;server);
+<span class="lineNum">     136 </span>                :            :      worker-&gt;server = NULL;
+<span class="lineNum">     137 </span>                :            :      }
+<span class="lineNum">     138 </span>                :            :    */
+<span class="lineNum">     139 </span>                :            : 
+<span class="lineNum">     140 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">          6 :   if (worker-&gt;pipeline_string) {</span>
+<span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :     g_string_free (worker-&gt;pipeline_string, TRUE);</span>
+<span class="lineNum">     142 </span>                :<span class="lineNoCov">          0 :     worker-&gt;pipeline_string = NULL;</span>
+<span class="lineNum">     143 </span>                :            :   }
+<span class="lineNum">     144 </span>                :            : 
+<span class="lineNum">     145 </span>                :            : 
+<span class="lineNum">     146 </span>                :<span class="lineCov">          6 :   INFO (&quot;gst_worker finalize %p&quot;, worker);</span>
+<span class="lineNum">     147 </span>                :<span class="lineCov">          6 :   g_mutex_clear (&amp;worker-&gt;pipeline_lock);</span>
+<span class="lineNum">     148 </span>                :            : 
+<span class="lineNum">     149 </span>                :<span class="lineCov">          6 :   g_free (worker-&gt;name);</span>
+<span class="lineNum">     150 </span>                :<span class="lineCov">          6 :   worker-&gt;name = NULL;</span>
+<span class="lineNum">     151 </span>                :            : 
+<span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          6 :   if (G_OBJECT_CLASS (parent_class)-&gt;finalize)</span>
+<span class="lineNum">     153 </span>                :<span class="lineCov">          6 :     (*G_OBJECT_CLASS (parent_class)-&gt;finalize) (G_OBJECT (worker));</span>
+<span class="lineNum">     154 </span>                :<span class="lineCov">          6 : }</span>
+<span class="lineNum">     155 </span>                :            : 
+<span class="lineNum">     156 </span>                :            : /**
+<span class="lineNum">     157 </span>                :            :  * @brief Set GstWorker properties.
+<span class="lineNum">     158 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     159 </span>                :            :  * @param property_id
+<span class="lineNum">     160 </span>                :            :  * @param value
+<span class="lineNum">     161 </span>                :            :  * @param pspec
+<span class="lineNum">     162 </span>                :            :  * @memberof GstWorker
+<a name="163"><span class="lineNum">     163 </span>                :            :  */</a>
+<span class="lineNum">     164 </span>                :            : static void
+<span class="lineNum">     165 </span>                :<span class="lineCov">         13 : gst_worker_set_property (GstWorker * worker, guint property_id,</span>
+<span class="lineNum">     166 </span>                :            :     const GValue * value, GParamSpec * pspec)
+<span class="lineNum">     167 </span>                :            : {
+<span class="lineNum">     168 </span>        [<span class="branchCov" title="Branch 0 was taken 13 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         13 :   switch (property_id) {</span>
+<span class="lineNum">     169 </span>                :            :     case PROP_NAME:
+<span class="lineNum">     170 </span>                :            :     {
+<span class="lineNum">     171 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 13 times"> + </span>]:<span class="lineCov">         13 :       if (worker-&gt;name)</span>
+<span class="lineNum">     172 </span>                :<span class="lineNoCov">          0 :         g_free (worker-&gt;name);</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">         13 :       worker-&gt;name = g_strdup (g_value_get_string (value));</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">         13 :       break;</span>
+<span class="lineNum">     175 </span>                :            :     }
+<span class="lineNum">     176 </span>                :            :     default:
+<span class="lineNum">     177 </span>                :<span class="lineNoCov">          0 :       G_OBJECT_WARN_INVALID_PROPERTY_ID (G_OBJECT (worker), property_id, pspec);</span>
+<span class="lineNum">     178 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     179 </span>                :            :   }
+<span class="lineNum">     180 </span>                :<span class="lineCov">         13 : }</span>
+<span class="lineNum">     181 </span>                :            : 
+<span class="lineNum">     182 </span>                :            : /**
+<span class="lineNum">     183 </span>                :            :  * @brief Get GstWorker properties.
+<span class="lineNum">     184 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     185 </span>                :            :  * @param property_id
+<span class="lineNum">     186 </span>                :            :  * @param value
+<span class="lineNum">     187 </span>                :            :  * @param pspec
+<span class="lineNum">     188 </span>                :            :  * @memberof GstWorker
+<a name="189"><span class="lineNum">     189 </span>                :            :  */</a>
+<span class="lineNum">     190 </span>                :            : static void
+<span class="lineNum">     191 </span>                :<span class="lineNoCov">          0 : gst_worker_get_property (GstWorker * worker, guint property_id,</span>
+<span class="lineNum">     192 </span>                :            :     GValue * value, GParamSpec * pspec)
+<span class="lineNum">     193 </span>                :            : {
+<span class="lineNum">     194 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   switch (property_id) {</span>
+<span class="lineNum">     195 </span>                :            :     case PROP_NAME:
+<span class="lineNum">     196 </span>                :            :     {
+<span class="lineNum">     197 </span>                :<span class="lineNoCov">          0 :       g_value_set_string (value, worker-&gt;name);</span>
+<span class="lineNum">     198 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     199 </span>                :            :     }
+<span class="lineNum">     200 </span>                :            :     default:
+<span class="lineNum">     201 </span>                :<span class="lineNoCov">          0 :       G_OBJECT_WARN_INVALID_PROPERTY_ID (G_OBJECT (worker), property_id, pspec);</span>
+<span class="lineNum">     202 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     203 </span>                :            :   }
+<span class="lineNum">     204 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     205 </span>                :            : 
+<span class="lineNum">     206 </span>                :            : /**
+<span class="lineNum">     207 </span>                :            :  * @brief Get GstWorker pipeline string.
+<span class="lineNum">     208 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     209 </span>                :            :  * @memberof GstWorker
+<a name="210"><span class="lineNum">     210 </span>                :            :  */</a>
+<span class="lineNum">     211 </span>                :            : static GString *
+<span class="lineNum">     212 </span>                :<span class="lineCov">          3 : gst_worker_get_pipeline_string (GstWorker * worker)</span>
+<span class="lineNum">     213 </span>                :            : {
+<span class="lineNum">     214 </span>                :<span class="lineCov">          3 :   GString *desc = NULL;</span>
+<span class="lineNum">     215 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (worker-&gt;pipeline_func)</span>
+<span class="lineNum">     216 </span>                :<span class="lineCov">          3 :     desc = worker-&gt;pipeline_func (worker, worker-&gt;pipeline_func_data);</span>
+<span class="lineNum">     217 </span>[<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">          3 :   if (!desc &amp;&amp; worker-&gt;pipeline_string)</span>
+<span class="lineNum">     218 </span>                :<span class="lineNoCov">          0 :     desc = g_string_new (worker-&gt;pipeline_string-&gt;str);</span>
+<span class="lineNum">     219 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (!desc)</span>
+<span class="lineNum">     220 </span>                :<span class="lineNoCov">          0 :     desc = g_string_new (&quot;&quot;);</span>
+<span class="lineNum">     221 </span>                :<span class="lineCov">          3 :   return desc;</span>
+<span class="lineNum">     222 </span>                :            : }
+<span class="lineNum">     223 </span>                :            : 
+<span class="lineNum">     224 </span>                :            : /**
+<span class="lineNum">     225 </span>                :            :  * @brief Create GstWorker pipeline.
+<span class="lineNum">     226 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     227 </span>                :            :  * @memberof GstWorker
+<a name="228"><span class="lineNum">     228 </span>                :            :  */</a>
+<span class="lineNum">     229 </span>                :            : static GstElement *
+<span class="lineNum">     230 </span>                :<span class="lineCov">         10 : gst_worker_create_pipeline (GstWorker * worker)</span>
+<span class="lineNum">     231 </span>                :            : {
+<span class="lineNum">     232 </span>                :<span class="lineCov">         10 :   GstWorkerClass *workerclass = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (worker));</span>
+<span class="lineNum">     233 </span>                :            : 
+<span class="lineNum">     234 </span>                :<span class="lineCov">         10 :   GString *desc = NULL;</span>
+<span class="lineNum">     235 </span>                :<span class="lineCov">         10 :   GstElement *pipeline = NULL;</span>
+<span class="lineNum">     236 </span>                :<span class="lineCov">         10 :   GError *error = NULL;</span>
+<span class="lineNum">     237 </span>                :<span class="lineCov">         10 :   GstParseContext *context = NULL;</span>
+<span class="lineNum">     238 </span>                :<span class="lineCov">         10 :   gint parse_flags = GST_PARSE_FLAG_NONE;</span>
+<span class="lineNum">     239 </span>                :<span class="lineCov">         10 :   parse_flags |= GST_PARSE_FLAG_FATAL_ERRORS;</span>
+<span class="lineNum">     240 </span>                :            : 
+<span class="lineNum">     241 </span>                :            : create_pipeline:
+<span class="lineNum">     242 </span>                :<span class="lineCov">         10 :   desc = workerclass-&gt;get_pipeline_string (worker);</span>
+<span class="lineNum">     243 </span>                :<span class="lineCov">         10 :   context = gst_parse_context_new ();</span>
+<span class="lineNum">     244 </span>                :            : 
+<span class="lineNum">     245 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">         10 :   if (verbose) {</span>
+<span class="lineNum">     246 </span>                :<span class="lineNoCov">          0 :     g_print (&quot;%s: %s\n&quot;, worker-&gt;name, desc-&gt;str);</span>
+<span class="lineNum">     247 </span>                :            :   }
+<span class="lineNum">     248 </span>                :            : 
+<span class="lineNum">     249 </span>                :<span class="lineCov">         10 :   pipeline = (GstElement *) gst_parse_launch_full (desc-&gt;str, context,</span>
+<span class="lineNum">     250 </span>                :            :       parse_flags, &amp;error);
+<span class="lineNum">     251 </span>                :<span class="lineCov">         10 :   g_string_free (desc, TRUE);</span>
+<span class="lineNum">     252 </span>                :            : 
+<span class="lineNum">     253 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">         10 :   if (error == NULL) {</span>
+<span class="lineNum">     254 </span>                :<span class="lineCov">          6 :     goto end;</span>
+<span class="lineNum">     255 </span>                :            :   }
+<span class="lineNum">     256 </span>                :            : 
+<span class="lineNum">     257 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          4 :   if (pipeline) {</span>
+<span class="lineNum">     258 </span>                :<span class="lineNoCov">          0 :     gchar *name = g_strdup_printf (&quot;%s-pipeline&quot;, worker-&gt;name);</span>
+<span class="lineNum">     259 </span>                :            :     //g_object_set (G_OBJECT (pipeline), &quot;name&quot;, name, NULL);
+<span class="lineNum">     260 </span>                :<span class="lineNoCov">          0 :     gst_element_set_name (pipeline, name);</span>
+<span class="lineNum">     261 </span>                :<span class="lineNoCov">          0 :     g_free (name);</span>
+<span class="lineNum">     262 </span>                :            :   }
+<span class="lineNum">     263 </span>                :            : 
+<span class="lineNum">     264 </span>        [<span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          4 :   if (g_error_matches (error, GST_PARSE_ERROR, GST_PARSE_ERROR_NO_SUCH_ELEMENT)) {</span>
+<span class="lineNum">     265 </span>                :<span class="lineCov">          4 :     gchar **name = NULL;</span>
+<span class="lineNum">     266 </span>                :<span class="lineCov">          4 :     gchar **names = gst_parse_context_get_missing_elements (context);</span>
+<span class="lineNum">     267 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineCov">          4 :     gboolean retry = workerclass-&gt;missing &amp;&amp;</span>
+<span class="lineNum">     268 </span>                :<span class="lineNoCov">          0 :         (*workerclass-&gt;missing) (worker, names);</span>
+<span class="lineNum">     269 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          8 :     for (name = names; *name; ++name)</span>
+<span class="lineNum">     270 </span>                :<span class="lineCov">          4 :       ERROR (&quot;missing: %s&quot;, *name);</span>
+<span class="lineNum">     271 </span>                :<span class="lineCov">          4 :     g_strfreev (names);</span>
+<span class="lineNum">     272 </span>                :            : 
+<span class="lineNum">     273 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          4 :     if (retry) {</span>
+<span class="lineNum">     274 </span>                :<span class="lineNoCov">          0 :       gst_parse_context_free (context);</span>
+<span class="lineNum">     275 </span>                :<span class="lineNoCov">          0 :       context = NULL;</span>
+<span class="lineNum">     276 </span>                :            : 
+<span class="lineNum">     277 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       g_assert (GST_OBJECT_REFCOUNT (pipeline) == 1);</span>
+<span class="lineNum">     278 </span>                :<span class="lineNoCov">          0 :       gst_object_unref (pipeline);</span>
+<span class="lineNum">     279 </span>                :<span class="lineNoCov">          0 :       pipeline = NULL;</span>
+<span class="lineNum">     280 </span>                :            : 
+<span class="lineNum">     281 </span>                :<span class="lineNoCov">          0 :       goto create_pipeline;</span>
+<span class="lineNum">     282 </span>                :            :     }
+<span class="lineNum">     283 </span>                :            :   } else {
+<span class="lineNum">     284 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;%s: pipeline parsing error: %s&quot;, worker-&gt;name, error-&gt;message);</span>
+<span class="lineNum">     285 </span>                :            :   }
+<span class="lineNum">     286 </span>                :            : 
+<span class="lineNum">     287 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">          4 :   if (pipeline) {</span>
+<span class="lineNum">     288 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     g_assert (GST_OBJECT_REFCOUNT (pipeline) == 1);</span>
+<span class="lineNum">     289 </span>                :<span class="lineNoCov">          0 :     gst_object_unref (pipeline);</span>
+<span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 :     pipeline = NULL;</span>
+<span class="lineNum">     291 </span>                :            :   }
+<span class="lineNum">     292 </span>                :            : 
+<span class="lineNum">     293 </span>                :            : end:
+<span class="lineNum">     294 </span>                :<span class="lineCov">         10 :   gst_parse_context_free (context);</span>
+<span class="lineNum">     295 </span>                :<span class="lineCov">         10 :   return pipeline;</span>
+<span class="lineNum">     296 </span>                :            : }
+<span class="lineNum">     297 </span>                :            : 
+<span class="lineNum">     298 </span>                :            : /**
+<span class="lineNum">     299 </span>                :            :  * @brief Handler of the pipeline null message.
+<span class="lineNum">     300 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     301 </span>                :            :  * @memberof GstWorker
+<a name="302"><span class="lineNum">     302 </span>                :            :  */</a>
+<span class="lineNum">     303 </span>                :            : static GstWorkerNullReturn
+<span class="lineNum">     304 </span>                :<span class="lineNoCov">          0 : gst_worker_null (GstWorker * worker)</span>
+<span class="lineNum">     305 </span>                :            : {
+<span class="lineNum">     306 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return (GST_IS_WORKER (worker) &amp;&amp; worker-&gt;auto_replay) ?</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">         </span>        [<span class="branchNoExec" title="Branch 10 was not executed"> # </span><span class="branchNoExec" title="Branch 11 was not executed"> # </span>]
+<span class="lineNum">     307 </span>                :            :       GST_WORKER_NR_END : GST_WORKER_NR_END;
+<span class="lineNum">     308 </span>                :            : }
+<span class="lineNum">     309 </span>                :            : 
+<span class="lineNum">     310 </span>                :            : static gboolean gst_worker_prepare (GstWorker *);
+<span class="lineNum">     311 </span>                :            : 
+<span class="lineNum">     312 </span>                :            : /**
+<span class="lineNum">     313 </span>                :            :  * @brief Start the worker pipeline.
+<span class="lineNum">     314 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     315 </span>                :            :  * @memberof GstWorker
+<a name="316"><span class="lineNum">     316 </span>                :            :  */</a>
+<span class="lineNum">     317 </span>                :            : gboolean
+<span class="lineNum">     318 </span>                :<span class="lineCov">         10 : gst_worker_start (GstWorker * worker)</span>
+<span class="lineNum">     319 </span>                :            : {
+<span class="lineNum">     320 </span>                :<span class="lineCov">         10 :   GstStateChangeReturn ret = GST_STATE_CHANGE_FAILURE;</span>
+<span class="lineNum">     321 </span>                :            : 
+<span class="lineNum">     322 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 10 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         10 :   g_return_val_if_fail (GST_IS_WORKER (worker), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchCov" title="Branch 6 was taken 7 times"> + </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 10 times"> + </span>]
+<span class="lineNum">     323 </span>                :            : 
+<span class="lineNum">     324 </span>        [<span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span>]:<span class="lineCov">         10 :   if (gst_worker_prepare (worker)) {</span>
+<span class="lineNum">     325 </span>                :<span class="lineCov">          6 :     GST_WORKER_LOCK_PIPELINE (worker);</span>
+<span class="lineNum">     326 </span>                :<span class="lineCov">          6 :     ret = gst_element_set_state (worker-&gt;pipeline, GST_STATE_READY);</span>
+<span class="lineNum">     327 </span>                :<span class="lineCov">          6 :     GST_WORKER_UNLOCK_PIPELINE (worker);</span>
+<span class="lineNum">     328 </span>                :            :   }
+<span class="lineNum">     329 </span>                :            : 
+<span class="lineNum">     330 </span>                :<span class="lineCov">         10 :   return ret == GST_STATE_CHANGE_SUCCESS ? TRUE : FALSE;</span>
+<span class="lineNum">     331 </span>                :            : }
+<span class="lineNum">     332 </span>                :            : 
+<span class="lineNum">     333 </span>                :            : /**
+<span class="lineNum">     334 </span>                :            :  * @brief Restart the worker pipeline.
+<span class="lineNum">     335 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     336 </span>                :            :  * @memberof GstWorker
+<a name="337"><span class="lineNum">     337 </span>                :            :  */</a>
+<span class="lineNum">     338 </span>                :            : static gboolean
+<span class="lineNum">     339 </span>                :<span class="lineNoCov">          0 : gst_worker_replay (GstWorker * worker)</span>
+<span class="lineNum">     340 </span>                :            : {
+<span class="lineNum">     341 </span>                :<span class="lineNoCov">          0 :   GstStateChangeReturn ret = GST_STATE_CHANGE_FAILURE;</span>
+<span class="lineNum">     342 </span>                :            : 
+<span class="lineNum">     343 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_val_if_fail (GST_IS_WORKER (worker), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     344 </span>                :            : 
+<span class="lineNum">     345 </span>                :<span class="lineNoCov">          0 :   GST_WORKER_LOCK_PIPELINE (worker);</span>
+<span class="lineNum">     346 </span>                :            : 
+<span class="lineNum">     347 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (worker-&gt;pipeline) {</span>
+<span class="lineNum">     348 </span>                :            :     GstState state;
+<span class="lineNum">     349 </span>                :            : 
+<span class="lineNum">     350 </span>                :<span class="lineNoCov">          0 :     ret = gst_element_get_state (worker-&gt;pipeline, &amp;state, NULL,</span>
+<span class="lineNum">     351 </span>                :            :         GST_CLOCK_TIME_NONE);
+<span class="lineNum">     352 </span>                :            : 
+<span class="lineNum">     353 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (state != GST_STATE_PLAYING) {</span>
+<span class="lineNum">     354 </span>                :<span class="lineNoCov">          0 :       ret = gst_element_set_state (worker-&gt;pipeline, GST_STATE_READY);</span>
+<span class="lineNum">     355 </span>                :            :     }
+<span class="lineNum">     356 </span>                :            :   }
+<span class="lineNum">     357 </span>                :            : 
+<span class="lineNum">     358 </span>                :<span class="lineNoCov">          0 :   GST_WORKER_UNLOCK_PIPELINE (worker);</span>
+<span class="lineNum">     359 </span>                :            : 
+<span class="lineNum">     360 </span>                :<span class="lineNoCov">          0 :   return ret == GST_STATE_CHANGE_SUCCESS ? TRUE : FALSE;</span>
+<span class="lineNum">     361 </span>                :            : }
+<span class="lineNum">     362 </span>                :            : 
+<a name="363"><span class="lineNum">     363 </span>                :            : static void gst_worker_state_ready_to_null (GstWorker *);</a>
+<span class="lineNum">     364 </span>                :            : static gboolean
+<span class="lineNum">     365 </span>                :<span class="lineNoCov">          0 : gst_worker_state_ready_to_null_proxy (GstWorker * worker)</span>
+<span class="lineNum">     366 </span>                :            : {
+<span class="lineNum">     367 </span>                :<span class="lineNoCov">          0 :   gst_worker_state_ready_to_null (worker);</span>
+<span class="lineNum">     368 </span>                :<span class="lineNoCov">          0 :   return FALSE;</span>
+<span class="lineNum">     369 </span>                :            : }
+<span class="lineNum">     370 </span>                :            : 
+<span class="lineNum">     371 </span>                :            : /**
+<span class="lineNum">     372 </span>                :            :  * @brief Stop the worker pipeline.
+<span class="lineNum">     373 </span>                :            :  * @param worker The GstWorker instance.
+<span class="lineNum">     374 </span>                :            :  * @param force Force stop if TRUE.
+<span class="lineNum">     375 </span>                :            :  * @memberof GstWorker
+<a name="376"><span class="lineNum">     376 </span>                :            :  */</a>
+<span class="lineNum">     377 </span>                :            : gboolean
+<span class="lineNum">     378 </span>                :<span class="lineCov">          3 : gst_worker_stop_force (GstWorker * worker, gboolean force)</span>
+<span class="lineNum">     379 </span>                :            : {
+<span class="lineNum">     380 </span>                :<span class="lineCov">          3 :   GstStateChangeReturn ret = GST_STATE_CHANGE_FAILURE;</span>
+<span class="lineNum">     381 </span>                :            : 
+<span class="lineNum">     382 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          3 :   g_return_val_if_fail (GST_IS_WORKER (worker), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 3 times"> + </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
+<span class="lineNum">     383 </span>                :            : 
+<span class="lineNum">     384 </span>                :<span class="lineCov">          3 :   GST_WORKER_LOCK_PIPELINE (worker);</span>
+<span class="lineNum">     385 </span>                :            : 
+<span class="lineNum">     386 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (worker-&gt;pipeline) {</span>
+<span class="lineNum">     387 </span>                :            : #if 1
+<span class="lineNum">     388 </span>                :            :     GstState state;
+<span class="lineNum">     389 </span>                :            : 
+<span class="lineNum">     390 </span>                :<span class="lineNoCov">          0 :     ret = gst_element_get_state (worker-&gt;pipeline, &amp;state, NULL,</span>
+<span class="lineNum">     391 </span>                :            :         GST_CLOCK_TIME_NONE);
+<span class="lineNum">     392 </span>                :            : 
+<span class="lineNum">     393 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (state == GST_STATE_PLAYING || force) {</span>
+<span class="lineNum">     394 </span>                :<span class="lineNoCov">          0 :       ret = gst_element_set_state (worker-&gt;pipeline, GST_STATE_NULL);</span>
+<span class="lineNum">     395 </span>                :            : 
+<span class="lineNum">     396 </span>                :<span class="lineNoCov">          0 :       gst_bus_set_flushing (worker-&gt;bus, TRUE);</span>
+<span class="lineNum">     397 </span>                :            : 
+<span class="lineNum">     398 </span>                :<span class="lineNoCov">          0 :       g_timeout_add (5,</span>
+<span class="lineNum">     399 </span>                :            :           (GSourceFunc) gst_worker_state_ready_to_null_proxy, worker);
+<span class="lineNum">     400 </span>                :            :     }
+<span class="lineNum">     401 </span>                :            : #else
+<span class="lineNum">     402 </span>                :            :     ret = gst_element_set_state (worker-&gt;pipeline, GST_STATE_NULL);
+<span class="lineNum">     403 </span>                :            : #endif
+<span class="lineNum">     404 </span>                :            :   }
+<span class="lineNum">     405 </span>                :            : 
+<span class="lineNum">     406 </span>                :<span class="lineCov">          3 :   GST_WORKER_UNLOCK_PIPELINE (worker);</span>
+<span class="lineNum">     407 </span>                :            : 
+<span class="lineNum">     408 </span>                :<span class="lineCov">          3 :   return ret == GST_STATE_CHANGE_SUCCESS ? TRUE : FALSE;</span>
+<span class="lineNum">     409 </span>                :            : }
+<span class="lineNum">     410 </span>                :            : 
+<span class="lineNum">     411 </span>                :            : /**
+<span class="lineNum">     412 </span>                :            :  * @memberof GstWorker
+<a name="413"><span class="lineNum">     413 </span>                :            :  */</a>
+<span class="lineNum">     414 </span>                :            : GstElement *
+<span class="lineNum">     415 </span>                :<span class="lineCov">          4 : gst_worker_get_element_unlocked (GstWorker * worker, const gchar * name)</span>
+<span class="lineNum">     416 </span>                :            : {
+<span class="lineNum">     417 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          4 :   g_return_val_if_fail (GST_IS_WORKER (worker), NULL);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 4 times"> + </span>]
+<span class="lineNum">     418 </span>                :            : 
+<span class="lineNum">     419 </span>                :<span class="lineCov">          4 :   return gst_bin_get_by_name (GST_BIN (worker-&gt;pipeline), name);</span>
+<span class="lineNum">     420 </span>                :            : }
+<span class="lineNum">     421 </span>                :            : 
+<span class="lineNum">     422 </span>                :            : /**
+<a name="423"><span class="lineNum">     423 </span>                :            :  */</a>
+<span class="lineNum">     424 </span>                :            : GstElement *
+<span class="lineNum">     425 </span>                :<span class="lineCov">          1 : gst_worker_get_element (GstWorker * worker, const gchar * name)</span>
+<span class="lineNum">     426 </span>                :            : {
+<span class="lineNum">     427 </span>                :<span class="lineCov">          1 :   GstElement *element = NULL;</span>
+<span class="lineNum">     428 </span>                :            : 
+<span class="lineNum">     429 </span>                :<span class="lineCov">          1 :   GST_WORKER_LOCK_PIPELINE (worker);</span>
+<span class="lineNum">     430 </span>                :<span class="lineCov">          1 :   element = gst_worker_get_element_unlocked (worker, name);</span>
+<span class="lineNum">     431 </span>                :<span class="lineCov">          1 :   GST_WORKER_UNLOCK_PIPELINE (worker);</span>
+<span class="lineNum">     432 </span>                :<span class="lineCov">          1 :   return element;</span>
+<span class="lineNum">     433 </span>                :            : }
+<span class="lineNum">     434 </span>                :            : 
+<span class="lineNum">     435 </span>                :            : /*
+<span class="lineNum">     436 </span>                :            : static void
+<span class="lineNum">     437 </span>                :            : gst_worker_missing_plugin (GstWorker *worker, GstStructure *structure)
+<span class="lineNum">     438 </span>                :            : {
+<span class="lineNum">     439 </span>                :            :   GstWorkerClass *workerclass = GST_WORKER_CLASS (
+<span class="lineNum">     440 </span>                :            :       G_OBJECT_GET_CLASS (worker));
+<span class="lineNum">     441 </span>                :            : 
+<span class="lineNum">     442 </span>                :            :   ERROR (&quot;missing plugin&quot;);
+<span class="lineNum">     443 </span>                :            : 
+<span class="lineNum">     444 </span>                :            :   if (workerclass-&gt;missing_plugin)
+<span class="lineNum">     445 </span>                :            :     (*workerclass-&gt;missing_plugin) (worker, structure);
+<span class="lineNum">     446 </span>                :            : }
+<span class="lineNum">     447 </span>                :            : */
+<a name="448"><span class="lineNum">     448 </span>                :            : </a>
+<span class="lineNum">     449 </span>                :            : static void
+<span class="lineNum">     450 </span>                :<span class="lineNoCov">          0 : gst_worker_handle_eos (GstWorker * worker)</span>
+<span class="lineNum">     451 </span>                :            : {
+<span class="lineNum">     452 </span>                :<span class="lineNoCov">          0 :   gst_worker_stop (worker);</span>
+<span class="lineNum">     453 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="454"><span class="lineNum">     454 </span>                :            : </a>
+<span class="lineNum">     455 </span>                :            : static void
+<span class="lineNum">     456 </span>                :<span class="lineCov">          3 : gst_worker_handle_error (GstWorker * worker, GError * error, const char *debug)</span>
+<span class="lineNum">     457 </span>                :            : {
+<span class="lineNum">     458 </span>                :            :   //ERROR (&quot;%s: %s&quot;, worker-&gt;name, error-&gt;message);
+<span class="lineNum">     459 </span>                :            : 
+<span class="lineNum">     460 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (error-&gt;domain == GST_CORE_ERROR) {</span>
+<span class="lineNum">     461 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;%s: (CORE: %d) %s&quot;, worker-&gt;name, error-&gt;code, error-&gt;message);</span>
+<span class="lineNum">     462 </span>     [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     switch (error-&gt;code) {</span>
+<span class="lineNum">     463 </span>                :            :       case GST_CORE_ERROR_MISSING_PLUGIN:
+<span class="lineNum">     464 </span>                :<span class="lineNoCov">          0 :         ERROR (&quot;missing plugin..&quot;);</span>
+<span class="lineNum">     465 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     466 </span>                :            :       case GST_CORE_ERROR_NEGOTIATION:
+<span class="lineNum">     467 </span>                :<span class="lineNoCov">          0 :         ERROR (&quot;%s: negotiation: %s&quot;, worker-&gt;name, error-&gt;message);</span>
+<span class="lineNum">     468 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     469 </span>                :            :     }
+<span class="lineNum">     470 </span>                :            :   }
+<span class="lineNum">     471 </span>                :            : 
+<span class="lineNum">     472 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (error-&gt;domain == GST_LIBRARY_ERROR) {</span>
+<span class="lineNum">     473 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;%s: (LIBRARY: %d) %s&quot;, worker-&gt;name, error-&gt;code, error-&gt;message);</span>
+<span class="lineNum">     474 </span>                :            :   }
+<span class="lineNum">     475 </span>                :            : 
+<span class="lineNum">     476 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :   if (error-&gt;domain == GST_RESOURCE_ERROR) {</span>
+<span class="lineNum">     477 </span>                :<span class="lineCov">          3 :     ERROR (&quot;%s: (RESOURCE: %d) %s&quot;, worker-&gt;name, error-&gt;code, error-&gt;message);</span>
+<span class="lineNum">     478 </span>                :            :   }
+<span class="lineNum">     479 </span>                :            : 
+<span class="lineNum">     480 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (error-&gt;domain == GST_STREAM_ERROR) {</span>
+<span class="lineNum">     481 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;%s: (STREAM: %d) %s&quot;, worker-&gt;name, error-&gt;code, error-&gt;message);</span>
+<span class="lineNum">     482 </span>                :            :   }
+<span class="lineNum">     483 </span>                :            : #if 0
+<span class="lineNum">     484 </span>                :            :   ERROR (&quot;DEBUG INFO:\n%s\n&quot;, debug);
+<span class="lineNum">     485 </span>                :            : #endif
+<span class="lineNum">     486 </span>                :            : 
+<span class="lineNum">     487 </span>                :            : #if 0
+<span class="lineNum">     488 </span>                :            :   gst_worker_stop (worker);
+<span class="lineNum">     489 </span>                :            : #endif
+<span class="lineNum">     490 </span>                :<span class="lineCov">          3 : }</span>
+<a name="491"><span class="lineNum">     491 </span>                :            : </a>
+<span class="lineNum">     492 </span>                :            : static void
+<span class="lineNum">     493 </span>                :<span class="lineNoCov">          0 : gst_worker_handle_warning (GstWorker * worker, GError * error,</span>
+<span class="lineNum">     494 </span>                :            :     const char *debug)
+<span class="lineNum">     495 </span>                :            : {
+<span class="lineNum">     496 </span>                :<span class="lineNoCov">          0 :   WARN (&quot;%s: %s&quot;, worker-&gt;name, error-&gt;message);</span>
+<span class="lineNum">     497 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="498"><span class="lineNum">     498 </span>                :            : </a>
+<span class="lineNum">     499 </span>                :            : static void
+<span class="lineNum">     500 </span>                :<span class="lineNoCov">          0 : gst_worker_handle_info (GstWorker * worker, GError * error, const char *debug)</span>
+<span class="lineNum">     501 </span>                :            : {
+<span class="lineNum">     502 </span>                :<span class="lineNoCov">          0 :   INFO (&quot;%s: %s&quot;, worker-&gt;name, error-&gt;message);</span>
+<span class="lineNum">     503 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="504"><span class="lineNum">     504 </span>                :            : </a>
+<span class="lineNum">     505 </span>                :            : static void
+<span class="lineNum">     506 </span>                :<span class="lineCov">          6 : gst_worker_state_null_to_ready (GstWorker * worker)</span>
+<span class="lineNum">     507 </span>                :            : {
+<span class="lineNum">     508 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         12 :   g_return_if_fail (GST_IS_WORKER (worker));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchCov" title="Branch 6 was taken 3 times"> + </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 6 times"> + </span>]
+<span class="lineNum">     509 </span>                :            : 
+<span class="lineNum">     510 </span>                :<span class="lineCov">          6 :   gst_element_set_state (worker-&gt;pipeline, GST_STATE_PAUSED);</span>
+<span class="lineNum">     511 </span>                :            : }
+<a name="512"><span class="lineNum">     512 </span>                :            : </a>
+<span class="lineNum">     513 </span>                :            : static void
+<span class="lineNum">     514 </span>                :<span class="lineCov">          6 : gst_worker_state_ready_to_paused (GstWorker * worker)</span>
+<span class="lineNum">     515 </span>                :            : {
+<span class="lineNum">     516 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 6 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         12 :   g_return_if_fail (GST_IS_WORKER (worker));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchCov" title="Branch 6 was taken 3 times"> + </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 6 times"> + </span>]
+<span class="lineNum">     517 </span>                :            : 
+<span class="lineNum">     518 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          6 :   if (!worker-&gt;paused_for_buffering) {</span>
+<span class="lineNum">     519 </span>                :<span class="lineCov">          6 :     gst_element_set_state (worker-&gt;pipeline, GST_STATE_PLAYING);</span>
+<span class="lineNum">     520 </span>                :            :   }
+<span class="lineNum">     521 </span>                :            : }
+<a name="522"><span class="lineNum">     522 </span>                :            : </a>
+<span class="lineNum">     523 </span>                :            : static void
+<span class="lineNum">     524 </span>                :<span class="lineNoCov">          0 : gst_worker_state_paused_to_playing (GstWorker * worker)</span>
+<span class="lineNum">     525 </span>                :            : {
+<span class="lineNum">     526 </span>                :            :   GstWorkerClass *workerclass;
+<span class="lineNum">     527 </span>                :            : 
+<span class="lineNum">     528 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_if_fail (GST_IS_WORKER (worker));</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     529 </span>                :            : 
+<span class="lineNum">     530 </span>                :<span class="lineNoCov">          0 :   workerclass = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (worker));</span>
+<span class="lineNum">     531 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (workerclass-&gt;alive) {</span>
+<span class="lineNum">     532 </span>                :<span class="lineNoCov">          0 :     (*workerclass-&gt;alive) (worker);</span>
+<span class="lineNum">     533 </span>                :            :   }
+<span class="lineNum">     534 </span>                :            : 
+<span class="lineNum">     535 </span>                :<span class="lineNoCov">          0 :   g_signal_emit (worker, gst_worker_signals[SIGNAL_START_WORKER], 0);</span>
+<span class="lineNum">     536 </span>                :            : }
+<a name="537"><span class="lineNum">     537 </span>                :            : </a>
+<span class="lineNum">     538 </span>                :            : static void
+<span class="lineNum">     539 </span>                :<span class="lineNoCov">          0 : gst_worker_state_playing_to_paused (GstWorker * worker)</span>
+<span class="lineNum">     540 </span>                :            : {
+<span class="lineNum">     541 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="542"><span class="lineNum">     542 </span>                :            : </a>
+<span class="lineNum">     543 </span>                :            : static void
+<span class="lineNum">     544 </span>                :<span class="lineNoCov">          0 : gst_worker_state_paused_to_ready (GstWorker * worker)</span>
+<span class="lineNum">     545 </span>                :            : {
+<span class="lineNum">     546 </span>                :<span class="lineNoCov">          0 : }</span>
+<a name="547"><span class="lineNum">     547 </span>                :            : </a>
+<span class="lineNum">     548 </span>                :            : static void
+<span class="lineNum">     549 </span>                :<span class="lineNoCov">          0 : gst_worker_state_ready_to_null (GstWorker * worker)</span>
+<span class="lineNum">     550 </span>                :            : {
+<span class="lineNum">     551 </span>                :            :   GstWorkerClass *workerclass;
+<span class="lineNum">     552 </span>                :<span class="lineNoCov">          0 :   GstWorkerNullReturn ret = GST_WORKER_NR_END;</span>
+<span class="lineNum">     553 </span>                :            : 
+<span class="lineNum">     554 </span>                :            :   //INFO (&quot;%s&quot;, __FUNCTION__);
+<span class="lineNum">     555 </span>                :            : 
+<span class="lineNum">     556 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_if_fail (GST_IS_WORKER (worker));</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     557 </span>                :            : 
+<span class="lineNum">     558 </span>                :<span class="lineNoCov">          0 :   workerclass = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (worker));</span>
+<span class="lineNum">     559 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (workerclass-&gt;null) {</span>
+<span class="lineNum">     560 </span>     [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :     switch ((ret = (*workerclass-&gt;null) (worker))) {</span>
+<span class="lineNum">     561 </span>                :            :       case GST_WORKER_NR_REPLAY:
+<span class="lineNum">     562 </span>                :<span class="lineNoCov">          0 :         gst_worker_replay (worker);</span>
+<span class="lineNum">     563 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     564 </span>                :            :       case GST_WORKER_NR_END:
+<span class="lineNum">     565 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     566 </span>                :            :     }
+<span class="lineNum">     567 </span>                :            :   }
+<span class="lineNum">     568 </span>                :            : 
+<span class="lineNum">     569 </span>                :<span class="lineNoCov">          0 :   g_signal_emit (worker, gst_worker_signals[SIGNAL_WORKER_NULL], 0);</span>
+<span class="lineNum">     570 </span>                :            : 
+<span class="lineNum">     571 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (ret == GST_WORKER_NR_END)</span>
+<span class="lineNum">     572 </span>                :<span class="lineNoCov">          0 :     g_signal_emit (worker, gst_worker_signals[SIGNAL_END_WORKER], 0);</span>
+<span class="lineNum">     573 </span>                :            : }
+<a name="574"><span class="lineNum">     574 </span>                :            : </a>
+<span class="lineNum">     575 </span>                :            : static gboolean
+<span class="lineNum">     576 </span>                :<span class="lineCov">         12 : gst_worker_pipeline_state_changed (GstWorker * worker,</span>
+<span class="lineNum">     577 </span>                :            :     GstStateChange statechange)
+<span class="lineNum">     578 </span>                :            : {
+<span class="lineNum">     579 </span>  [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         12 :   switch (statechange) {</span>
+<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>]
+<span class="lineNum">     580 </span>                :            :     case GST_STATE_CHANGE_NULL_TO_READY:
+<span class="lineNum">     581 </span>                :<span class="lineCov">          6 :       gst_worker_state_null_to_ready (worker);</span>
+<span class="lineNum">     582 </span>                :<span class="lineCov">          6 :       break;</span>
+<span class="lineNum">     583 </span>                :            :     case GST_STATE_CHANGE_READY_TO_PAUSED:
+<span class="lineNum">     584 </span>                :<span class="lineCov">          6 :       gst_worker_state_ready_to_paused (worker);</span>
+<span class="lineNum">     585 </span>                :<span class="lineCov">          6 :       break;</span>
+<span class="lineNum">     586 </span>                :            :     case GST_STATE_CHANGE_PAUSED_TO_PLAYING:
+<span class="lineNum">     587 </span>                :<span class="lineNoCov">          0 :       gst_worker_state_paused_to_playing (worker);</span>
+<span class="lineNum">     588 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     589 </span>                :            :     case GST_STATE_CHANGE_PLAYING_TO_PAUSED:
+<span class="lineNum">     590 </span>                :<span class="lineNoCov">          0 :       gst_worker_state_playing_to_paused (worker);</span>
+<span class="lineNum">     591 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     592 </span>                :            :     case GST_STATE_CHANGE_PAUSED_TO_READY:
+<span class="lineNum">     593 </span>                :<span class="lineNoCov">          0 :       gst_worker_state_paused_to_ready (worker);</span>
+<span class="lineNum">     594 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     595 </span>                :            :     case GST_STATE_CHANGE_READY_TO_NULL:
+<span class="lineNum">     596 </span>                :            : #if 0
+<span class="lineNum">     597 </span>                :            :       gst_worker_state_ready_to_null (worker);
+<span class="lineNum">     598 </span>                :            : #endif
+<span class="lineNum">     599 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     600 </span>                :            :     default:
+<span class="lineNum">     601 </span>                :<span class="lineNoCov">          0 :       return FALSE;</span>
+<span class="lineNum">     602 </span>                :            :   }
+<span class="lineNum">     603 </span>                :<span class="lineCov">         12 :   return TRUE;</span>
+<span class="lineNum">     604 </span>                :            : }
+<a name="605"><span class="lineNum">     605 </span>                :            : </a>
+<span class="lineNum">     606 </span>                :            : static gboolean
+<span class="lineNum">     607 </span>                :<span class="lineCov">        183 : gst_worker_message (GstBus * bus, GstMessage * message, GstWorker * worker)</span>
+<span class="lineNum">     608 </span>                :            : {
+<span class="lineNum">     609 </span>                :            :   GstWorkerClass *workerclass;
+<span class="lineNum">     610 </span>                :            : 
+<span class="lineNum">     611 </span>                :            :   /* The event source should be removed if not worker ! */
+<span class="lineNum">     612 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 183 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 183 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        183 :   g_return_val_if_fail (GST_IS_WORKER (worker), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 48 times"> + </span><span class="branchCov" title="Branch 6 was taken 135 times"> + </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 183 times"> + </span>]
+<span class="lineNum">     613 </span>                :            : 
+<span class="lineNum">     614 </span>                :<span class="lineCov">        183 :   workerclass = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (worker));</span>
+<span class="lineNum">     615 </span>                :            : 
+<span class="lineNum">     616 </span>                :            :   //INFO (&quot;%s: %s&quot;, __FUNCTION__, GST_MESSAGE_TYPE_NAME (message));
+<span class="lineNum">     617 </span>                :            : 
+<span class="lineNum">     618 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        183 :   switch (GST_MESSAGE_TYPE (message)) {</span>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 147 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 33 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 8 was not taken"> - </span>]
+<span class="lineNum">     619 </span>                :            :     case GST_MESSAGE_EOS:
+<span class="lineNum">     620 </span>                :<span class="lineNoCov">          0 :       gst_worker_handle_eos (worker);</span>
+<span class="lineNum">     621 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     622 </span>                :            :     case GST_MESSAGE_ERROR:
+<span class="lineNum">     623 </span>                :            :     {
+<span class="lineNum">     624 </span>                :<span class="lineCov">          3 :       GError *error = NULL;</span>
+<span class="lineNum">     625 </span>                :            :       gchar *debug;
+<span class="lineNum">     626 </span>                :<span class="lineCov">          3 :       gst_message_parse_error (message, &amp;error, &amp;debug);</span>
+<span class="lineNum">     627 </span>                :<span class="lineCov">          3 :       gst_worker_handle_error (worker, error, debug);</span>
+<span class="lineNum">     628 </span>                :            :     }
+<span class="lineNum">     629 </span>                :<span class="lineCov">          3 :       break;</span>
+<span class="lineNum">     630 </span>                :            :     case GST_MESSAGE_WARNING:
+<span class="lineNum">     631 </span>                :            :     {
+<span class="lineNum">     632 </span>                :<span class="lineNoCov">          0 :       GError *error = NULL;</span>
+<span class="lineNum">     633 </span>                :            :       gchar *debug;
+<span class="lineNum">     634 </span>                :<span class="lineNoCov">          0 :       gst_message_parse_warning (message, &amp;error, &amp;debug);</span>
+<span class="lineNum">     635 </span>                :<span class="lineNoCov">          0 :       gst_worker_handle_warning (worker, error, debug);</span>
+<span class="lineNum">     636 </span>                :            :     }
+<span class="lineNum">     637 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     638 </span>                :            :     case GST_MESSAGE_INFO:
+<span class="lineNum">     639 </span>                :            :     {
+<span class="lineNum">     640 </span>                :<span class="lineNoCov">          0 :       GError *error = NULL;</span>
+<span class="lineNum">     641 </span>                :            :       gchar *debug;
+<span class="lineNum">     642 </span>                :<span class="lineNoCov">          0 :       gst_message_parse_info (message, &amp;error, &amp;debug);</span>
+<span class="lineNum">     643 </span>                :<span class="lineNoCov">          0 :       gst_worker_handle_info (worker, error, debug);</span>
+<span class="lineNum">     644 </span>                :            :     }
+<span class="lineNum">     645 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     646 </span>                :            :     case GST_MESSAGE_TAG:
+<span class="lineNum">     647 </span>                :            :     {
+<span class="lineNum">     648 </span>                :            :       /*
+<span class="lineNum">     649 </span>                :            :          GstTagList *tag_list;
+<span class="lineNum">     650 </span>                :            : 
+<span class="lineNum">     651 </span>                :            :          gst_message_parse_tag (message, &amp;tag_list);
+<span class="lineNum">     652 </span>                :            : 
+<span class="lineNum">     653 </span>                :            :          //if (verbose)
+<span class="lineNum">     654 </span>                :            :          //  g_print (&quot;tag\n&quot;);
+<span class="lineNum">     655 </span>                :            : 
+<span class="lineNum">     656 </span>                :            :          gst_tag_list_unref (tag_list);
+<span class="lineNum">     657 </span>                :            :        */
+<span class="lineNum">     658 </span>                :            :     }
+<span class="lineNum">     659 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     660 </span>                :            :     case GST_MESSAGE_STATE_CHANGED:
+<span class="lineNum">     661 </span>                :            :     {
+<span class="lineNum">     662 </span>                :            :       gboolean ret;
+<span class="lineNum">     663 </span>                :            :       GstState oldstate, newstate, pending;
+<span class="lineNum">     664 </span>                :<span class="lineCov">        147 :       gst_message_parse_state_changed (message, &amp;oldstate, &amp;newstate, &amp;pending);</span>
+<span class="lineNum">     665 </span>        [<span class="branchCov" title="Branch 2 was taken 12 times"> + </span><span class="branchCov" title="Branch 3 was taken 135 times"> + </span>]:<span class="lineCov">        147 :       if (GST_ELEMENT (message-&gt;src) == worker-&gt;pipeline) {</span>
+<span class="lineNum">     666 </span>                :            :         /*
+<span class="lineNum">     667 </span>                :            :            if (verbose) {
+<span class="lineNum">     668 </span>                :            :            g_print (&quot;%s: state change from %s to %s\n&quot;, worker-&gt;name,
+<span class="lineNum">     669 </span>                :            :            gst_element_state_get_name (oldstate),
+<span class="lineNum">     670 </span>                :            :            gst_element_state_get_name (newstate));
+<span class="lineNum">     671 </span>                :            :            }
+<span class="lineNum">     672 </span>                :            :          */
+<span class="lineNum">     673 </span>                :            :         /*
+<span class="lineNum">     674 </span>                :            :            INFO (&quot;%s: %s to %s&quot;, worker-&gt;name,
+<span class="lineNum">     675 </span>                :            :            gst_element_state_get_name (oldstate),
+<span class="lineNum">     676 </span>                :            :            gst_element_state_get_name (newstate));
+<span class="lineNum">     677 </span>                :            :          */
+<span class="lineNum">     678 </span>                :            : 
+<span class="lineNum">     679 </span>                :<span class="lineCov">         12 :         ret = gst_worker_pipeline_state_changed (worker,</span>
+<span class="lineNum">     680 </span>                :<span class="lineCov">         24 :             GST_STATE_TRANSITION (oldstate, newstate));</span>
+<span class="lineNum">     681 </span>                :            : 
+<span class="lineNum">     682 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 12 times"> + </span>]:<span class="lineCov">         12 :         if (!ret /*&amp;&amp; verbose */ ) {</span>
+<span class="lineNum">     683 </span>                :<span class="lineNoCov">          0 :           WARN (&quot;%s: UNKNOWN state change from %s to %s\n&quot;,</span>
+<span class="lineNum">     684 </span>                :            :               worker-&gt;name, gst_element_state_get_name (oldstate),
+<span class="lineNum">     685 </span>                :            :               gst_element_state_get_name (newstate));
+<span class="lineNum">     686 </span>                :            :         }
+<span class="lineNum">     687 </span>                :            :       }
+<span class="lineNum">     688 </span>                :            :     }
+<span class="lineNum">     689 </span>                :<span class="lineCov">        147 :       break;</span>
+<span class="lineNum">     690 </span>                :            :     case GST_MESSAGE_BUFFERING:
+<span class="lineNum">     691 </span>                :            :     {
+<span class="lineNum">     692 </span>                :            :       int percent;
+<span class="lineNum">     693 </span>                :<span class="lineNoCov">          0 :       gst_message_parse_buffering (message, &amp;percent);</span>
+<span class="lineNum">     694 </span>                :            :       //g_print(&quot;buffering %d\n&quot;, percent);
+<span class="lineNum">     695 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (!worker-&gt;paused_for_buffering &amp;&amp; percent &lt; 100) {</span>
+<span class="lineNum">     696 </span>                :<span class="lineNoCov">          0 :         g_print (&quot;pausing for buffing\n&quot;);</span>
+<span class="lineNum">     697 </span>                :<span class="lineNoCov">          0 :         worker-&gt;paused_for_buffering = TRUE;</span>
+<span class="lineNum">     698 </span>                :<span class="lineNoCov">          0 :         gst_element_set_state (worker-&gt;pipeline, GST_STATE_PAUSED);</span>
+<span class="lineNum">     699 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :       } else if (worker-&gt;paused_for_buffering &amp;&amp; percent == 100) {</span>
+<span class="lineNum">     700 </span>                :<span class="lineNoCov">          0 :         g_print (&quot;unpausing for buffing\n&quot;);</span>
+<span class="lineNum">     701 </span>                :<span class="lineNoCov">          0 :         worker-&gt;paused_for_buffering = FALSE;</span>
+<span class="lineNum">     702 </span>                :<span class="lineNoCov">          0 :         gst_element_set_state (worker-&gt;pipeline, GST_STATE_PLAYING);</span>
+<span class="lineNum">     703 </span>                :            :       }
+<span class="lineNum">     704 </span>                :            :     }
+<span class="lineNum">     705 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     706 </span>                :            :     case GST_MESSAGE_ELEMENT:
+<span class="lineNum">     707 </span>                :            :     case GST_MESSAGE_STATE_DIRTY:
+<span class="lineNum">     708 </span>                :            :     case GST_MESSAGE_CLOCK_PROVIDE:
+<span class="lineNum">     709 </span>                :            :     case GST_MESSAGE_CLOCK_LOST:
+<span class="lineNum">     710 </span>                :            :     case GST_MESSAGE_NEW_CLOCK:
+<span class="lineNum">     711 </span>                :            :     case GST_MESSAGE_STRUCTURE_CHANGE:
+<span class="lineNum">     712 </span>                :            :     case GST_MESSAGE_STREAM_STATUS:
+<span class="lineNum">     713 </span>                :<span class="lineCov">         33 :       break;</span>
+<span class="lineNum">     714 </span>                :            :     case GST_MESSAGE_STEP_DONE:
+<span class="lineNum">     715 </span>                :            :     case GST_MESSAGE_APPLICATION:
+<span class="lineNum">     716 </span>                :            :     case GST_MESSAGE_SEGMENT_START:
+<span class="lineNum">     717 </span>                :            :     case GST_MESSAGE_SEGMENT_DONE:
+<span class="lineNum">     718 </span>                :            :     case GST_MESSAGE_LATENCY:
+<span class="lineNum">     719 </span>                :            :     case GST_MESSAGE_ASYNC_START:
+<span class="lineNum">     720 </span>                :            :     case GST_MESSAGE_ASYNC_DONE:
+<span class="lineNum">     721 </span>                :            :     case GST_MESSAGE_REQUEST_STATE:
+<span class="lineNum">     722 </span>                :            :     case GST_MESSAGE_STEP_START:
+<span class="lineNum">     723 </span>                :            :     case GST_MESSAGE_QOS:
+<span class="lineNum">     724 </span>                :            :     default:
+<span class="lineNum">     725 </span>                :<span class="lineNoCov">          0 :       if (verbose) {</span>
+<span class="lineNum">     726 </span>                :            :         //g_print (&quot;message: %s\n&quot;, GST_MESSAGE_TYPE_NAME (message));
+<span class="lineNum">     727 </span>                :            :       }
+<span class="lineNum">     728 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     729 </span>                :            :   }
+<span class="lineNum">     730 </span>                :            : 
+<span class="lineNum">     731 </span>        [<span class="branchCov" title="Branch 0 was taken 135 times"> + </span><span class="branchCov" title="Branch 1 was taken 48 times"> + </span>]:<span class="lineCov">        183 :   return workerclass-&gt;message ? workerclass-&gt;message (worker, message) : TRUE;</span>
+<span class="lineNum">     732 </span>                :            : }
+<a name="733"><span class="lineNum">     733 </span>                :            : </a>
+<span class="lineNum">     734 </span>                :            : static gboolean
+<span class="lineNum">     735 </span>                :<span class="lineCov">         10 : gst_worker_prepare_unsafe (GstWorker * worker)</span>
+<span class="lineNum">     736 </span>                :            : {
+<span class="lineNum">     737 </span>                :            :   GstWorkerClass *workerclass;
+<span class="lineNum">     738 </span>                :            : 
+<span class="lineNum">     739 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">         10 :   g_return_val_if_fail (worker, FALSE);</span>
+<span class="lineNum">     740 </span>                :            : 
+<span class="lineNum">     741 </span>                :<span class="lineCov">         10 :   workerclass = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (worker));</span>
+<span class="lineNum">     742 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">         10 :   if (!workerclass-&gt;create_pipeline)</span>
+<span class="lineNum">     743 </span>                :<span class="lineNoCov">          0 :     goto error_create_pipeline_not_installed;</span>
+<span class="lineNum">     744 </span>                :            : 
+<span class="lineNum">     745 </span>                :            :   //GST_WORKER_LOCK_PIPELINE (worker);
+<span class="lineNum">     746 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 10 times"> + </span>]:<span class="lineCov">         10 :   if (worker-&gt;pipeline)</span>
+<span class="lineNum">     747 </span>                :<span class="lineNoCov">          0 :     goto end;</span>
+<span class="lineNum">     748 </span>                :            : 
+<span class="lineNum">     749 </span>                :<span class="lineCov">         10 :   worker-&gt;pipeline = workerclass-&gt;create_pipeline (worker);</span>
+<span class="lineNum">     750 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">         10 :   if (!worker-&gt;pipeline)</span>
+<span class="lineNum">     751 </span>                :<span class="lineCov">          4 :     goto error_create_pipeline;</span>
+<span class="lineNum">     752 </span>                :            : 
+<span class="lineNum">     753 </span>                :<span class="lineCov">          6 :   gst_pipeline_set_auto_flush_bus (GST_PIPELINE (worker-&gt;pipeline), FALSE);</span>
+<span class="lineNum">     754 </span>                :            : 
+<span class="lineNum">     755 </span>                :<span class="lineCov">          6 :   worker-&gt;bus = gst_pipeline_get_bus (GST_PIPELINE (worker-&gt;pipeline));</span>
+<span class="lineNum">     756 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">          6 :   if (!worker-&gt;bus)</span>
+<span class="lineNum">     757 </span>                :<span class="lineNoCov">          0 :     goto error_get_bus;</span>
+<span class="lineNum">     758 </span>                :            : 
+<span class="lineNum">     759 </span>                :<span class="lineCov">          6 :   worker-&gt;watch = gst_bus_add_watch (worker-&gt;bus,</span>
+<span class="lineNum">     760 </span>                :            :       (GstBusFunc) gst_worker_message, worker);
+<span class="lineNum">     761 </span>                :            : 
+<span class="lineNum">     762 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">          6 :   if (!worker-&gt;watch)</span>
+<span class="lineNum">     763 </span>                :<span class="lineNoCov">          0 :     goto error_add_watch;</span>
+<span class="lineNum">     764 </span>                :            : 
+<span class="lineNum">     765 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   if (workerclass-&gt;prepare &amp;&amp; !workerclass-&gt;prepare (worker))</span>
+<span class="lineNum">     766 </span>                :<span class="lineNoCov">          0 :     goto error_prepare;</span>
+<span class="lineNum">     767 </span>                :            : 
+<span class="lineNum">     768 </span>                :<span class="lineCov">          6 :   g_signal_emit (worker, gst_worker_signals[SIGNAL_PREPARE_WORKER], 0);</span>
+<span class="lineNum">     769 </span>                :            : 
+<span class="lineNum">     770 </span>                :            : end:
+<span class="lineNum">     771 </span>                :            :   //GST_WORKER_UNLOCK_PIPELINE (worker);
+<span class="lineNum">     772 </span>                :<span class="lineCov">          6 :   return TRUE;</span>
+<span class="lineNum">     773 </span>                :            : 
+<span class="lineNum">     774 </span>                :            :   /* Errors Handling */
+<span class="lineNum">     775 </span>                :            : 
+<span class="lineNum">     776 </span>                :            : error_create_pipeline_not_installed:
+<span class="lineNum">     777 </span>                :            :   {
+<span class="lineNum">     778 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;%s: create_pipeline was not installed&quot;, worker-&gt;name);</span>
+<span class="lineNum">     779 </span>                :<span class="lineNoCov">          0 :     return FALSE;</span>
+<span class="lineNum">     780 </span>                :            :   }
+<span class="lineNum">     781 </span>                :            : 
+<span class="lineNum">     782 </span>                :            : error_create_pipeline:
+<span class="lineNum">     783 </span>                :            :   {
+<span class="lineNum">     784 </span>                :<span class="lineCov">          4 :     ERROR (&quot;%s: failed to create new pipeline&quot;, worker-&gt;name);</span>
+<span class="lineNum">     785 </span>                :            :     //GST_WORKER_UNLOCK_PIPELINE (worker);
+<span class="lineNum">     786 </span>                :<span class="lineCov">          4 :     return FALSE;</span>
+<span class="lineNum">     787 </span>                :            :   }
+<span class="lineNum">     788 </span>                :            : 
+<span class="lineNum">     789 </span>                :            : error_prepare:
+<span class="lineNum">     790 </span>                :            :   {
+<span class="lineNum">     791 </span>                :<span class="lineNoCov">          0 :     g_source_remove (worker-&gt;watch);</span>
+<span class="lineNum">     792 </span>                :<span class="lineNoCov">          0 :     worker-&gt;watch = 0;</span>
+<span class="lineNum">     793 </span>                :            :   error_add_watch:
+<span class="lineNum">     794 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     g_assert (GST_OBJECT_REFCOUNT (worker-&gt;bus) == 1);</span>
+<span class="lineNum">     795 </span>                :<span class="lineNoCov">          0 :     gst_object_unref (worker-&gt;bus);</span>
+<span class="lineNum">     796 </span>                :<span class="lineNoCov">          0 :     worker-&gt;bus = NULL;</span>
+<span class="lineNum">     797 </span>                :            :   error_get_bus:
+<span class="lineNum">     798 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     g_assert (GST_OBJECT_REFCOUNT (worker-&gt;pipeline) == 1);</span>
+<span class="lineNum">     799 </span>                :<span class="lineNoCov">          0 :     gst_object_unref (worker-&gt;pipeline);</span>
+<span class="lineNum">     800 </span>                :<span class="lineNoCov">          0 :     worker-&gt;pipeline = NULL;</span>
+<span class="lineNum">     801 </span>                :            : 
+<span class="lineNum">     802 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;%s: failed to prepare&quot;, worker-&gt;name);</span>
+<span class="lineNum">     803 </span>                :            :     //GST_WORKER_UNLOCK_PIPELINE (worker);
+<span class="lineNum">     804 </span>                :<span class="lineCov">         10 :     return FALSE;</span>
+<span class="lineNum">     805 </span>                :            :   }
+<span class="lineNum">     806 </span>                :            : }
+<a name="807"><span class="lineNum">     807 </span>                :            : </a>
+<span class="lineNum">     808 </span>                :            : static gboolean
+<span class="lineNum">     809 </span>                :<span class="lineCov">         10 : gst_worker_prepare (GstWorker * worker)</span>
+<span class="lineNum">     810 </span>                :            : {
+<span class="lineNum">     811 </span>                :<span class="lineCov">         10 :   gboolean ok = FALSE;</span>
+<span class="lineNum">     812 </span>        [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         10 :   if (worker-&gt;pipeline == NULL) {</span>
+<span class="lineNum">     813 </span>                :<span class="lineCov">         10 :     GST_WORKER_LOCK_PIPELINE (worker);</span>
+<span class="lineNum">     814 </span>                :<span class="lineCov">         10 :     ok = gst_worker_prepare_unsafe (worker);</span>
+<span class="lineNum">     815 </span>                :<span class="lineCov">         10 :     GST_WORKER_UNLOCK_PIPELINE (worker);</span>
+<span class="lineNum">     816 </span>                :            :   } else {
+<span class="lineNum">     817 </span>                :<span class="lineNoCov">          0 :     ok = TRUE;</span>
+<span class="lineNum">     818 </span>                :            :   }
+<span class="lineNum">     819 </span>                :<span class="lineCov">         10 :   return ok;</span>
+<span class="lineNum">     820 </span>                :            : }
+<a name="821"><span class="lineNum">     821 </span>                :            : </a>
+<span class="lineNum">     822 </span>                :            : static gboolean
+<span class="lineNum">     823 </span>                :<span class="lineNoCov">          0 : gst_worker_reset (GstWorker * worker)</span>
+<span class="lineNum">     824 </span>                :            : {
+<span class="lineNum">     825 </span>                :<span class="lineNoCov">          0 :   gboolean ok = FALSE;</span>
+<span class="lineNum">     826 </span>                :            : 
+<span class="lineNum">     827 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_val_if_fail (GST_IS_WORKER (worker), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     828 </span>                :            : 
+<span class="lineNum">     829 </span>                :            :   //INFO (&quot;%s&quot;, __FUNCTION__);
+<span class="lineNum">     830 </span>                :            : 
+<span class="lineNum">     831 </span>                :            : #if 1
+<span class="lineNum">     832 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (worker) {</span>
+<span class="lineNum">     833 </span>                :<span class="lineNoCov">          0 :     GST_WORKER_LOCK_PIPELINE (worker);</span>
+<span class="lineNum">     834 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (worker-&gt;pipeline) {</span>
+<span class="lineNum">     835 </span>                :<span class="lineNoCov">          0 :       gst_element_set_state (worker-&gt;pipeline, GST_STATE_NULL);</span>
+<span class="lineNum">     836 </span>                :            :     }
+<span class="lineNum">     837 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (worker-&gt;bus) {</span>
+<span class="lineNum">     838 </span>                :<span class="lineNoCov">          0 :       gst_bus_set_flushing (worker-&gt;bus, TRUE);</span>
+<span class="lineNum">     839 </span>                :            :     }
+<span class="lineNum">     840 </span>                :            : 
+<span class="lineNum">     841 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (worker-&gt;watch) {</span>
+<span class="lineNum">     842 </span>                :<span class="lineNoCov">          0 :       g_source_remove (worker-&gt;watch);</span>
+<span class="lineNum">     843 </span>                :<span class="lineNoCov">          0 :       worker-&gt;watch = 0;</span>
+<span class="lineNum">     844 </span>                :            :     }
+<span class="lineNum">     845 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (worker-&gt;pipeline) {</span>
+<span class="lineNum">     846 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (1 &lt; GST_OBJECT_REFCOUNT (worker-&gt;pipeline)) {</span>
+<span class="lineNum">     847 </span>                :<span class="lineNoCov">          0 :         WARN (&quot;possible pipeline leaks: %d&quot;,</span>
+<span class="lineNum">     848 </span>                :            :             GST_OBJECT_REFCOUNT (worker-&gt;pipeline));
+<span class="lineNum">     849 </span>                :            :       }
+<span class="lineNum">     850 </span>                :<span class="lineNoCov">          0 :       gst_object_unref (worker-&gt;pipeline);</span>
+<span class="lineNum">     851 </span>                :<span class="lineNoCov">          0 :       worker-&gt;pipeline = NULL;</span>
+<span class="lineNum">     852 </span>                :            :     }
+<span class="lineNum">     853 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (worker-&gt;bus) {</span>
+<span class="lineNum">     854 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (1 &lt; GST_OBJECT_REFCOUNT (worker-&gt;bus)) {</span>
+<span class="lineNum">     855 </span>                :<span class="lineNoCov">          0 :         WARN (&quot;possible bus leaks: %d&quot;, GST_OBJECT_REFCOUNT (worker-&gt;bus));</span>
+<span class="lineNum">     856 </span>                :            :       }
+<span class="lineNum">     857 </span>                :<span class="lineNoCov">          0 :       gst_object_unref (worker-&gt;bus);</span>
+<span class="lineNum">     858 </span>                :<span class="lineNoCov">          0 :       worker-&gt;bus = NULL;</span>
+<span class="lineNum">     859 </span>                :            :     }
+<span class="lineNum">     860 </span>                :<span class="lineNoCov">          0 :     ok = gst_worker_prepare_unsafe (worker);</span>
+<span class="lineNum">     861 </span>                :<span class="lineNoCov">          0 :     GST_WORKER_UNLOCK_PIPELINE (worker);</span>
+<span class="lineNum">     862 </span>                :            :   }
+<span class="lineNum">     863 </span>                :            : #else
+<span class="lineNum">     864 </span>                :            :   ok = TRUE;
+<span class="lineNum">     865 </span>                :            : #endif
+<span class="lineNum">     866 </span>                :            : 
+<span class="lineNum">     867 </span>                :<span class="lineNoCov">          0 :   return ok;</span>
+<span class="lineNum">     868 </span>                :            : }
+<span class="lineNum">     869 </span>                :            : 
+<span class="lineNum">     870 </span>                :            : /**
+<span class="lineNum">     871 </span>                :            :  * @brief Initialize GstWorkerClass.
+<span class="lineNum">     872 </span>                :            :  * @param klass The instance of GstWorkerClass.
+<span class="lineNum">     873 </span>                :            :  * @memberof GstWorkerClass
+<a name="874"><span class="lineNum">     874 </span>                :            :  */</a>
+<span class="lineNum">     875 </span>                :            : static void
+<span class="lineNum">     876 </span>                :<span class="lineCov">          4 : gst_worker_class_init (GstWorkerClass * klass)</span>
+<span class="lineNum">     877 </span>                :            : {
+<span class="lineNum">     878 </span>                :<span class="lineCov">          4 :   GObjectClass *object_class = G_OBJECT_CLASS (klass);</span>
+<span class="lineNum">     879 </span>                :            : 
+<span class="lineNum">     880 </span>                :<span class="lineCov">          4 :   object_class-&gt;dispose = (GObjectFinalizeFunc) gst_worker_dispose;</span>
+<span class="lineNum">     881 </span>                :<span class="lineCov">          4 :   object_class-&gt;finalize = (GObjectFinalizeFunc) gst_worker_finalize;</span>
+<span class="lineNum">     882 </span>                :<span class="lineCov">          4 :   object_class-&gt;set_property = (GObjectSetPropertyFunc) gst_worker_set_property;</span>
+<span class="lineNum">     883 </span>                :<span class="lineCov">          4 :   object_class-&gt;get_property = (GObjectGetPropertyFunc) gst_worker_get_property;</span>
+<span class="lineNum">     884 </span>                :            : 
+<span class="lineNum">     885 </span>                :<span class="lineCov">          4 :   gst_worker_signals[SIGNAL_PREPARE_WORKER] =</span>
+<span class="lineNum">     886 </span>                :<span class="lineCov">          4 :       g_signal_new (&quot;prepare-worker&quot;, G_TYPE_FROM_CLASS (klass),</span>
+<span class="lineNum">     887 </span>                :            :       G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GstWorkerClass,
+<span class="lineNum">     888 </span>                :            :           prepare_worker), NULL,
+<span class="lineNum">     889 </span>                :            :       NULL, g_cclosure_marshal_generic, G_TYPE_NONE, 0);
+<span class="lineNum">     890 </span>                :            : 
+<span class="lineNum">     891 </span>                :<span class="lineCov">          4 :   gst_worker_signals[SIGNAL_START_WORKER] =</span>
+<span class="lineNum">     892 </span>                :<span class="lineCov">          4 :       g_signal_new (&quot;start-worker&quot;, G_TYPE_FROM_CLASS (klass),</span>
+<span class="lineNum">     893 </span>                :            :       G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GstWorkerClass,
+<span class="lineNum">     894 </span>                :            :           start_worker), NULL,
+<span class="lineNum">     895 </span>                :            :       NULL, g_cclosure_marshal_generic, G_TYPE_NONE, 0);
+<span class="lineNum">     896 </span>                :            : 
+<span class="lineNum">     897 </span>                :<span class="lineCov">          4 :   gst_worker_signals[SIGNAL_END_WORKER] =</span>
+<span class="lineNum">     898 </span>                :<span class="lineCov">          4 :       g_signal_new (&quot;end-worker&quot;, G_TYPE_FROM_CLASS (klass),</span>
+<span class="lineNum">     899 </span>                :            :       G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GstWorkerClass,
+<span class="lineNum">     900 </span>                :            :           end_worker), NULL, NULL, g_cclosure_marshal_generic, G_TYPE_NONE, 0);
+<span class="lineNum">     901 </span>                :            : 
+<span class="lineNum">     902 </span>                :<span class="lineCov">          4 :   gst_worker_signals[SIGNAL_WORKER_NULL] =</span>
+<span class="lineNum">     903 </span>                :<span class="lineCov">          4 :       g_signal_new (&quot;worker-null&quot;, G_TYPE_FROM_CLASS (klass),</span>
+<span class="lineNum">     904 </span>                :            :       G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GstWorkerClass,
+<span class="lineNum">     905 </span>                :            :           worker_null), NULL, NULL, g_cclosure_marshal_generic, G_TYPE_NONE, 0);
+<span class="lineNum">     906 </span>                :            : 
+<span class="lineNum">     907 </span>                :<span class="lineCov">          4 :   g_object_class_install_property (object_class, PROP_NAME,</span>
+<span class="lineNum">     908 </span>                :            :       g_param_spec_string (&quot;name&quot;, &quot;Name&quot;,
+<span class="lineNum">     909 </span>                :            :           &quot;Name of the case&quot;, &quot;&quot;, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+<span class="lineNum">     910 </span>                :            : 
+<span class="lineNum">     911 </span>                :<span class="lineCov">          4 :   klass-&gt;get_pipeline_string = gst_worker_get_pipeline_string;</span>
+<span class="lineNum">     912 </span>                :<span class="lineCov">          4 :   klass-&gt;create_pipeline = gst_worker_create_pipeline;</span>
+<span class="lineNum">     913 </span>                :<span class="lineCov">          4 :   klass-&gt;null = gst_worker_null;</span>
+<span class="lineNum">     914 </span>                :<span class="lineCov">          4 :   klass-&gt;reset = gst_worker_reset;</span>
+<span class="lineNum">     915 </span>                :<span class="lineCov">          4 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.9</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
