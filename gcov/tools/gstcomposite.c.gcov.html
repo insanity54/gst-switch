@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - app.info - tools/gstcomposite.c</title>
+  <title>LCOV - out.info - tools/gstcomposite.c</title>
   <link rel="stylesheet" type="text/css" href="../gcov.css">
 </head>
 
@@ -28,30 +28,30 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">app.info</td>
+            <td class="headerValue">out.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">126</td>
+            <td class="headerCovTableEntry">224</td>
             <td class="headerCovTableEntry">371</td>
-            <td class="headerCovTableEntryLo">34.0 %</td>
+            <td class="headerCovTableEntryLo">60.4 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
             <td class="headerValue">2013-09-02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">20</td>
             <td class="headerCovTableEntry">29</td>
-            <td class="headerCovTableEntryLo">44.8 %</td>
+            <td class="headerCovTableEntryLo">69.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">83</td>
             <td class="headerCovTableEntry">251</td>
-            <td class="headerCovTableEntryLo">10.8 %</td>
+            <td class="headerCovTableEntryLo">33.1 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -143,8 +143,8 @@
 <span class="lineNum">      72 </span>                :            : #define gst_composite_parent_class parent_class
 <a name="73"><span class="lineNum">      73 </span>                :            : </a>
 <span class="lineNum">      74 </span>                :            : /*!&lt; @internal */
-<span class="lineNum">      75 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         15 : G_DEFINE_TYPE (GstComposite, gst_composite, GST_TYPE_WORKER);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchCov" title="Branch 6 was taken 9 times"> + </span>]
+<span class="lineNum">      75 </span>[<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchCov" title="Branch 1 was taken 155 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">        191 : G_DEFINE_TYPE (GstComposite, gst_composite, GST_TYPE_WORKER);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 18 times"> + </span><span class="branchCov" title="Branch 6 was taken 155 times"> + </span>]
 <span class="lineNum">      76 </span>                :            : 
 <span class="lineNum">      77 </span>                :            : static void gst_composite_set_mode (GstComposite *, GstCompositeMode);
 <span class="lineNum">      78 </span>                :            : static void gst_composite_start_transition (GstComposite *);
@@ -155,26 +155,26 @@
 <span class="lineNum">      83 </span>                :            :  * @see GObject
 <a name="84"><span class="lineNum">      84 </span>                :            :  */</a>
 <span class="lineNum">      85 </span>                :            : static void
-<span class="lineNum">      86 </span>                :<span class="lineCov">          3 : gst_composite_init (GstComposite * composite)</span>
+<span class="lineNum">      86 </span>                :<span class="lineCov">         18 : gst_composite_init (GstComposite * composite)</span>
 <span class="lineNum">      87 </span>                :            : {
-<span class="lineNum">      88 </span>                :<span class="lineCov">          3 :   INFO (&quot;gst_composite init %p&quot;, composite);</span>
+<span class="lineNum">      88 </span>                :<span class="lineCov">         18 :   INFO (&quot;gst_composite init %p&quot;, composite);</span>
 <span class="lineNum">      89 </span>                :            : 
-<span class="lineNum">      90 </span>                :<span class="lineCov">          3 :   composite-&gt;adjusting = FALSE;</span>
-<span class="lineNum">      91 </span>                :<span class="lineCov">          3 :   composite-&gt;transition = FALSE;</span>
-<span class="lineNum">      92 </span>                :<span class="lineCov">          3 :   composite-&gt;deprecated = FALSE;</span>
+<span class="lineNum">      90 </span>                :<span class="lineCov">         18 :   composite-&gt;adjusting = FALSE;</span>
+<span class="lineNum">      91 </span>                :<span class="lineCov">         18 :   composite-&gt;transition = FALSE;</span>
+<span class="lineNum">      92 </span>                :<span class="lineCov">         18 :   composite-&gt;deprecated = FALSE;</span>
 <span class="lineNum">      93 </span>                :            : 
-<span class="lineNum">      94 </span>                :<span class="lineCov">          3 :   g_mutex_init (&amp;composite-&gt;lock);</span>
-<span class="lineNum">      95 </span>                :<span class="lineCov">          3 :   g_mutex_init (&amp;composite-&gt;transition_lock);</span>
-<span class="lineNum">      96 </span>                :<span class="lineCov">          3 :   g_mutex_init (&amp;composite-&gt;adjustment_lock);</span>
+<span class="lineNum">      94 </span>                :<span class="lineCov">         18 :   g_mutex_init (&amp;composite-&gt;lock);</span>
+<span class="lineNum">      95 </span>                :<span class="lineCov">         18 :   g_mutex_init (&amp;composite-&gt;transition_lock);</span>
+<span class="lineNum">      96 </span>                :<span class="lineCov">         18 :   g_mutex_init (&amp;composite-&gt;adjustment_lock);</span>
 <span class="lineNum">      97 </span>                :            : 
-<span class="lineNum">      98 </span>                :<span class="lineCov">          3 :   gst_composite_set_mode (composite, DEFAULT_COMPOSE_MODE);</span>
+<span class="lineNum">      98 </span>                :<span class="lineCov">         18 :   gst_composite_set_mode (composite, DEFAULT_COMPOSE_MODE);</span>
 <span class="lineNum">      99 </span>                :            : 
 <span class="lineNum">     100 </span>                :            :   /* Indicating transition from no-mode to default mode.
 <span class="lineNum">     101 </span>                :            :    */
-<span class="lineNum">     102 </span>                :<span class="lineCov">          3 :   composite-&gt;transition = TRUE;</span>
+<span class="lineNum">     102 </span>                :<span class="lineCov">         18 :   composite-&gt;transition = TRUE;</span>
 <span class="lineNum">     103 </span>                :            : 
 <span class="lineNum">     104 </span>                :            :   //INFO (&quot;init %p&quot;, composite);
-<span class="lineNum">     105 </span>                :<span class="lineCov">          3 : }</span>
+<span class="lineNum">     105 </span>                :<span class="lineCov">         18 : }</span>
 <span class="lineNum">     106 </span>                :            : 
 <span class="lineNum">     107 </span>                :            : /**
 <span class="lineNum">     108 </span>                :            :  * gst_composite_dispose:
@@ -184,17 +184,17 @@
 <span class="lineNum">     112 </span>                :            :  * @see GObject
 <a name="113"><span class="lineNum">     113 </span>                :            :  */</a>
 <span class="lineNum">     114 </span>                :            : static void
-<span class="lineNum">     115 </span>                :<span class="lineCov">          3 : gst_composite_dispose (GstComposite * composite)</span>
+<span class="lineNum">     115 </span>                :<span class="lineNoCov">          0 : gst_composite_dispose (GstComposite * composite)</span>
 <span class="lineNum">     116 </span>                :            : {
 <span class="lineNum">     117 </span>                :            :   //INFO (&quot;gst_composite dispose %p&quot;, composite);
 <span class="lineNum">     118 </span>                :            : 
-<span class="lineNum">     119 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (composite-&gt;scaler) {</span>
-<span class="lineNum">     120 </span>                :<span class="lineCov">          3 :     gst_object_unref (composite-&gt;scaler);</span>
-<span class="lineNum">     121 </span>                :<span class="lineCov">          3 :     composite-&gt;scaler = NULL;</span>
+<span class="lineNum">     119 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;scaler) {</span>
+<span class="lineNum">     120 </span>                :<span class="lineNoCov">          0 :     gst_object_unref (composite-&gt;scaler);</span>
+<span class="lineNum">     121 </span>                :<span class="lineNoCov">          0 :     composite-&gt;scaler = NULL;</span>
 <span class="lineNum">     122 </span>                :            :   }
 <span class="lineNum">     123 </span>                :            : 
-<span class="lineNum">     124 </span>                :<span class="lineCov">          3 :   G_OBJECT_CLASS (parent_class)-&gt;dispose (G_OBJECT (composite));</span>
-<span class="lineNum">     125 </span>                :<span class="lineCov">          3 : }</span>
+<span class="lineNum">     124 </span>                :<span class="lineNoCov">          0 :   G_OBJECT_CLASS (parent_class)-&gt;dispose (G_OBJECT (composite));</span>
+<span class="lineNum">     125 </span>                :<span class="lineNoCov">          0 : }</span>
 <span class="lineNum">     126 </span>                :            : 
 <span class="lineNum">     127 </span>                :            : /**
 <span class="lineNum">     128 </span>                :            :  * gst_composite_finalize:
@@ -202,16 +202,16 @@
 <span class="lineNum">     130 </span>                :            :  * Destroying the GstComposite instance.
 <a name="131"><span class="lineNum">     131 </span>                :            :  */</a>
 <span class="lineNum">     132 </span>                :            : static void
-<span class="lineNum">     133 </span>                :<span class="lineCov">          3 : gst_composite_finalize (GstComposite * composite)</span>
+<span class="lineNum">     133 </span>                :<span class="lineNoCov">          0 : gst_composite_finalize (GstComposite * composite)</span>
 <span class="lineNum">     134 </span>                :            : {
-<span class="lineNum">     135 </span>                :<span class="lineCov">          3 :   INFO (&quot;gst_composite finalize %p&quot;, composite);</span>
-<span class="lineNum">     136 </span>                :<span class="lineCov">          3 :   g_mutex_clear (&amp;composite-&gt;lock);</span>
-<span class="lineNum">     137 </span>                :<span class="lineCov">          3 :   g_mutex_clear (&amp;composite-&gt;transition_lock);</span>
-<span class="lineNum">     138 </span>                :<span class="lineCov">          3 :   g_mutex_clear (&amp;composite-&gt;adjustment_lock);</span>
+<span class="lineNum">     135 </span>                :<span class="lineNoCov">          0 :   INFO (&quot;gst_composite finalize %p&quot;, composite);</span>
+<span class="lineNum">     136 </span>                :<span class="lineNoCov">          0 :   g_mutex_clear (&amp;composite-&gt;lock);</span>
+<span class="lineNum">     137 </span>                :<span class="lineNoCov">          0 :   g_mutex_clear (&amp;composite-&gt;transition_lock);</span>
+<span class="lineNum">     138 </span>                :<span class="lineNoCov">          0 :   g_mutex_clear (&amp;composite-&gt;adjustment_lock);</span>
 <span class="lineNum">     139 </span>                :            : 
-<span class="lineNum">     140 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :   if (G_OBJECT_CLASS (parent_class)-&gt;finalize)</span>
-<span class="lineNum">     141 </span>                :<span class="lineCov">          3 :     (*G_OBJECT_CLASS (parent_class)-&gt;finalize) (G_OBJECT (composite));</span>
-<span class="lineNum">     142 </span>                :<span class="lineCov">          3 : }</span>
+<span class="lineNum">     140 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (G_OBJECT_CLASS (parent_class)-&gt;finalize)</span>
+<span class="lineNum">     141 </span>                :<span class="lineNoCov">          0 :     (*G_OBJECT_CLASS (parent_class)-&gt;finalize) (G_OBJECT (composite));</span>
+<span class="lineNum">     142 </span>                :<span class="lineNoCov">          0 : }</span>
 <span class="lineNum">     143 </span>                :            : 
 <span class="lineNum">     144 </span>                :            : /**
 <span class="lineNum">     145 </span>                :            :  * gst_composite_set_mode:
@@ -221,42 +221,42 @@
 <span class="lineNum">     149 </span>                :            :  * @see %GstCompositeMode
 <a name="150"><span class="lineNum">     150 </span>                :            :  */</a>
 <span class="lineNum">     151 </span>                :            : static void
-<span class="lineNum">     152 </span>                :<span class="lineCov">          6 : gst_composite_set_mode (GstComposite * composite, GstCompositeMode mode)</span>
+<span class="lineNum">     152 </span>                :<span class="lineCov">         39 : gst_composite_set_mode (GstComposite * composite, GstCompositeMode mode)</span>
 <span class="lineNum">     153 </span>                :            : {
-<span class="lineNum">     154 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          6 :   if (composite-&gt;transition) {</span>
-<span class="lineNum">     155 </span>                :<span class="lineCov">          3 :     WARN (&quot;ignore changing mode in transition&quot;);</span>
-<span class="lineNum">     156 </span>                :<span class="lineCov">          6 :     return;</span>
+<span class="lineNum">     154 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchCov" title="Branch 1 was taken 21 times"> + </span>]:<span class="lineCov">         39 :   if (composite-&gt;transition) {</span>
+<span class="lineNum">     155 </span>                :<span class="lineCov">         18 :     WARN (&quot;ignore changing mode in transition&quot;);</span>
+<span class="lineNum">     156 </span>                :<span class="lineCov">         39 :     return;</span>
 <span class="lineNum">     157 </span>                :            :   }
 <span class="lineNum">     158 </span>                :            : 
-<span class="lineNum">     159 </span>                :<span class="lineCov">          3 :   composite-&gt;width = GST_SWITCH_COMPOSITE_DEFAULT_WIDTH;</span>
-<span class="lineNum">     160 </span>                :<span class="lineCov">          3 :   composite-&gt;height = GST_SWITCH_COMPOSITE_DEFAULT_HEIGHT;</span>
+<span class="lineNum">     159 </span>                :<span class="lineCov">         21 :   composite-&gt;width = GST_SWITCH_COMPOSITE_DEFAULT_WIDTH;</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">         21 :   composite-&gt;height = GST_SWITCH_COMPOSITE_DEFAULT_HEIGHT;</span>
 <span class="lineNum">     161 </span>                :            : 
-<span class="lineNum">     162 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span> :<span class="lineCov">          3 :   switch ((composite-&gt;mode = mode)) {</span>
+<span class="lineNum">     162 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 18 times"> + </span> :<span class="lineCov">         21 :   switch ((composite-&gt;mode = mode)) {</span>
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 4 was not taken"> - </span>]
 <span class="lineNum">     163 </span>                :            :     case COMPOSE_MODE_0:
-<span class="lineNum">     164 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_x = 0;</span>
-<span class="lineNum">     165 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_y = 0;</span>
-<span class="lineNum">     166 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_width = composite-&gt;width;</span>
-<span class="lineNum">     167 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_height = composite-&gt;height;</span>
-<span class="lineNum">     168 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_x = 0;</span>
-<span class="lineNum">     169 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_y = 0;</span>
-<span class="lineNum">     170 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_width = 0;</span>
-<span class="lineNum">     171 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_height = 0;</span>
-<span class="lineNum">     172 </span>                :<span class="lineNoCov">          0 :       composite-&gt;width = composite-&gt;a_width;</span>
-<span class="lineNum">     173 </span>                :<span class="lineNoCov">          0 :       composite-&gt;height = composite-&gt;a_height;</span>
-<span class="lineNum">     174 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     164 </span>                :<span class="lineCov">          1 :       composite-&gt;a_x = 0;</span>
+<span class="lineNum">     165 </span>                :<span class="lineCov">          1 :       composite-&gt;a_y = 0;</span>
+<span class="lineNum">     166 </span>                :<span class="lineCov">          1 :       composite-&gt;a_width = composite-&gt;width;</span>
+<span class="lineNum">     167 </span>                :<span class="lineCov">          1 :       composite-&gt;a_height = composite-&gt;height;</span>
+<span class="lineNum">     168 </span>                :<span class="lineCov">          1 :       composite-&gt;b_x = 0;</span>
+<span class="lineNum">     169 </span>                :<span class="lineCov">          1 :       composite-&gt;b_y = 0;</span>
+<span class="lineNum">     170 </span>                :<span class="lineCov">          1 :       composite-&gt;b_width = 0;</span>
+<span class="lineNum">     171 </span>                :<span class="lineCov">          1 :       composite-&gt;b_height = 0;</span>
+<span class="lineNum">     172 </span>                :<span class="lineCov">          1 :       composite-&gt;width = composite-&gt;a_width;</span>
+<span class="lineNum">     173 </span>                :<span class="lineCov">          1 :       composite-&gt;height = composite-&gt;a_height;</span>
+<span class="lineNum">     174 </span>                :<span class="lineCov">          1 :       break;</span>
 <span class="lineNum">     175 </span>                :            :     case COMPOSE_MODE_1:
-<span class="lineNum">     176 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_x = 0;</span>
-<span class="lineNum">     177 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_y = 0;</span>
-<span class="lineNum">     178 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_width = composite-&gt;width;</span>
-<span class="lineNum">     179 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_height = composite-&gt;height;</span>
-<span class="lineNum">     180 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_x = (guint) ((double) composite-&gt;a_width * 0.08 + 0.5);</span>
-<span class="lineNum">     181 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_y = (guint) ((double) composite-&gt;a_height * 0.08 + 0.5);</span>
-<span class="lineNum">     182 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_width = (guint) ((double) composite-&gt;a_width * 0.3 + 0.5);</span>
-<span class="lineNum">     183 </span>                :<span class="lineNoCov">          0 :       composite-&gt;b_height = (guint) ((double) composite-&gt;a_height * 0.3 + 0.5);</span>
-<span class="lineNum">     184 </span>                :<span class="lineNoCov">          0 :       composite-&gt;width = composite-&gt;a_width;</span>
-<span class="lineNum">     185 </span>                :<span class="lineNoCov">          0 :       composite-&gt;height = composite-&gt;a_height;</span>
-<span class="lineNum">     186 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     176 </span>                :<span class="lineCov">          2 :       composite-&gt;a_x = 0;</span>
+<span class="lineNum">     177 </span>                :<span class="lineCov">          2 :       composite-&gt;a_y = 0;</span>
+<span class="lineNum">     178 </span>                :<span class="lineCov">          2 :       composite-&gt;a_width = composite-&gt;width;</span>
+<span class="lineNum">     179 </span>                :<span class="lineCov">          2 :       composite-&gt;a_height = composite-&gt;height;</span>
+<span class="lineNum">     180 </span>                :<span class="lineCov">          2 :       composite-&gt;b_x = (guint) ((double) composite-&gt;a_width * 0.08 + 0.5);</span>
+<span class="lineNum">     181 </span>                :<span class="lineCov">          2 :       composite-&gt;b_y = (guint) ((double) composite-&gt;a_height * 0.08 + 0.5);</span>
+<span class="lineNum">     182 </span>                :<span class="lineCov">          2 :       composite-&gt;b_width = (guint) ((double) composite-&gt;a_width * 0.3 + 0.5);</span>
+<span class="lineNum">     183 </span>                :<span class="lineCov">          2 :       composite-&gt;b_height = (guint) ((double) composite-&gt;a_height * 0.3 + 0.5);</span>
+<span class="lineNum">     184 </span>                :<span class="lineCov">          2 :       composite-&gt;width = composite-&gt;a_width;</span>
+<span class="lineNum">     185 </span>                :<span class="lineCov">          2 :       composite-&gt;height = composite-&gt;a_height;</span>
+<span class="lineNum">     186 </span>                :<span class="lineCov">          2 :       break;</span>
 <span class="lineNum">     187 </span>                :            :     case COMPOSE_MODE_2:
 <span class="lineNum">     188 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_x = 0;</span>
 <span class="lineNum">     189 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_y = 0;</span>
@@ -270,16 +270,16 @@
 <span class="lineNum">     197 </span>                :<span class="lineNoCov">          0 :           composite-&gt;height - composite-&gt;a_y - composite-&gt;a_height;</span>
 <span class="lineNum">     198 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     199 </span>                :            :     case COMPOSE_MODE_3:
-<span class="lineNum">     200 </span>                :<span class="lineCov">          3 :       composite-&gt;a_width = (guint) ((double) composite-&gt;width * 0.5 + 0.5);</span>
-<span class="lineNum">     201 </span>                :<span class="lineCov">          3 :       composite-&gt;a_height = (guint) ((double) composite-&gt;height * 0.5 + 0.5);</span>
-<span class="lineNum">     202 </span>                :<span class="lineCov">          3 :       composite-&gt;a_x = 0;</span>
-<span class="lineNum">     203 </span>                :<span class="lineCov">          3 :       composite-&gt;a_y = (composite-&gt;height - composite-&gt;a_height) / 2;</span>
-<span class="lineNum">     204 </span>                :<span class="lineCov">          3 :       composite-&gt;b_x = composite-&gt;a_width + 1;</span>
-<span class="lineNum">     205 </span>                :<span class="lineCov">          3 :       composite-&gt;b_y = composite-&gt;a_y;</span>
-<span class="lineNum">     206 </span>                :<span class="lineCov">          3 :       composite-&gt;b_width =</span>
-<span class="lineNum">     207 </span>                :<span class="lineCov">          3 :           composite-&gt;width - composite-&gt;a_x - composite-&gt;a_width;</span>
-<span class="lineNum">     208 </span>                :<span class="lineCov">          3 :       composite-&gt;b_height = composite-&gt;a_height;</span>
-<span class="lineNum">     209 </span>                :<span class="lineCov">          3 :       break;</span>
+<span class="lineNum">     200 </span>                :<span class="lineCov">         18 :       composite-&gt;a_width = (guint) ((double) composite-&gt;width * 0.5 + 0.5);</span>
+<span class="lineNum">     201 </span>                :<span class="lineCov">         18 :       composite-&gt;a_height = (guint) ((double) composite-&gt;height * 0.5 + 0.5);</span>
+<span class="lineNum">     202 </span>                :<span class="lineCov">         18 :       composite-&gt;a_x = 0;</span>
+<span class="lineNum">     203 </span>                :<span class="lineCov">         18 :       composite-&gt;a_y = (composite-&gt;height - composite-&gt;a_height) / 2;</span>
+<span class="lineNum">     204 </span>                :<span class="lineCov">         18 :       composite-&gt;b_x = composite-&gt;a_width + 1;</span>
+<span class="lineNum">     205 </span>                :<span class="lineCov">         18 :       composite-&gt;b_y = composite-&gt;a_y;</span>
+<span class="lineNum">     206 </span>                :<span class="lineCov">         18 :       composite-&gt;b_width =</span>
+<span class="lineNum">     207 </span>                :<span class="lineCov">         18 :           composite-&gt;width - composite-&gt;a_x - composite-&gt;a_width;</span>
+<span class="lineNum">     208 </span>                :<span class="lineCov">         18 :       composite-&gt;b_height = composite-&gt;a_height;</span>
+<span class="lineNum">     209 </span>                :<span class="lineCov">         18 :       break;</span>
 <span class="lineNum">     210 </span>                :            :     default:
 <span class="lineNum">     211 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     212 </span>                :            :   }
@@ -291,7 +291,7 @@
 <span class="lineNum">     218 </span>                :            :      composite-&gt;b_width, composite-&gt;b_height);
 <span class="lineNum">     219 </span>                :            :    */
 <span class="lineNum">     220 </span>                :            : 
-<span class="lineNum">     221 </span>                :<span class="lineCov">          3 :   gst_composite_start_transition (composite);</span>
+<span class="lineNum">     221 </span>                :<span class="lineCov">         21 :   gst_composite_start_transition (composite);</span>
 <span class="lineNum">     222 </span>                :            : }
 <span class="lineNum">     223 </span>                :            : 
 <span class="lineNum">     224 </span>                :            : /**
@@ -301,9 +301,9 @@
 <span class="lineNum">     228 </span>                :            :  * Predictor telling if it's ready for transition.
 <a name="229"><span class="lineNum">     229 </span>                :            :  */</a>
 <span class="lineNum">     230 </span>                :            : static gboolean
-<span class="lineNum">     231 </span>                :<span class="lineCov">          3 : gst_composite_ready_for_transition (GstComposite * composite)</span>
+<span class="lineNum">     231 </span>                :<span class="lineCov">         21 : gst_composite_ready_for_transition (GstComposite * composite)</span>
 <span class="lineNum">     232 </span>                :            : {
-<span class="lineNum">     233 </span>                :<span class="lineCov">          3 :   return !composite-&gt;transition;</span>
+<span class="lineNum">     233 </span>                :<span class="lineCov">         21 :   return !composite-&gt;transition;</span>
 <span class="lineNum">     234 </span>                :            : }
 <span class="lineNum">     235 </span>                :            : 
 <span class="lineNum">     236 </span>                :            : /**
@@ -313,22 +313,22 @@
 <span class="lineNum">     240 </span>                :            :  * TRUE.
 <a name="241"><span class="lineNum">     241 </span>                :            :  */</a>
 <span class="lineNum">     242 </span>                :            : static void
-<span class="lineNum">     243 </span>                :<span class="lineCov">          3 : gst_composite_start_transition (GstComposite * composite)</span>
+<span class="lineNum">     243 </span>                :<span class="lineCov">         21 : gst_composite_start_transition (GstComposite * composite)</span>
 <span class="lineNum">     244 </span>                :            : {
-<span class="lineNum">     245 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          6 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
+<span class="lineNum">     245 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         42 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 21 times"> + </span>]
 <span class="lineNum">     246 </span>                :            : 
-<span class="lineNum">     247 </span>                :<span class="lineCov">          3 :   GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
+<span class="lineNum">     247 </span>                :<span class="lineCov">         21 :   GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
 <span class="lineNum">     248 </span>                :            : 
-<span class="lineNum">     249 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :   if (gst_composite_ready_for_transition (composite)) {</span>
-<span class="lineNum">     250 </span>                :<span class="lineCov">          3 :     composite-&gt;transition = gst_worker_stop (GST_WORKER (composite));</span>
+<span class="lineNum">     249 </span>        [<span class="branchCov" title="Branch 1 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         21 :   if (gst_composite_ready_for_transition (composite)) {</span>
+<span class="lineNum">     250 </span>                :<span class="lineCov">         21 :     composite-&gt;transition = gst_worker_stop (GST_WORKER (composite));</span>
 <span class="lineNum">     251 </span>                :            :     /*
 <span class="lineNum">     252 </span>                :            :        INFO (&quot;transtion ok=%d, %d, %dx%d&quot;, composite-&gt;transition,
 <span class="lineNum">     253 </span>                :            :        composite-&gt;mode, composite-&gt;width, composite-&gt;height);
 <span class="lineNum">     254 </span>                :            :      */
 <span class="lineNum">     255 </span>                :            :   }
 <span class="lineNum">     256 </span>                :            : 
-<span class="lineNum">     257 </span>                :<span class="lineCov">          3 :   GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
+<span class="lineNum">     257 </span>                :<span class="lineCov">         21 :   GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
 <span class="lineNum">     258 </span>                :            : }
 <span class="lineNum">     259 </span>                :            : 
 <span class="lineNum">     260 </span>                :            : /**
@@ -339,18 +339,18 @@
 <span class="lineNum">     265 </span>                :            :  * @see GObject
 <a name="266"><span class="lineNum">     266 </span>                :            :  */</a>
 <span class="lineNum">     267 </span>                :            : static void
-<span class="lineNum">     268 </span>                :<span class="lineCov">          9 : gst_composite_set_property (GstComposite * composite, guint property_id,</span>
+<span class="lineNum">     268 </span>                :<span class="lineCov">         57 : gst_composite_set_property (GstComposite * composite, guint property_id,</span>
 <span class="lineNum">     269 </span>                :            :     const GValue * value, GParamSpec * pspec)
 <span class="lineNum">     270 </span>                :            : {
-<span class="lineNum">     271 </span>  [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          9 :   switch (property_id) {</span>
+<span class="lineNum">     271 </span>  [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         57 :   switch (property_id) {</span>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
-<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
+<span class="lineNum">         </span>      <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span>]
 <span class="lineNum">     272 </span>                :            :     case PROP_PORT:
-<span class="lineNum">     273 </span>                :<span class="lineCov">          3 :       composite-&gt;sink_port = g_value_get_uint (value);</span>
-<span class="lineNum">     274 </span>                :<span class="lineCov">          3 :       break;</span>
+<span class="lineNum">     273 </span>                :<span class="lineCov">         18 :       composite-&gt;sink_port = g_value_get_uint (value);</span>
+<span class="lineNum">     274 </span>                :<span class="lineCov">         18 :       break;</span>
 <span class="lineNum">     275 </span>                :            :     case PROP_ENCODE_PORT:
-<span class="lineNum">     276 </span>                :<span class="lineCov">          3 :       composite-&gt;encode_sink_port = g_value_get_uint (value);</span>
-<span class="lineNum">     277 </span>                :<span class="lineCov">          3 :       break;</span>
+<span class="lineNum">     276 </span>                :<span class="lineCov">         18 :       composite-&gt;encode_sink_port = g_value_get_uint (value);</span>
+<span class="lineNum">     277 </span>                :<span class="lineCov">         18 :       break;</span>
 <span class="lineNum">     278 </span>                :            :     case PROP_A_X:
 <span class="lineNum">     279 </span>                :<span class="lineNoCov">          0 :       composite-&gt;a_x = g_value_get_uint (value);</span>
 <span class="lineNum">     280 </span>                :<span class="lineNoCov">          0 :       break;</span>
@@ -377,20 +377,20 @@
 <span class="lineNum">     301 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     302 </span>                :            :     case PROP_MODE:
 <span class="lineNum">     303 </span>                :            :     {
-<span class="lineNum">     304 </span>                :<span class="lineCov">          3 :       guint mode = g_value_get_uint (value);</span>
-<span class="lineNum">     305 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :       if (COMPOSE_MODE_0 &lt;= mode &amp;&amp; mode &lt;= COMPOSE_MODE__LAST) {</span>
-<span class="lineNum">     306 </span>                :<span class="lineCov">          3 :         gst_composite_set_mode (composite, (GstCompositeMode) mode);</span>
+<span class="lineNum">     304 </span>                :<span class="lineCov">         21 :       guint mode = g_value_get_uint (value);</span>
+<span class="lineNum">     305 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :       if (COMPOSE_MODE_0 &lt;= mode &amp;&amp; mode &lt;= COMPOSE_MODE__LAST) {</span>
+<span class="lineNum">     306 </span>                :<span class="lineCov">         21 :         gst_composite_set_mode (composite, (GstCompositeMode) mode);</span>
 <span class="lineNum">     307 </span>                :            :       } else {
 <span class="lineNum">     308 </span>                :<span class="lineNoCov">          0 :         WARN (&quot;invalid composite mode %d&quot;, mode);</span>
 <span class="lineNum">     309 </span>                :            :       }
 <span class="lineNum">     310 </span>                :            :     }
-<span class="lineNum">     311 </span>                :<span class="lineCov">          3 :       break;</span>
+<span class="lineNum">     311 </span>                :<span class="lineCov">         21 :       break;</span>
 <span class="lineNum">     312 </span>                :            :     default:
 <span class="lineNum">     313 </span>                :<span class="lineNoCov">          0 :       G_OBJECT_WARN_INVALID_PROPERTY_ID (G_OBJECT (composite), property_id,</span>
 <span class="lineNum">     314 </span>                :            :           pspec);
 <span class="lineNum">     315 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     316 </span>                :            :   }
-<span class="lineNum">     317 </span>                :<span class="lineCov">          9 : }</span>
+<span class="lineNum">     317 </span>                :<span class="lineCov">         57 : }</span>
 <span class="lineNum">     318 </span>                :            : 
 <span class="lineNum">     319 </span>                :            : /**
 <span class="lineNum">     320 </span>                :            :  * gst_composite_get_property:
@@ -460,16 +460,16 @@
 <span class="lineNum">     381 </span>                :            :  * resetting the composite pipeline with the new parameters.
 <a name="382"><span class="lineNum">     382 </span>                :            :  */</a>
 <span class="lineNum">     383 </span>                :            : static void
-<span class="lineNum">     384 </span>                :<span class="lineNoCov">          0 : gst_composite_apply_parameters (GstComposite * composite)</span>
+<span class="lineNum">     384 </span>                :<span class="lineCov">          3 : gst_composite_apply_parameters (GstComposite * composite)</span>
 <span class="lineNum">     385 </span>                :            : {
 <span class="lineNum">     386 </span>                :            :   GstWorkerClass *worker_class;
 <span class="lineNum">     387 </span>                :            : 
-<span class="lineNum">     388 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     388 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          6 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
 <span class="lineNum">     389 </span>                :            : 
-<span class="lineNum">     390 </span>                :<span class="lineNoCov">          0 :   worker_class = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (composite));</span>
+<span class="lineNum">     390 </span>                :<span class="lineCov">          3 :   worker_class = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (composite));</span>
 <span class="lineNum">     391 </span>                :            : 
-<span class="lineNum">     392 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (!worker_class-&gt;reset (GST_WORKER (composite))) {</span>
+<span class="lineNum">     392 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (!worker_class-&gt;reset (GST_WORKER (composite))) {</span>
 <span class="lineNum">     393 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;failed to reset composite&quot;);</span>
 <span class="lineNum">     394 </span>                :            :   }
 <span class="lineNum">     395 </span>                :            :   /*
@@ -497,27 +497,27 @@
 <span class="lineNum">     417 </span>                :            :  * preparing the worker.
 <a name="418"><span class="lineNum">     418 </span>                :            :  */</a>
 <span class="lineNum">     419 </span>                :            : static GString *
-<span class="lineNum">     420 </span>                :<span class="lineCov">          3 : gst_composite_get_pipeline_string (GstComposite * composite)</span>
+<span class="lineNum">     420 </span>                :<span class="lineCov">         21 : gst_composite_get_pipeline_string (GstComposite * composite)</span>
 <span class="lineNum">     421 </span>                :            : {
 <span class="lineNum">     422 </span>                :            :   GString *desc;
 <span class="lineNum">     423 </span>                :            : 
-<span class="lineNum">     424 </span>                :<span class="lineCov">          3 :   desc = g_string_new (&quot;&quot;);</span>
+<span class="lineNum">     424 </span>                :<span class="lineCov">         21 :   desc = g_string_new (&quot;&quot;);</span>
 <span class="lineNum">     425 </span>                :            : 
-<span class="lineNum">     426 </span>                :<span class="lineCov">          3 :   g_string_append_printf (desc,</span>
+<span class="lineNum">     426 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc,</span>
 <span class="lineNum">     427 </span>                :            :       &quot;intervideosrc name=source_a channel=composite_a_scaled &quot;);
-<span class="lineNum">     428 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (composite-&gt;mode == COMPOSE_MODE_0) {</span>
-<span class="lineNum">     429 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     428 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 20 times"> + </span>]:<span class="lineCov">         21 :   if (composite-&gt;mode == COMPOSE_MODE_0) {</span>
+<span class="lineNum">     429 </span>                :<span class="lineCov">          1 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     430 </span>                :            :         &quot;source_a. ! video/x-raw,width=%d,height=%d &quot;,
 <span class="lineNum">     431 </span>                :            :         composite-&gt;a_width, composite-&gt;a_height);
 <span class="lineNum">     432 </span>                :            :     /*
 <span class="lineNum">     433 </span>                :            :        ASSESS (&quot;assess-compose-a-source&quot;);
 <span class="lineNum">     434 </span>                :            :      */
-<span class="lineNum">     435 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
-<span class="lineNum">     436 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc, &quot;! identity name=mix &quot;);</span>
+<span class="lineNum">     435 </span>                :<span class="lineCov">          1 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
+<span class="lineNum">     436 </span>                :<span class="lineCov">          1 :     g_string_append_printf (desc, &quot;! identity name=mix &quot;);</span>
 <span class="lineNum">     437 </span>                :            :   } else {
-<span class="lineNum">     438 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     438 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     439 </span>                :            :         &quot;intervideosrc name=source_b channel=composite_b_scaled &quot;);
-<span class="lineNum">     440 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     440 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     441 </span>                :            :         &quot;videomixer name=mix &quot;
 <span class="lineNum">     442 </span>                :            :         &quot;sink_0::xpos=%d &quot;
 <span class="lineNum">     443 </span>                :            :         &quot;sink_0::ypos=%d &quot;
@@ -528,11 +528,11 @@
 <span class="lineNum">     448 </span>                :            :         composite-&gt;a_x, composite-&gt;a_y, composite-&gt;b_x, composite-&gt;b_y);
 <span class="lineNum">     449 </span>                :            : 
 <span class="lineNum">     450 </span>                :            :     // ===== B =====
-<span class="lineNum">     451 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     451 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     452 </span>                :            :         &quot;source_b. ! video/x-raw,width=%d,height=%d &quot;,
 <span class="lineNum">     453 </span>                :            :         composite-&gt;b_width, composite-&gt;b_height);
 <span class="lineNum">     454 </span>                :            :     ASSESS (&quot;assess-compose-b-source&quot;);
-<span class="lineNum">     455 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
+<span class="lineNum">     455 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
 <span class="lineNum">     456 </span>                :            : #if 0
 <span class="lineNum">     457 </span>                :            :     if (composite-&gt;width != composite-&gt;b_width ||
 <span class="lineNum">     458 </span>                :            :         composite-&gt;height != composite-&gt;b_height) {
@@ -544,14 +544,14 @@
 <span class="lineNum">     464 </span>                :            :        */
 <span class="lineNum">     465 </span>                :            :     }
 <span class="lineNum">     466 </span>                :            : #endif
-<span class="lineNum">     467 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc, &quot;! mix.sink_1 &quot;);</span>
+<span class="lineNum">     467 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc, &quot;! mix.sink_1 &quot;);</span>
 <span class="lineNum">     468 </span>                :            : 
 <span class="lineNum">     469 </span>                :            :     // ===== A =====
-<span class="lineNum">     470 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     470 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     471 </span>                :            :         &quot;source_a. ! video/x-raw,width=%d,height=%d &quot;,
 <span class="lineNum">     472 </span>                :            :         composite-&gt;a_width, composite-&gt;a_height);
 <span class="lineNum">     473 </span>                :            :     ASSESS (&quot;assess-compose-a-source&quot;);
-<span class="lineNum">     474 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
+<span class="lineNum">     474 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
 <span class="lineNum">     475 </span>                :            : #if 0
 <span class="lineNum">     476 </span>                :            :     if (composite-&gt;width != composite-&gt;a_width ||
 <span class="lineNum">     477 </span>                :            :         composite-&gt;height != composite-&gt;a_height) {
@@ -563,33 +563,33 @@
 <span class="lineNum">     483 </span>                :            :        */
 <span class="lineNum">     484 </span>                :            :     }
 <span class="lineNum">     485 </span>                :            : #endif
-<span class="lineNum">     486 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc, &quot;! mix.sink_0 &quot;);</span>
+<span class="lineNum">     486 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc, &quot;! mix.sink_0 &quot;);</span>
 <span class="lineNum">     487 </span>                :            :   }
 <span class="lineNum">     488 </span>                :            : 
-<span class="lineNum">     489 </span>                :<span class="lineCov">          3 :   g_string_append_printf (desc, &quot;mix. ! video/x-raw,width=%d,height=%d &quot;,</span>
+<span class="lineNum">     489 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc, &quot;mix. ! video/x-raw,width=%d,height=%d &quot;,</span>
 <span class="lineNum">     490 </span>                :            :       composite-&gt;width, composite-&gt;height);
 <span class="lineNum">     491 </span>                :            :   ASSESS (&quot;assess-compose-result&quot;);
-<span class="lineNum">     492 </span>                :<span class="lineCov">          3 :   g_string_append_printf (desc, &quot;! tee name=result &quot;);</span>
+<span class="lineNum">     492 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc, &quot;! tee name=result &quot;);</span>
 <span class="lineNum">     493 </span>                :            : 
-<span class="lineNum">     494 </span>                :<span class="lineCov">          3 :   g_string_append_printf (desc, &quot;result. ! queue2 &quot;);</span>
+<span class="lineNum">     494 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc, &quot;result. ! queue2 &quot;);</span>
 <span class="lineNum">     495 </span>                :            :   /*
 <span class="lineNum">     496 </span>                :            :      ASSESS (&quot;assess-compose-to-output&quot;);
 <span class="lineNum">     497 </span>                :            :    */
-<span class="lineNum">     498 </span>                :<span class="lineCov">          3 :   g_string_append_printf (desc, &quot;! out. &quot;);</span>
-<span class="lineNum">     499 </span>                :<span class="lineCov">          3 :   g_string_append_printf (desc,</span>
+<span class="lineNum">     498 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc, &quot;! out. &quot;);</span>
+<span class="lineNum">     499 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc,</span>
 <span class="lineNum">     500 </span>                :            :       &quot;intervideosink name=out channel=composite_out &quot;);
 <span class="lineNum">     501 </span>                :            : 
-<span class="lineNum">     502 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (opts.record_filename) {</span>
-<span class="lineNum">     503 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc, &quot;result. ! queue2 &quot;);</span>
+<span class="lineNum">     502 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :   if (opts.record_filename) {</span>
+<span class="lineNum">     503 </span>                :<span class="lineCov">         21 :     g_string_append_printf (desc, &quot;result. ! queue2 &quot;);</span>
 <span class="lineNum">     504 </span>                :            :     /*
 <span class="lineNum">     505 </span>                :            :        ASSESS (&quot;assess-compose-to-record&quot;);
 <span class="lineNum">     506 </span>                :            :      */
-<span class="lineNum">     507 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc, &quot;! record. &quot;);</span>
-<span class="lineNum">     508 </span>                :<span class="lineCov">          3 :     g_string_append_printf (desc, &quot;intervideosink name=record &quot;</span>
+<span class="lineNum">     507 </span>                :<span class="lineCov">         21 :     g_string_append_printf (desc, &quot;! record. &quot;);</span>
+<span class="lineNum">     508 </span>                :<span class="lineCov">         21 :     g_string_append_printf (desc, &quot;intervideosink name=record &quot;</span>
 <span class="lineNum">     509 </span>                :            :         &quot;channel=composite_video &quot;);
 <span class="lineNum">     510 </span>                :            :   }
 <span class="lineNum">     511 </span>                :            : 
-<span class="lineNum">     512 </span>                :<span class="lineCov">          3 :   return desc;</span>
+<span class="lineNum">     512 </span>                :<span class="lineCov">         21 :   return desc;</span>
 <span class="lineNum">     513 </span>                :            : }
 <span class="lineNum">     514 </span>                :            : 
 <span class="lineNum">     515 </span>                :            : /**
@@ -602,49 +602,49 @@
 <span class="lineNum">     522 </span>                :            :  *     video size for composite.
 <a name="523"><span class="lineNum">     523 </span>                :            :  */</a>
 <span class="lineNum">     524 </span>                :            : static GString *
-<span class="lineNum">     525 </span>                :<span class="lineNoCov">          0 : gst_composite_get_scaler_string (GstWorker * worker, GstComposite * composite)</span>
+<span class="lineNum">     525 </span>                :<span class="lineCov">         21 : gst_composite_get_scaler_string (GstWorker * worker, GstComposite * composite)</span>
 <span class="lineNum">     526 </span>                :            : {
 <span class="lineNum">     527 </span>                :            :   GString *desc;
 <span class="lineNum">     528 </span>                :            : 
-<span class="lineNum">     529 </span>                :<span class="lineNoCov">          0 :   desc = g_string_new (&quot;&quot;);</span>
+<span class="lineNum">     529 </span>                :<span class="lineCov">         21 :   desc = g_string_new (&quot;&quot;);</span>
 <span class="lineNum">     530 </span>                :            : 
-<span class="lineNum">     531 </span>                :<span class="lineNoCov">          0 :   g_string_append_printf (desc,</span>
+<span class="lineNum">     531 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc,</span>
 <span class="lineNum">     532 </span>                :            :       &quot;intervideosrc name=source_a channel=composite_a &quot;);
-<span class="lineNum">     533 </span>                :<span class="lineNoCov">          0 :   g_string_append_printf (desc,</span>
+<span class="lineNum">     533 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc,</span>
 <span class="lineNum">     534 </span>                :            :       &quot;intervideosink name=sink_a sync=false channel=composite_a_scaled &quot;);
 <span class="lineNum">     535 </span>                :            : 
-<span class="lineNum">     536 </span>                :<span class="lineNoCov">          0 :   g_string_append_printf (desc,</span>
+<span class="lineNum">     536 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc,</span>
 <span class="lineNum">     537 </span>                :            :       &quot;source_a. ! video/x-raw,width=%d,height=%d &quot;,
 <span class="lineNum">     538 </span>                :            :       composite-&gt;width, composite-&gt;height);
-<span class="lineNum">     539 </span>                :<span class="lineNoCov">          0 :   g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
+<span class="lineNum">     539 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
 <span class="lineNum">     540 </span>                :            :   /*
 <span class="lineNum">     541 </span>                :            :      g_string_append_printf (desc,
 <span class="lineNum">     542 </span>                :            :      &quot;! videoconvert ! facedetect2 ! speakertrack ! videoconvert &quot;);
 <span class="lineNum">     543 </span>                :            :    */
-<span class="lineNum">     544 </span>                :<span class="lineNoCov">          0 :   g_string_append_printf (desc,</span>
+<span class="lineNum">     544 </span>                :<span class="lineCov">         21 :   g_string_append_printf (desc,</span>
 <span class="lineNum">     545 </span>                :            :       &quot;! videoscale ! video/x-raw,width=%d,height=%d ! sink_a. &quot;,
 <span class="lineNum">     546 </span>                :            :       composite-&gt;a_width, composite-&gt;a_height);
 <span class="lineNum">     547 </span>                :            : 
-<span class="lineNum">     548 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;mode == COMPOSE_MODE_0) {</span>
+<span class="lineNum">     548 </span>        [<span class="branchCov" title="Branch 0 was taken 20 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         21 :   if (composite-&gt;mode == COMPOSE_MODE_0) {</span>
 <span class="lineNum">     549 </span>                :            :   } else {
-<span class="lineNum">     550 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     550 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     551 </span>                :            :         &quot;intervideosrc name=source_b channel=composite_b &quot;);
-<span class="lineNum">     552 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     552 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     553 </span>                :            :         &quot;intervideosink name=sink_b sync=false channel=composite_b_scaled &quot;);
 <span class="lineNum">     554 </span>                :            : 
-<span class="lineNum">     555 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     555 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     556 </span>                :            :         &quot;source_b. ! video/x-raw,width=%d,height=%d &quot;,
 <span class="lineNum">     557 </span>                :            :         composite-&gt;width, composite-&gt;height);
-<span class="lineNum">     558 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
+<span class="lineNum">     558 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc, &quot;! queue2 &quot;);</span>
 <span class="lineNum">     559 </span>                :            :     /*
 <span class="lineNum">     560 </span>                :            :        g_string_append_printf (desc,
 <span class="lineNum">     561 </span>                :            :        &quot;! videoconvert ! facedetect2 ! speakertrack ! videoconvert &quot;);
 <span class="lineNum">     562 </span>                :            :      */
-<span class="lineNum">     563 </span>                :<span class="lineNoCov">          0 :     g_string_append_printf (desc,</span>
+<span class="lineNum">     563 </span>                :<span class="lineCov">         20 :     g_string_append_printf (desc,</span>
 <span class="lineNum">     564 </span>                :            :         &quot;! videoscale ! video/x-raw,width=%d,height=%d ! sink_b. &quot;,
 <span class="lineNum">     565 </span>                :            :         composite-&gt;b_width, composite-&gt;b_height);
 <span class="lineNum">     566 </span>                :            :   }
-<span class="lineNum">     567 </span>                :<span class="lineNoCov">          0 :   return desc;</span>
+<span class="lineNum">     567 </span>                :<span class="lineCov">         21 :   return desc;</span>
 <span class="lineNum">     568 </span>                :            : }
 <span class="lineNum">     569 </span>                :            : 
 <span class="lineNum">     570 </span>                :            : /**
@@ -654,25 +654,25 @@
 <span class="lineNum">     574 </span>                :            :  * Prepare the composite pipeline.
 <a name="575"><span class="lineNum">     575 </span>                :            :  */</a>
 <span class="lineNum">     576 </span>                :            : static gboolean
-<span class="lineNum">     577 </span>                :<span class="lineCov">          3 : gst_composite_prepare (GstComposite * composite)</span>
+<span class="lineNum">     577 </span>                :<span class="lineCov">         21 : gst_composite_prepare (GstComposite * composite)</span>
 <span class="lineNum">     578 </span>                :            : {
-<span class="lineNum">     579 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          3 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
-<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
+<span class="lineNum">     579 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         21 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 21 times"> + </span>]
 <span class="lineNum">     580 </span>                :            : 
-<span class="lineNum">     581 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (composite-&gt;scaler == NULL) {</span>
-<span class="lineNum">     582 </span>                :<span class="lineCov">          3 :     composite-&gt;scaler = GST_WORKER (g_object_new (GST_TYPE_WORKER,</span>
+<span class="lineNum">     581 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">         21 :   if (composite-&gt;scaler == NULL) {</span>
+<span class="lineNum">     582 </span>                :<span class="lineCov">         18 :     composite-&gt;scaler = GST_WORKER (g_object_new (GST_TYPE_WORKER,</span>
 <span class="lineNum">     583 </span>                :            :             &quot;name&quot;, &quot;scale&quot;, NULL));
-<span class="lineNum">     584 </span>                :<span class="lineCov">          3 :     composite-&gt;scaler-&gt;pipeline_func_data = composite;</span>
-<span class="lineNum">     585 </span>                :<span class="lineCov">          3 :     composite-&gt;scaler-&gt;pipeline_func = (GstWorkerGetPipelineString)</span>
+<span class="lineNum">     584 </span>                :<span class="lineCov">         18 :     composite-&gt;scaler-&gt;pipeline_func_data = composite;</span>
+<span class="lineNum">     585 </span>                :<span class="lineCov">         18 :     composite-&gt;scaler-&gt;pipeline_func = (GstWorkerGetPipelineString)</span>
 <span class="lineNum">     586 </span>                :            :         gst_composite_get_scaler_string;
 <span class="lineNum">     587 </span>                :            :   } else {
 <span class="lineNum">     588 </span>                :            :     GstWorkerClass *worker_class;
-<span class="lineNum">     589 </span>                :<span class="lineNoCov">          0 :     worker_class = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (composite-&gt;scaler));</span>
-<span class="lineNum">     590 </span>        [<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (!worker_class-&gt;reset (GST_WORKER (composite-&gt;scaler))) {</span>
+<span class="lineNum">     589 </span>                :<span class="lineCov">          3 :     worker_class = GST_WORKER_CLASS (G_OBJECT_GET_CLASS (composite-&gt;scaler));</span>
+<span class="lineNum">     590 </span>        [<span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchCov" title="Branch 4 was taken 3 times"> + </span>]:<span class="lineCov">          3 :     if (!worker_class-&gt;reset (GST_WORKER (composite-&gt;scaler))) {</span>
 <span class="lineNum">     591 </span>                :<span class="lineNoCov">          0 :       ERROR (&quot;failed to reset scaler&quot;);</span>
 <span class="lineNum">     592 </span>                :            :     }
 <span class="lineNum">     593 </span>                :            :   }
-<span class="lineNum">     594 </span>                :<span class="lineCov">          3 :   return TRUE;</span>
+<span class="lineNum">     594 </span>                :<span class="lineCov">         21 :   return TRUE;</span>
 <span class="lineNum">     595 </span>                :            : }
 <span class="lineNum">     596 </span>                :            : 
 <span class="lineNum">     597 </span>                :            : /**
@@ -681,12 +681,12 @@
 <span class="lineNum">     600 </span>                :            :  * This is invokved when the composite pipeline started.
 <a name="601"><span class="lineNum">     601 </span>                :            :  */</a>
 <span class="lineNum">     602 </span>                :            : static void
-<span class="lineNum">     603 </span>                :<span class="lineNoCov">          0 : gst_composite_start (GstComposite * composite)</span>
+<span class="lineNum">     603 </span>                :<span class="lineCov">         21 : gst_composite_start (GstComposite * composite)</span>
 <span class="lineNum">     604 </span>                :            : {
-<span class="lineNum">     605 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     605 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         42 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 21 times"> + </span>]
 <span class="lineNum">     606 </span>                :            : 
-<span class="lineNum">     607 </span>                :<span class="lineNoCov">          0 :   gst_worker_start (composite-&gt;scaler);</span>
+<span class="lineNum">     607 </span>                :<span class="lineCov">         21 :   gst_worker_start (composite-&gt;scaler);</span>
 <span class="lineNum">     608 </span>                :            : }
 <span class="lineNum">     609 </span>                :            : 
 <span class="lineNum">     610 </span>                :            : /**
@@ -712,26 +712,26 @@
 <span class="lineNum">     629 </span>                :            :  * @see %gst_composite_commit_transition
 <a name="630"><span class="lineNum">     630 </span>                :            :  */</a>
 <span class="lineNum">     631 </span>                :            : static gboolean
-<span class="lineNum">     632 </span>                :<span class="lineNoCov">          0 : gst_composite_end_transition (GstComposite * composite)</span>
+<span class="lineNum">     632 </span>                :<span class="lineCov">         21 : gst_composite_end_transition (GstComposite * composite)</span>
 <span class="lineNum">     633 </span>                :            : {
-<span class="lineNum">     634 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     634 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         21 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 21 times"> + </span>]
 <span class="lineNum">     635 </span>                :            : 
-<span class="lineNum">     636 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;transition) {</span>
-<span class="lineNum">     637 </span>                :<span class="lineNoCov">          0 :     GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
-<span class="lineNum">     638 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (composite-&gt;transition) {</span>
+<span class="lineNum">     636 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :   if (composite-&gt;transition) {</span>
+<span class="lineNum">     637 </span>                :<span class="lineCov">         21 :     GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
+<span class="lineNum">     638 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :     if (composite-&gt;transition) {</span>
 <span class="lineNum">     639 </span>                :            :       /*
 <span class="lineNum">     640 </span>                :            :          INFO (&quot;new mode %d, %dx%d transited&quot;, composite-&gt;mode,
 <span class="lineNum">     641 </span>                :            :          composite-&gt;width, composite-&gt;height);
 <span class="lineNum">     642 </span>                :            :        */
-<span class="lineNum">     643 </span>                :<span class="lineNoCov">          0 :       composite-&gt;transition = FALSE;</span>
-<span class="lineNum">     644 </span>                :<span class="lineNoCov">          0 :       g_signal_emit (composite,</span>
+<span class="lineNum">     643 </span>                :<span class="lineCov">         21 :       composite-&gt;transition = FALSE;</span>
+<span class="lineNum">     644 </span>                :<span class="lineCov">         21 :       g_signal_emit (composite,</span>
 <span class="lineNum">     645 </span>                :            :           gst_composite_signals[SIGNAL_END_TRANSITION],
 <span class="lineNum">     646 </span>                :            :           0 /*, composite-&gt;mode */ );
 <span class="lineNum">     647 </span>                :            :     }
-<span class="lineNum">     648 </span>                :<span class="lineNoCov">          0 :     GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
+<span class="lineNum">     648 </span>                :<span class="lineCov">         21 :     GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
 <span class="lineNum">     649 </span>                :            :   }
-<span class="lineNum">     650 </span>                :<span class="lineNoCov">          0 :   return FALSE;</span>
+<span class="lineNum">     650 </span>                :<span class="lineCov">         21 :   return FALSE;</span>
 <span class="lineNum">     651 </span>                :            : }
 <span class="lineNum">     652 </span>                :            : 
 <span class="lineNum">     653 </span>                :            : /**
@@ -743,23 +743,23 @@
 <span class="lineNum">     659 </span>                :            :  * @see %gst_composite_end_transition
 <a name="660"><span class="lineNum">     660 </span>                :            :  */</a>
 <span class="lineNum">     661 </span>                :            : static gboolean
-<span class="lineNum">     662 </span>                :<span class="lineNoCov">          0 : gst_composite_commit_transition (GstComposite * composite)</span>
+<span class="lineNum">     662 </span>                :<span class="lineCov">          3 : gst_composite_commit_transition (GstComposite * composite)</span>
 <span class="lineNum">     663 </span>                :            : {
-<span class="lineNum">     664 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     664 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          3 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
 <span class="lineNum">     665 </span>                :            : 
-<span class="lineNum">     666 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;transition) {</span>
-<span class="lineNum">     667 </span>                :<span class="lineNoCov">          0 :     GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
-<span class="lineNum">     668 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (composite-&gt;transition) {</span>
+<span class="lineNum">     666 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (composite-&gt;transition) {</span>
+<span class="lineNum">     667 </span>                :<span class="lineCov">          3 :     GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
+<span class="lineNum">     668 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :     if (composite-&gt;transition) {</span>
 <span class="lineNum">     669 </span>                :            :       /*
 <span class="lineNum">     670 </span>                :            :          INFO (&quot;new mode %d, %dx%d applying...&quot;,
 <span class="lineNum">     671 </span>                :            :          composite-&gt;mode, composite-&gt;width, composite-&gt;height);
 <span class="lineNum">     672 </span>                :            :        */
-<span class="lineNum">     673 </span>                :<span class="lineNoCov">          0 :       gst_composite_apply_parameters (composite);</span>
+<span class="lineNum">     673 </span>                :<span class="lineCov">          3 :       gst_composite_apply_parameters (composite);</span>
 <span class="lineNum">     674 </span>                :            :     }
-<span class="lineNum">     675 </span>                :<span class="lineNoCov">          0 :     GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
+<span class="lineNum">     675 </span>                :<span class="lineCov">          3 :     GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
 <span class="lineNum">     676 </span>                :            :   }
-<span class="lineNum">     677 </span>                :<span class="lineNoCov">          0 :   return FALSE;</span>
+<span class="lineNum">     677 </span>                :<span class="lineCov">          3 :   return FALSE;</span>
 <span class="lineNum">     678 </span>                :            : }
 <span class="lineNum">     679 </span>                :            : 
 <span class="lineNum">     680 </span>                :            : /**
@@ -771,22 +771,22 @@
 <span class="lineNum">     686 </span>                :            :  * @see %gst_composite_end_transition
 <a name="687"><span class="lineNum">     687 </span>                :            :  */</a>
 <span class="lineNum">     688 </span>                :            : static gboolean
-<span class="lineNum">     689 </span>                :<span class="lineNoCov">          0 : gst_composite_close_transition (GstComposite * composite)</span>
+<span class="lineNum">     689 </span>                :<span class="lineCov">         21 : gst_composite_close_transition (GstComposite * composite)</span>
 <span class="lineNum">     690 </span>                :            : {
-<span class="lineNum">     691 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     691 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         21 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 21 times"> + </span>]
 <span class="lineNum">     692 </span>                :            : 
-<span class="lineNum">     693 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;transition) {</span>
-<span class="lineNum">     694 </span>                :<span class="lineNoCov">          0 :     GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
-<span class="lineNum">     695 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (composite-&gt;transition) {</span>
+<span class="lineNum">     693 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :   if (composite-&gt;transition) {</span>
+<span class="lineNum">     694 </span>                :<span class="lineCov">         21 :     GST_COMPOSITE_LOCK_TRANSITION (composite);</span>
+<span class="lineNum">     695 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :     if (composite-&gt;transition) {</span>
 <span class="lineNum">     696 </span>                :            :       //gst_worker_start (GST_WORKER (composite-&gt;output));
 <span class="lineNum">     697 </span>                :            :       /* It's ok to discard the source ID here, the timeout is one-shot. */
-<span class="lineNum">     698 </span>                :<span class="lineNoCov">          0 :       g_timeout_add (200, (GSourceFunc) gst_composite_end_transition,</span>
+<span class="lineNum">     698 </span>                :<span class="lineCov">         21 :       g_timeout_add (200, (GSourceFunc) gst_composite_end_transition,</span>
 <span class="lineNum">     699 </span>                :            :           composite);
 <span class="lineNum">     700 </span>                :            :     }
-<span class="lineNum">     701 </span>                :<span class="lineNoCov">          0 :     GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
+<span class="lineNum">     701 </span>                :<span class="lineCov">         21 :     GST_COMPOSITE_UNLOCK_TRANSITION (composite);</span>
 <span class="lineNum">     702 </span>                :            :   }
-<span class="lineNum">     703 </span>                :<span class="lineNoCov">          0 :   return FALSE;</span>
+<span class="lineNum">     703 </span>                :<span class="lineCov">         21 :   return FALSE;</span>
 <span class="lineNum">     704 </span>                :            : }
 <span class="lineNum">     705 </span>                :            : 
 <span class="lineNum">     706 </span>                :            : /**
@@ -842,16 +842,16 @@
 <span class="lineNum">     754 </span>                :            :  * Invoked when the compisite pipeline is online.
 <a name="755"><span class="lineNum">     755 </span>                :            :  */</a>
 <span class="lineNum">     756 </span>                :            : static void
-<span class="lineNum">     757 </span>                :<span class="lineNoCov">          0 : gst_composite_alive (GstComposite * composite)</span>
+<span class="lineNum">     757 </span>                :<span class="lineCov">         21 : gst_composite_alive (GstComposite * composite)</span>
 <span class="lineNum">     758 </span>                :            : {
-<span class="lineNum">     759 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     759 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 21 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         42 :   g_return_if_fail (GST_IS_COMPOSITE (composite));</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 21 times"> + </span>]
 <span class="lineNum">     760 </span>                :            : 
-<span class="lineNum">     761 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;transition) {</span>
+<span class="lineNum">     761 </span>        [<span class="branchCov" title="Branch 0 was taken 21 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         21 :   if (composite-&gt;transition) {</span>
 <span class="lineNum">     762 </span>                :            : #if 0
 <span class="lineNum">     763 </span>                :            :     g_timeout_add (10, (GSourceFunc) gst_composite_close_transition, composite);
 <span class="lineNum">     764 </span>                :            : #else
-<span class="lineNum">     765 </span>                :<span class="lineNoCov">          0 :     gst_composite_close_transition (composite);</span>
+<span class="lineNum">     765 </span>                :<span class="lineCov">         21 :     gst_composite_close_transition (composite);</span>
 <span class="lineNum">     766 </span>                :            : #endif
 <span class="lineNum">     767 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   } else if (composite-&gt;adjusting) {</span>
 <span class="lineNum">     768 </span>                :<span class="lineNoCov">          0 :     g_timeout_add (10, (GSourceFunc) gst_composite_close_adjustment, composite);</span>
@@ -864,24 +864,24 @@
 <span class="lineNum">     775 </span>                :            :  * Invoked when the composite pipeline is going NULL.
 <a name="776"><span class="lineNum">     776 </span>                :            :  */</a>
 <span class="lineNum">     777 </span>                :            : static GstWorkerNullReturn
-<span class="lineNum">     778 </span>                :<span class="lineNoCov">          0 : gst_composite_null (GstComposite * composite)</span>
+<span class="lineNum">     778 </span>                :<span class="lineCov">          3 : gst_composite_null (GstComposite * composite)</span>
 <span class="lineNum">     779 </span>                :            : {
-<span class="lineNum">     780 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), GST_WORKER_NR_END);</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     780 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          3 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), GST_WORKER_NR_END);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 3 times"> + </span>]
 <span class="lineNum">     781 </span>                :            : 
-<span class="lineNum">     782 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;transition) {</span>
+<span class="lineNum">     782 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (composite-&gt;transition) {</span>
 <span class="lineNum">     783 </span>                :            : #if 0
 <span class="lineNum">     784 </span>                :            :     g_timeout_add (10, (GSourceFunc) gst_composite_commit_transition,
 <span class="lineNum">     785 </span>                :            :         composite);
 <span class="lineNum">     786 </span>                :            : #else
-<span class="lineNum">     787 </span>                :<span class="lineNoCov">          0 :     gst_composite_commit_transition (composite);</span>
+<span class="lineNum">     787 </span>                :<span class="lineCov">          3 :     gst_composite_commit_transition (composite);</span>
 <span class="lineNum">     788 </span>                :            : #endif
 <span class="lineNum">     789 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   } else if (composite-&gt;adjusting) {</span>
 <span class="lineNum">     790 </span>                :<span class="lineNoCov">          0 :     g_timeout_add (10, (GSourceFunc) gst_composite_commit_adjustment,</span>
 <span class="lineNum">     791 </span>                :            :         composite);
 <span class="lineNum">     792 </span>                :            :   }
 <span class="lineNum">     793 </span>                :            : 
-<span class="lineNum">     794 </span>                :<span class="lineNoCov">          0 :   return composite-&gt;deprecated ? GST_WORKER_NR_END : GST_WORKER_NR_REPLAY;</span>
+<span class="lineNum">     794 </span>                :<span class="lineCov">          3 :   return composite-&gt;deprecated ? GST_WORKER_NR_END : GST_WORKER_NR_REPLAY;</span>
 <span class="lineNum">     795 </span>                :            : }
 <span class="lineNum">     796 </span>                :            : 
 <span class="lineNum">     797 </span>                :            : /**
@@ -896,28 +896,28 @@
 <span class="lineNum">     806 </span>                :            :  *  Change the PIP position and size.
 <a name="807"><span class="lineNum">     807 </span>                :            :  */</a>
 <span class="lineNum">     808 </span>                :            : gboolean
-<span class="lineNum">     809 </span>                :<span class="lineNoCov">          0 : gst_composite_adjust_pip (GstComposite * composite, gint x, gint y,</span>
+<span class="lineNum">     809 </span>                :<span class="lineCov">          1 : gst_composite_adjust_pip (GstComposite * composite, gint x, gint y,</span>
 <span class="lineNum">     810 </span>                :            :     gint w, gint h)
 <span class="lineNum">     811 </span>                :            : {
-<span class="lineNum">     812 </span>                :<span class="lineNoCov">          0 :   gboolean result = FALSE;</span>
-<span class="lineNum">     813 </span>                :<span class="lineNoCov">          0 :   GstIterator *iter = NULL;</span>
-<span class="lineNum">     814 </span>                :<span class="lineNoCov">          0 :   GValue value = { 0 };</span>
-<span class="lineNum">     815 </span>                :<span class="lineNoCov">          0 :   GstElement *element = NULL;</span>
-<span class="lineNum">     816 </span>                :<span class="lineNoCov">          0 :   gboolean done = FALSE;</span>
+<span class="lineNum">     812 </span>                :<span class="lineCov">          1 :   gboolean result = FALSE;</span>
+<span class="lineNum">     813 </span>                :<span class="lineCov">          1 :   GstIterator *iter = NULL;</span>
+<span class="lineNum">     814 </span>                :<span class="lineCov">          1 :   GValue value = { 0 };</span>
+<span class="lineNum">     815 </span>                :<span class="lineCov">          1 :   GstElement *element = NULL;</span>
+<span class="lineNum">     816 </span>                :<span class="lineCov">          1 :   gboolean done = FALSE;</span>
 <span class="lineNum">     817 </span>                :            : 
-<span class="lineNum">     818 </span>[<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>][<span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
-<span class="lineNum">         </span>[<span class="branchNoExec" title="Branch 5 was not executed"> # </span><span class="branchNoExec" title="Branch 6 was not executed"> # </span>][<span class="branchNoExec" title="Branch 8 was not executed"> # </span><span class="branchNoExec" title="Branch 9 was not executed"> # </span>]
+<span class="lineNum">     818 </span>[<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span>][<span class="branchCov" title="Branch 3 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          1 :   g_return_val_if_fail (GST_IS_COMPOSITE (composite), FALSE);</span>
+<span class="lineNum">         </span>[<span class="branchCov" title="Branch 5 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span>][<span class="branchNoCov" title="Branch 8 was not taken"> - </span><span class="branchCov" title="Branch 9 was taken 1 time"> + </span>]
 <span class="lineNum">     819 </span>                :            : 
-<span class="lineNum">     820 </span>                :<span class="lineNoCov">          0 :   GST_COMPOSITE_LOCK (composite);</span>
-<span class="lineNum">     821 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;adjusting) {</span>
+<span class="lineNum">     820 </span>                :<span class="lineCov">          1 :   GST_COMPOSITE_LOCK (composite);</span>
+<span class="lineNum">     821 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :   if (composite-&gt;adjusting) {</span>
 <span class="lineNum">     822 </span>                :<span class="lineNoCov">          0 :     WARN (&quot;last PIP adjustment request is progressing&quot;);</span>
 <span class="lineNum">     823 </span>                :<span class="lineNoCov">          0 :     goto end;</span>
 <span class="lineNum">     824 </span>                :            :   }
 <span class="lineNum">     825 </span>                :            : 
-<span class="lineNum">     826 </span>                :<span class="lineNoCov">          0 :   composite-&gt;b_x = x;</span>
-<span class="lineNum">     827 </span>                :<span class="lineNoCov">          0 :   composite-&gt;b_y = y;</span>
+<span class="lineNum">     826 </span>                :<span class="lineCov">          1 :   composite-&gt;b_x = x;</span>
+<span class="lineNum">     827 </span>                :<span class="lineCov">          1 :   composite-&gt;b_y = y;</span>
 <span class="lineNum">     828 </span>                :            : 
-<span class="lineNum">     829 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (composite-&gt;b_width != w || composite-&gt;b_height != h) {</span>
+<span class="lineNum">     829 </span>[<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          1 :   if (composite-&gt;b_width != w || composite-&gt;b_height != h) {</span>
 <span class="lineNum">     830 </span>                :<span class="lineNoCov">          0 :     composite-&gt;b_width = w;</span>
 <span class="lineNum">     831 </span>                :<span class="lineNoCov">          0 :     composite-&gt;b_height = h;</span>
 <span class="lineNum">     832 </span>                :<span class="lineNoCov">          0 :     composite-&gt;adjusting = TRUE;</span>
@@ -926,22 +926,22 @@
 <span class="lineNum">     835 </span>                :<span class="lineNoCov">          0 :     goto end;</span>
 <span class="lineNum">     836 </span>                :            :   }
 <span class="lineNum">     837 </span>                :            : 
-<span class="lineNum">     838 </span>                :<span class="lineNoCov">          0 :   element = gst_worker_get_element (GST_WORKER (composite), &quot;mix&quot;);</span>
-<span class="lineNum">     839 </span>                :<span class="lineNoCov">          0 :   iter = gst_element_iterate_sink_pads (element);</span>
-<span class="lineNum">     840 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   while (iter &amp;&amp; !done) {</span>
-<span class="lineNum">     841 </span>  [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span><span class="branchNoExec" title="Branch 4 was not executed"> # </span>]:<span class="lineNoCov">          0 :     switch (gst_iterator_next (iter, &amp;value)) {</span>
+<span class="lineNum">     838 </span>                :<span class="lineCov">          1 :   element = gst_worker_get_element (GST_WORKER (composite), &quot;mix&quot;);</span>
+<span class="lineNum">     839 </span>                :<span class="lineCov">          1 :   iter = gst_element_iterate_sink_pads (element);</span>
+<span class="lineNum">     840 </span>[<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          2 :   while (iter &amp;&amp; !done) {</span>
+<span class="lineNum">     841 </span>  [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          1 :     switch (gst_iterator_next (iter, &amp;value)) {</span>
 <span class="lineNum">     842 </span>                :            :       case GST_ITERATOR_OK:
 <span class="lineNum">     843 </span>                :            :       {
-<span class="lineNum">     844 </span>                :<span class="lineNoCov">          0 :         GstPad *pad = g_value_get_object (&amp;value);</span>
-<span class="lineNum">     845 </span>        [<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :         if (g_strcmp0 (gst_pad_get_name (pad), &quot;sink_1&quot;) == 0) {</span>
-<span class="lineNum">     846 </span>                :<span class="lineNoCov">          0 :           g_object_set (pad, &quot;xpos&quot;, composite-&gt;b_x,</span>
+<span class="lineNum">     844 </span>                :<span class="lineCov">          1 :         GstPad *pad = g_value_get_object (&amp;value);</span>
+<span class="lineNum">     845 </span>        [<span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         if (g_strcmp0 (gst_pad_get_name (pad), &quot;sink_1&quot;) == 0) {</span>
+<span class="lineNum">     846 </span>                :<span class="lineCov">          1 :           g_object_set (pad, &quot;xpos&quot;, composite-&gt;b_x,</span>
 <span class="lineNum">     847 </span>                :            :               &quot;ypos&quot;, composite-&gt;b_y, NULL);
-<span class="lineNum">     848 </span>                :<span class="lineNoCov">          0 :           done = TRUE;</span>
-<span class="lineNum">     849 </span>                :<span class="lineNoCov">          0 :           result = TRUE;</span>
+<span class="lineNum">     848 </span>                :<span class="lineCov">          1 :           done = TRUE;</span>
+<span class="lineNum">     849 </span>                :<span class="lineCov">          1 :           result = TRUE;</span>
 <span class="lineNum">     850 </span>                :            :         }
-<span class="lineNum">     851 </span>                :<span class="lineNoCov">          0 :         g_value_reset (&amp;value);</span>
+<span class="lineNum">     851 </span>                :<span class="lineCov">          1 :         g_value_reset (&amp;value);</span>
 <span class="lineNum">     852 </span>                :            :       }
-<span class="lineNum">     853 </span>                :<span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     853 </span>                :<span class="lineCov">          1 :         break;</span>
 <span class="lineNum">     854 </span>                :            :       case GST_ITERATOR_RESYNC:
 <span class="lineNum">     855 </span>                :<span class="lineNoCov">          0 :         gst_iterator_resync (iter);</span>
 <span class="lineNum">     856 </span>                :<span class="lineNoCov">          0 :         break;</span>
@@ -957,12 +957,12 @@
 <span class="lineNum">     866 </span>                :            :     }
 <span class="lineNum">     867 </span>                :            :   }
 <span class="lineNum">     868 </span>                :            : 
-<span class="lineNum">     869 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (G_IS_VALUE (&amp;value))</span>
-<span class="lineNum">     870 </span>                :<span class="lineNoCov">          0 :     g_value_unset (&amp;value);</span>
-<span class="lineNum">     871 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (iter)</span>
-<span class="lineNum">     872 </span>                :<span class="lineNoCov">          0 :     gst_iterator_free (iter);</span>
+<span class="lineNum">     869 </span>        [<span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          1 :   if (G_IS_VALUE (&amp;value))</span>
+<span class="lineNum">     870 </span>                :<span class="lineCov">          1 :     g_value_unset (&amp;value);</span>
+<span class="lineNum">     871 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (iter)</span>
+<span class="lineNum">     872 </span>                :<span class="lineCov">          1 :     gst_iterator_free (iter);</span>
 <span class="lineNum">     873 </span>                :            : 
-<span class="lineNum">     874 </span>                :<span class="lineNoCov">          0 :   composite-&gt;adjusting = FALSE;</span>
+<span class="lineNum">     874 </span>                :<span class="lineCov">          1 :   composite-&gt;adjusting = FALSE;</span>
 <span class="lineNum">     875 </span>                :            : 
 <span class="lineNum">     876 </span>                :            :   /*
 <span class="lineNum">     877 </span>                :            :      if (!result) {
@@ -971,8 +971,8 @@
 <span class="lineNum">     880 </span>                :            :    */
 <span class="lineNum">     881 </span>                :            : 
 <span class="lineNum">     882 </span>                :            : end:
-<span class="lineNum">     883 </span>                :<span class="lineNoCov">          0 :   GST_COMPOSITE_UNLOCK (composite);</span>
-<span class="lineNum">     884 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">     883 </span>                :<span class="lineCov">          1 :   GST_COMPOSITE_UNLOCK (composite);</span>
+<span class="lineNum">     884 </span>                :<span class="lineCov">          1 :   return result;</span>
 <span class="lineNum">     885 </span>                :            : }
 <span class="lineNum">     886 </span>                :            : 
 <span class="lineNum">     887 </span>                :            : /**
@@ -1059,16 +1059,16 @@
 <span class="lineNum">     965 </span>                :            :  * @see GstMessage
 <a name="966"><span class="lineNum">     966 </span>                :            :  */</a>
 <span class="lineNum">     967 </span>                :            : static gboolean
-<span class="lineNum">     968 </span>                :<span class="lineCov">        135 : gst_composite_message (GstComposite * composite, GstMessage * message)</span>
+<span class="lineNum">     968 </span>                :<span class="lineCov">       1184 : gst_composite_message (GstComposite * composite, GstMessage * message)</span>
 <span class="lineNum">     969 </span>                :            : {
-<span class="lineNum">     970 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 135 times"> + </span>]:<span class="lineCov">        135 :   switch (GST_MESSAGE_TYPE (message)) {</span>
+<span class="lineNum">     970 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1184 times"> + </span>]:<span class="lineCov">       1184 :   switch (GST_MESSAGE_TYPE (message)) {</span>
 <span class="lineNum">     971 </span>                :            :     case GST_MESSAGE_ERROR:
 <span class="lineNum">     972 </span>                :<span class="lineNoCov">          0 :       gst_composite_error (composite);</span>
 <span class="lineNum">     973 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     974 </span>                :            :     default:
-<span class="lineNum">     975 </span>                :<span class="lineCov">        135 :       break;</span>
+<span class="lineNum">     975 </span>                :<span class="lineCov">       1184 :       break;</span>
 <span class="lineNum">     976 </span>                :            :   }
-<span class="lineNum">     977 </span>                :<span class="lineCov">        135 :   return TRUE;</span>
+<span class="lineNum">     977 </span>                :<span class="lineCov">       1184 :   return TRUE;</span>
 <span class="lineNum">     978 </span>                :            : }
 <span class="lineNum">     979 </span>                :            : 
 <span class="lineNum">     980 </span>                :            : /**
@@ -1077,16 +1077,16 @@
 <span class="lineNum">     983 </span>                :            :  * Initialize the GstCompositeClass.
 <a name="984"><span class="lineNum">     984 </span>                :            :  */</a>
 <span class="lineNum">     985 </span>                :            : static void
-<span class="lineNum">     986 </span>                :<span class="lineCov">          3 : gst_composite_class_init (GstCompositeClass * klass)</span>
+<span class="lineNum">     986 </span>                :<span class="lineCov">         18 : gst_composite_class_init (GstCompositeClass * klass)</span>
 <span class="lineNum">     987 </span>                :            : {
-<span class="lineNum">     988 </span>                :<span class="lineCov">          3 :   GObjectClass *object_class = G_OBJECT_CLASS (klass);</span>
-<span class="lineNum">     989 </span>                :<span class="lineCov">          3 :   GstWorkerClass *worker_class = GST_WORKER_CLASS (klass);</span>
+<span class="lineNum">     988 </span>                :<span class="lineCov">         18 :   GObjectClass *object_class = G_OBJECT_CLASS (klass);</span>
+<span class="lineNum">     989 </span>                :<span class="lineCov">         18 :   GstWorkerClass *worker_class = GST_WORKER_CLASS (klass);</span>
 <span class="lineNum">     990 </span>                :            : 
-<span class="lineNum">     991 </span>                :<span class="lineCov">          3 :   object_class-&gt;dispose = (GObjectFinalizeFunc) gst_composite_dispose;</span>
-<span class="lineNum">     992 </span>                :<span class="lineCov">          3 :   object_class-&gt;finalize = (GObjectFinalizeFunc) gst_composite_finalize;</span>
-<span class="lineNum">     993 </span>                :<span class="lineCov">          3 :   object_class-&gt;set_property =</span>
+<span class="lineNum">     991 </span>                :<span class="lineCov">         18 :   object_class-&gt;dispose = (GObjectFinalizeFunc) gst_composite_dispose;</span>
+<span class="lineNum">     992 </span>                :<span class="lineCov">         18 :   object_class-&gt;finalize = (GObjectFinalizeFunc) gst_composite_finalize;</span>
+<span class="lineNum">     993 </span>                :<span class="lineCov">         18 :   object_class-&gt;set_property =</span>
 <span class="lineNum">     994 </span>                :            :       (GObjectSetPropertyFunc) gst_composite_set_property;
-<span class="lineNum">     995 </span>                :<span class="lineCov">          3 :   object_class-&gt;get_property =</span>
+<span class="lineNum">     995 </span>                :<span class="lineCov">         18 :   object_class-&gt;get_property =</span>
 <span class="lineNum">     996 </span>                :            :       (GObjectGetPropertyFunc) gst_composite_get_property;
 <span class="lineNum">     997 </span>                :            : 
 <span class="lineNum">     998 </span>                :            :   /*
@@ -1111,20 +1111,20 @@
 <span class="lineNum">    1017 </span>                :            :      NULL, NULL, g_cclosure_marshal_generic, G_TYPE_NONE, 0);
 <span class="lineNum">    1018 </span>                :            :    */
 <span class="lineNum">    1019 </span>                :            : 
-<span class="lineNum">    1020 </span>                :<span class="lineCov">          3 :   gst_composite_signals[SIGNAL_END_TRANSITION] =</span>
-<span class="lineNum">    1021 </span>                :<span class="lineCov">          3 :       g_signal_new (&quot;end-transition&quot;, G_TYPE_FROM_CLASS (klass),</span>
+<span class="lineNum">    1020 </span>                :<span class="lineCov">         18 :   gst_composite_signals[SIGNAL_END_TRANSITION] =</span>
+<span class="lineNum">    1021 </span>                :<span class="lineCov">         18 :       g_signal_new (&quot;end-transition&quot;, G_TYPE_FROM_CLASS (klass),</span>
 <span class="lineNum">    1022 </span>                :            :       G_SIGNAL_RUN_LAST, G_STRUCT_OFFSET (GstCompositeClass,
 <span class="lineNum">    1023 </span>                :            :           end_transition), NULL,
 <span class="lineNum">    1024 </span>                :            :       NULL, g_cclosure_marshal_generic, G_TYPE_NONE, 0 /*1, G_TYPE_INT */ );
 <span class="lineNum">    1025 </span>                :            : 
-<span class="lineNum">    1026 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_MODE,</span>
+<span class="lineNum">    1026 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_MODE,</span>
 <span class="lineNum">    1027 </span>                :            :       g_param_spec_uint (&quot;mode&quot;, &quot;Mode&quot;,
 <span class="lineNum">    1028 </span>                :            :           &quot;Composite Mode&quot;,
 <span class="lineNum">    1029 </span>                :            :           COMPOSE_MODE_0,
 <span class="lineNum">    1030 </span>                :            :           COMPOSE_MODE__LAST,
 <span class="lineNum">    1031 </span>                :            :           DEFAULT_COMPOSE_MODE, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1032 </span>                :            : 
-<span class="lineNum">    1033 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_PORT,</span>
+<span class="lineNum">    1033 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_PORT,</span>
 <span class="lineNum">    1034 </span>                :            :       g_param_spec_uint (&quot;port&quot;, &quot;Port&quot;,
 <span class="lineNum">    1035 </span>                :            :           &quot;Sink port&quot;,
 <span class="lineNum">    1036 </span>                :            :           GST_SWITCH_MIN_SINK_PORT,
@@ -1132,7 +1132,7 @@
 <span class="lineNum">    1038 </span>                :            :           GST_SWITCH_MIN_SINK_PORT,
 <span class="lineNum">    1039 </span>                :            :           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1040 </span>                :            : 
-<span class="lineNum">    1041 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_ENCODE_PORT,</span>
+<span class="lineNum">    1041 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_ENCODE_PORT,</span>
 <span class="lineNum">    1042 </span>                :            :       g_param_spec_uint (&quot;encode&quot;, &quot;EncodePort&quot;,
 <span class="lineNum">    1043 </span>                :            :           &quot;Encoding Sink port&quot;,
 <span class="lineNum">    1044 </span>                :            :           GST_SWITCH_MIN_SINK_PORT,
@@ -1140,55 +1140,55 @@
 <span class="lineNum">    1046 </span>                :            :           GST_SWITCH_MIN_SINK_PORT,
 <span class="lineNum">    1047 </span>                :            :           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1048 </span>                :            : 
-<span class="lineNum">    1049 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_A_X,</span>
+<span class="lineNum">    1049 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_A_X,</span>
 <span class="lineNum">    1050 </span>                :            :       g_param_spec_uint (&quot;ax&quot;, &quot;A xpos&quot;,
 <span class="lineNum">    1051 </span>                :            :           &quot;Channel A frame xpos&quot;,
 <span class="lineNum">    1052 </span>                :            :           0, G_MAXINT, 0, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1053 </span>                :            : 
-<span class="lineNum">    1054 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_A_Y,</span>
+<span class="lineNum">    1054 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_A_Y,</span>
 <span class="lineNum">    1055 </span>                :            :       g_param_spec_uint (&quot;ay&quot;, &quot;A ypos&quot;,
 <span class="lineNum">    1056 </span>                :            :           &quot;Channel A frame ypos&quot;,
 <span class="lineNum">    1057 </span>                :            :           0, G_MAXINT, 0, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1058 </span>                :            : 
-<span class="lineNum">    1059 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_A_WIDTH,</span>
+<span class="lineNum">    1059 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_A_WIDTH,</span>
 <span class="lineNum">    1060 </span>                :            :       g_param_spec_uint (&quot;awidth&quot;, &quot;A Width&quot;,
 <span class="lineNum">    1061 </span>                :            :           &quot;Channel A frame width&quot;,
 <span class="lineNum">    1062 </span>                :            :           1, G_MAXINT,
 <span class="lineNum">    1063 </span>                :            :           GST_SWITCH_COMPOSITE_DEFAULT_WIDTH,
 <span class="lineNum">    1064 </span>                :            :           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1065 </span>                :            : 
-<span class="lineNum">    1066 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_A_HEIGHT,</span>
+<span class="lineNum">    1066 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_A_HEIGHT,</span>
 <span class="lineNum">    1067 </span>                :            :       g_param_spec_uint (&quot;aheight&quot;, &quot;A Height&quot;,
 <span class="lineNum">    1068 </span>                :            :           &quot;Channel A frame height&quot;,
 <span class="lineNum">    1069 </span>                :            :           1, G_MAXINT,
 <span class="lineNum">    1070 </span>                :            :           GST_SWITCH_COMPOSITE_DEFAULT_HEIGHT,
 <span class="lineNum">    1071 </span>                :            :           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1072 </span>                :            : 
-<span class="lineNum">    1073 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_B_X,</span>
+<span class="lineNum">    1073 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_B_X,</span>
 <span class="lineNum">    1074 </span>                :            :       g_param_spec_uint (&quot;bx&quot;, &quot;B xpos&quot;,
 <span class="lineNum">    1075 </span>                :            :           &quot;Channel B frame xpos&quot;,
 <span class="lineNum">    1076 </span>                :            :           0, G_MAXINT, 0, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1077 </span>                :            : 
-<span class="lineNum">    1078 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_B_Y,</span>
+<span class="lineNum">    1078 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_B_Y,</span>
 <span class="lineNum">    1079 </span>                :            :       g_param_spec_uint (&quot;by&quot;, &quot;B ypos&quot;,
 <span class="lineNum">    1080 </span>                :            :           &quot;Channel B frame ypos&quot;,
 <span class="lineNum">    1081 </span>                :            :           0, G_MAXINT, 0, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1082 </span>                :            : 
-<span class="lineNum">    1083 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_B_WIDTH,</span>
+<span class="lineNum">    1083 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_B_WIDTH,</span>
 <span class="lineNum">    1084 </span>                :            :       g_param_spec_uint (&quot;bwidth&quot;, &quot;B Width&quot;,
 <span class="lineNum">    1085 </span>                :            :           &quot;Channel B frame width&quot;,
 <span class="lineNum">    1086 </span>                :            :           1, G_MAXINT,
 <span class="lineNum">    1087 </span>                :            :           GST_SWITCH_COMPOSITE_DEFAULT_WIDTH,
 <span class="lineNum">    1088 </span>                :            :           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1089 </span>                :            : 
-<span class="lineNum">    1090 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_B_HEIGHT,</span>
+<span class="lineNum">    1090 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_B_HEIGHT,</span>
 <span class="lineNum">    1091 </span>                :            :       g_param_spec_uint (&quot;bheight&quot;, &quot;B Height&quot;,
 <span class="lineNum">    1092 </span>                :            :           &quot;Channel B frame height&quot;,
 <span class="lineNum">    1093 </span>                :            :           1, G_MAXINT,
 <span class="lineNum">    1094 </span>                :            :           GST_SWITCH_COMPOSITE_DEFAULT_HEIGHT,
 <span class="lineNum">    1095 </span>                :            :           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1096 </span>                :            : 
-<span class="lineNum">    1097 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_WIDTH,</span>
+<span class="lineNum">    1097 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_WIDTH,</span>
 <span class="lineNum">    1098 </span>                :            :       g_param_spec_uint (&quot;width&quot;,
 <span class="lineNum">    1099 </span>                :            :           &quot;Composite Width&quot;,
 <span class="lineNum">    1100 </span>                :            :           &quot;Output frame width&quot;, 1,
@@ -1196,7 +1196,7 @@
 <span class="lineNum">    1102 </span>                :            :           GST_SWITCH_COMPOSITE_DEFAULT_WIDTH,
 <span class="lineNum">    1103 </span>                :            :           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1104 </span>                :            : 
-<span class="lineNum">    1105 </span>                :<span class="lineCov">          3 :   g_object_class_install_property (object_class, PROP_HEIGHT,</span>
+<span class="lineNum">    1105 </span>                :<span class="lineCov">         18 :   g_object_class_install_property (object_class, PROP_HEIGHT,</span>
 <span class="lineNum">    1106 </span>                :            :       g_param_spec_uint (&quot;height&quot;,
 <span class="lineNum">    1107 </span>                :            :           &quot;Composite Height&quot;,
 <span class="lineNum">    1108 </span>                :            :           &quot;Output frame height&quot;,
@@ -1204,15 +1204,15 @@
 <span class="lineNum">    1110 </span>                :            :           GST_SWITCH_COMPOSITE_DEFAULT_HEIGHT,
 <span class="lineNum">    1111 </span>                :            :           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 <span class="lineNum">    1112 </span>                :            : 
-<span class="lineNum">    1113 </span>                :<span class="lineCov">          3 :   worker_class-&gt;alive = (GstWorkerAliveFunc) gst_composite_alive;</span>
-<span class="lineNum">    1114 </span>                :<span class="lineCov">          3 :   worker_class-&gt;null = (GstWorkerNullFunc) gst_composite_null;</span>
-<span class="lineNum">    1115 </span>                :<span class="lineCov">          3 :   worker_class-&gt;prepare = (GstWorkerPrepareFunc) gst_composite_prepare;</span>
-<span class="lineNum">    1116 </span>                :<span class="lineCov">          3 :   worker_class-&gt;start_worker = (GstWorkerAliveFunc) gst_composite_start;</span>
-<span class="lineNum">    1117 </span>                :<span class="lineCov">          3 :   worker_class-&gt;end_worker = (GstWorkerAliveFunc) gst_composite_end;</span>
-<span class="lineNum">    1118 </span>                :<span class="lineCov">          3 :   worker_class-&gt;message = (GstWorkerMessageFunc) gst_composite_message;</span>
-<span class="lineNum">    1119 </span>                :<span class="lineCov">          3 :   worker_class-&gt;get_pipeline_string = (GstWorkerGetPipelineStringFunc)</span>
+<span class="lineNum">    1113 </span>                :<span class="lineCov">         18 :   worker_class-&gt;alive = (GstWorkerAliveFunc) gst_composite_alive;</span>
+<span class="lineNum">    1114 </span>                :<span class="lineCov">         18 :   worker_class-&gt;null = (GstWorkerNullFunc) gst_composite_null;</span>
+<span class="lineNum">    1115 </span>                :<span class="lineCov">         18 :   worker_class-&gt;prepare = (GstWorkerPrepareFunc) gst_composite_prepare;</span>
+<span class="lineNum">    1116 </span>                :<span class="lineCov">         18 :   worker_class-&gt;start_worker = (GstWorkerAliveFunc) gst_composite_start;</span>
+<span class="lineNum">    1117 </span>                :<span class="lineCov">         18 :   worker_class-&gt;end_worker = (GstWorkerAliveFunc) gst_composite_end;</span>
+<span class="lineNum">    1118 </span>                :<span class="lineCov">         18 :   worker_class-&gt;message = (GstWorkerMessageFunc) gst_composite_message;</span>
+<span class="lineNum">    1119 </span>                :<span class="lineCov">         18 :   worker_class-&gt;get_pipeline_string = (GstWorkerGetPipelineStringFunc)</span>
 <span class="lineNum">    1120 </span>                :            :       gst_composite_get_pipeline_string;
-<span class="lineNum">    1121 </span>                :<span class="lineCov">          3 : }</span>
+<span class="lineNum">    1121 </span>                :<span class="lineCov">         18 : }</span>
 </pre>
       </td>
     </tr>

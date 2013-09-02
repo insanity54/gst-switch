@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - app.info - tools/gstswitchcontroller.c</title>
+  <title>LCOV - out.info - tools/gstswitchcontroller.c</title>
   <link rel="stylesheet" type="text/css" href="../gcov.css">
 </head>
 
@@ -28,30 +28,30 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">app.info</td>
+            <td class="headerValue">out.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">52</td>
+            <td class="headerCovTableEntry">238</td>
             <td class="headerCovTableEntry">338</td>
-            <td class="headerCovTableEntryLo">15.4 %</td>
+            <td class="headerCovTableEntryLo">70.4 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
             <td class="headerValue">2013-09-02</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">30</td>
             <td class="headerCovTableEntry">42</td>
-            <td class="headerCovTableEntryLo">14.3 %</td>
+            <td class="headerCovTableEntryLo">71.4 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">43</td>
             <td class="headerCovTableEntry">98</td>
-            <td class="headerCovTableEntryLo">14.3 %</td>
+            <td class="headerCovTableEntryLo">43.9 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -114,8 +114,8 @@
 <span class="lineNum">      43 </span>                :            :   PROP_0,
 <a name="44"><span class="lineNum">      44 </span>                :            : };</a>
 <span class="lineNum">      45 </span>                :            : 
-<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">          9 : G_DEFINE_TYPE (GstSwitchController, gst_switch_controller, G_TYPE_OBJECT);</span>
-<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 3 times"> + </span><span class="branchCov" title="Branch 6 was taken 3 times"> + </span>]
+<span class="lineNum">      46 </span>[<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchCov" title="Branch 1 was taken 61 times"> + </span>][<span class="branchCov" title="Branch 3 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span>]:<span class="lineCov">         97 : G_DEFINE_TYPE (GstSwitchController, gst_switch_controller, G_TYPE_OBJECT);</span>
+<span class="lineNum">         </span>        [<span class="branchCov" title="Branch 5 was taken 18 times"> + </span><span class="branchCov" title="Branch 6 was taken 61 times"> + </span>]
 <span class="lineNum">      47 </span>                :            : 
 <span class="lineNum">      48 </span>                :            : static GDBusNodeInfo *introspection_data = NULL;
 <span class="lineNum">      49 </span>                :            : static const gchar introspection_xml[] =
@@ -192,12 +192,12 @@
 <span class="lineNum">     120 </span>                :            :  * @memberof GstSwitchController
 <a name="121"><span class="lineNum">     121 </span>                :            :  */</a>
 <span class="lineNum">     122 </span>                :            : static gboolean
-<span class="lineNum">     123 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_method_match (const gchar * key,</span>
+<span class="lineNum">     123 </span>                :<span class="lineCov">         72 : gst_switch_controller_method_match (const gchar * key,</span>
 <span class="lineNum">     124 </span>                :            :     MethodTableEntry * entry, const gchar * match)
 <span class="lineNum">     125 </span>                :            : {
-<span class="lineNum">     126 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (g_strcmp0 (key, match) == 0)</span>
-<span class="lineNum">     127 </span>                :<span class="lineNoCov">          0 :     return TRUE;</span>
-<span class="lineNum">     128 </span>                :<span class="lineNoCov">          0 :   return FALSE;</span>
+<span class="lineNum">     126 </span>        [<span class="branchCov" title="Branch 1 was taken 12 times"> + </span><span class="branchCov" title="Branch 2 was taken 60 times"> + </span>]:<span class="lineCov">         72 :   if (g_strcmp0 (key, match) == 0)</span>
+<span class="lineNum">     127 </span>                :<span class="lineCov">         12 :     return TRUE;</span>
+<span class="lineNum">     128 </span>                :<span class="lineCov">         72 :   return FALSE;</span>
 <span class="lineNum">     129 </span>                :            : }
 <span class="lineNum">     130 </span>                :            : 
 <span class="lineNum">     131 </span>                :            : /**
@@ -205,7 +205,7 @@
 <span class="lineNum">     133 </span>                :            :  * @memberof GstSwitchController
 <a name="134"><span class="lineNum">     134 </span>                :            :  */</a>
 <span class="lineNum">     135 </span>                :            : static void
-<span class="lineNum">     136 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_do_method_call (GDBusConnection * connection,</span>
+<span class="lineNum">     136 </span>                :<span class="lineCov">         12 : gst_switch_controller_do_method_call (GDBusConnection * connection,</span>
 <span class="lineNum">     137 </span>                :            :     const gchar * sender,
 <span class="lineNum">     138 </span>                :            :     const gchar * object_path,
 <span class="lineNum">     139 </span>                :            :     const gchar * interface_name,
@@ -213,25 +213,25 @@
 <span class="lineNum">     141 </span>                :            :     GVariant * parameters,
 <span class="lineNum">     142 </span>                :            :     GDBusMethodInvocation * invocation, gpointer user_data)
 <span class="lineNum">     143 </span>                :            : {
-<span class="lineNum">     144 </span>                :<span class="lineNoCov">          0 :   GstSwitchController *controller = GST_SWITCH_CONTROLLER (user_data);</span>
-<span class="lineNum">     145 </span>                :<span class="lineNoCov">          0 :   GstSwitchControllerClass *klass =</span>
-<span class="lineNum">     146 </span>                :<span class="lineNoCov">          0 :       GST_SWITCH_CONTROLLER_CLASS (G_OBJECT_GET_CLASS (controller));</span>
-<span class="lineNum">     147 </span>                :<span class="lineNoCov">          0 :   MethodFunc entry = (MethodFunc) g_hash_table_find (klass-&gt;methods,</span>
+<span class="lineNum">     144 </span>                :<span class="lineCov">         12 :   GstSwitchController *controller = GST_SWITCH_CONTROLLER (user_data);</span>
+<span class="lineNum">     145 </span>                :<span class="lineCov">         12 :   GstSwitchControllerClass *klass =</span>
+<span class="lineNum">     146 </span>                :<span class="lineCov">         12 :       GST_SWITCH_CONTROLLER_CLASS (G_OBJECT_GET_CLASS (controller));</span>
+<span class="lineNum">     147 </span>                :<span class="lineCov">         12 :   MethodFunc entry = (MethodFunc) g_hash_table_find (klass-&gt;methods,</span>
 <span class="lineNum">     148 </span>                :            :       (GHRFunc)
 <span class="lineNum">     149 </span>                :            :       gst_switch_controller_method_match,
 <span class="lineNum">     150 </span>                :            :       (gpointer) method_name);
 <span class="lineNum">     151 </span>                :            :   GVariant *results;
 <span class="lineNum">     152 </span>                :            : 
-<span class="lineNum">     153 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (!entry)</span>
+<span class="lineNum">     153 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 12 times"> + </span>]:<span class="lineCov">         12 :   if (!entry)</span>
 <span class="lineNum">     154 </span>                :<span class="lineNoCov">          0 :     goto error_no_method;</span>
 <span class="lineNum">     155 </span>                :            : 
 <span class="lineNum">     156 </span>                :            :   /*
 <span class="lineNum">     157 </span>                :            :      INFO (&quot;calling: %s/%s&quot;, interface_name, method_name);
 <span class="lineNum">     158 </span>                :            :    */
 <span class="lineNum">     159 </span>                :            : 
-<span class="lineNum">     160 </span>                :<span class="lineNoCov">          0 :   results = (*entry) (G_OBJECT (controller), connection, parameters);</span>
-<span class="lineNum">     161 </span>                :<span class="lineNoCov">          0 :   g_dbus_method_invocation_return_value (invocation, results);</span>
-<span class="lineNum">     162 </span>                :<span class="lineNoCov">          0 :   return;</span>
+<span class="lineNum">     160 </span>                :<span class="lineCov">         12 :   results = (*entry) (G_OBJECT (controller), connection, parameters);</span>
+<span class="lineNum">     161 </span>                :<span class="lineCov">         12 :   g_dbus_method_invocation_return_value (invocation, results);</span>
+<span class="lineNum">     162 </span>                :<span class="lineCov">         12 :   return;</span>
 <span class="lineNum">     163 </span>                :            : 
 <span class="lineNum">     164 </span>                :            : error_no_method:
 <span class="lineNum">     165 </span>                :            :   {
@@ -351,7 +351,7 @@
 <span class="lineNum">     279 </span>                :            :  * @memberof GstSwitchController
 <a name="280"><span class="lineNum">     280 </span>                :            :  */</a>
 <span class="lineNum">     281 </span>                :            : static void
-<span class="lineNum">     282 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_emit_ui_signal (GstSwitchController * controller,</span>
+<span class="lineNum">     282 </span>                :<span class="lineCov">         53 : gst_switch_controller_emit_ui_signal (GstSwitchController * controller,</span>
 <span class="lineNum">     283 </span>                :            :     const gchar * signame, GVariant * parameters)
 <span class="lineNum">     284 </span>                :            : {
 <span class="lineNum">     285 </span>                :            :   GError *error;
@@ -359,11 +359,11 @@
 <span class="lineNum">     287 </span>                :            :   GList *ui;
 <span class="lineNum">     288 </span>                :            :   gint num;
 <span class="lineNum">     289 </span>                :            : 
-<span class="lineNum">     290 </span>                :<span class="lineNoCov">          0 :   GST_SWITCH_CONTROLLER_LOCK_UIS (controller);</span>
-<span class="lineNum">     291 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   g_assert (parameters);</span>
-<span class="lineNum">     292 </span>                :<span class="lineNoCov">          0 :   g_variant_ref_sink (parameters);</span>
+<span class="lineNum">     290 </span>                :<span class="lineCov">         53 :   GST_SWITCH_CONTROLLER_LOCK_UIS (controller);</span>
+<span class="lineNum">     291 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 53 times"> + </span>]:<span class="lineCov">         53 :   g_assert (parameters);</span>
+<span class="lineNum">     292 </span>                :<span class="lineCov">         53 :   g_variant_ref_sink (parameters);</span>
 <span class="lineNum">     293 </span>                :            : 
-<span class="lineNum">     294 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (ui = controller-&gt;uis, num = 0; ui; ui = g_list_next (ui)) {</span>
+<span class="lineNum">     294 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 53 times"> + </span>]:<span class="lineCov">         53 :   for (ui = controller-&gt;uis, num = 0; ui; ui = g_list_next (ui)) {</span>
 <span class="lineNum">     295 </span>                :<span class="lineNoCov">          0 :     error = NULL;</span>
 <span class="lineNum">     296 </span>                :<span class="lineNoCov">          0 :     res = g_dbus_connection_emit_signal (G_DBUS_CONNECTION (ui-&gt;data), NULL,    /* destination_bus_name */</span>
 <span class="lineNum">     297 </span>                :            :         SWITCH_UI_OBJECT_PATH, SWITCH_UI_OBJECT_NAME,
@@ -378,36 +378,36 @@
 <span class="lineNum">     306 </span>                :            :   /*
 <span class="lineNum">     307 </span>                :            :      INFO (&quot;emit: %s (%d/%d)&quot;, signame, num, g_list_length (controller-&gt;uis));
 <span class="lineNum">     308 </span>                :            :    */
-<span class="lineNum">     309 </span>                :<span class="lineNoCov">          0 :   g_variant_unref (parameters);</span>
+<span class="lineNum">     309 </span>                :<span class="lineCov">         53 :   g_variant_unref (parameters);</span>
 <span class="lineNum">     310 </span>                :            : 
-<span class="lineNum">     311 </span>                :<span class="lineNoCov">          0 :   GST_SWITCH_CONTROLLER_UNLOCK_UIS (controller);</span>
-<span class="lineNum">     312 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     311 </span>                :<span class="lineCov">         53 :   GST_SWITCH_CONTROLLER_UNLOCK_UIS (controller);</span>
+<span class="lineNum">     312 </span>                :<span class="lineCov">         53 : }</span>
 <span class="lineNum">     313 </span>                :            : 
 <span class="lineNum">     314 </span>                :            : /**
 <span class="lineNum">     315 </span>                :            :  * @brief Invoked to cleanup when a connected client is closed.
 <span class="lineNum">     316 </span>                :            :  * @memberof GstSwitchController
 <a name="317"><span class="lineNum">     317 </span>                :            :  */</a>
 <span class="lineNum">     318 </span>                :            : static void
-<span class="lineNum">     319 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_on_connection_closed (GDBusConnection * connection,</span>
+<span class="lineNum">     319 </span>                :<span class="lineCov">          5 : gst_switch_controller_on_connection_closed (GDBusConnection * connection,</span>
 <span class="lineNum">     320 </span>                :            :     gboolean vanished, GError * error, gpointer user_data)
 <span class="lineNum">     321 </span>                :            : {
-<span class="lineNum">     322 </span>                :<span class="lineNoCov">          0 :   GstSwitchController *controller = GST_SWITCH_CONTROLLER (user_data);</span>
+<span class="lineNum">     322 </span>                :<span class="lineCov">          5 :   GstSwitchController *controller = GST_SWITCH_CONTROLLER (user_data);</span>
 <span class="lineNum">     323 </span>                :            : 
 <span class="lineNum">     324 </span>                :            :   (void) controller;
 <span class="lineNum">     325 </span>                :            : 
-<span class="lineNum">     326 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (error) {</span>
-<span class="lineNum">     327 </span>                :<span class="lineNoCov">          0 :     WARN (&quot;close: %s&quot;, error-&gt;message);</span>
-<span class="lineNum">     328 </span>                :<span class="lineNoCov">          0 :     g_error_free (error);</span>
+<span class="lineNum">     326 </span>        [<span class="branchCov" title="Branch 0 was taken 5 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          5 :   if (error) {</span>
+<span class="lineNum">     327 </span>                :<span class="lineCov">          5 :     WARN (&quot;close: %s&quot;, error-&gt;message);</span>
+<span class="lineNum">     328 </span>                :<span class="lineCov">          5 :     g_error_free (error);</span>
 <span class="lineNum">     329 </span>                :            :   }
 <span class="lineNum">     330 </span>                :            : 
-<span class="lineNum">     331 </span>                :<span class="lineNoCov">          0 :   g_object_unref (connection);</span>
-<span class="lineNum">     332 </span>                :<span class="lineNoCov">          0 :   GST_SWITCH_CONTROLLER_LOCK_UIS (controller);</span>
-<span class="lineNum">     333 </span>                :<span class="lineNoCov">          0 :   controller-&gt;uis = g_list_remove (controller-&gt;uis, connection);</span>
-<span class="lineNum">     334 </span>                :<span class="lineNoCov">          0 :   GST_SWITCH_CONTROLLER_UNLOCK_UIS (controller);</span>
+<span class="lineNum">     331 </span>                :<span class="lineCov">          5 :   g_object_unref (connection);</span>
+<span class="lineNum">     332 </span>                :<span class="lineCov">          5 :   GST_SWITCH_CONTROLLER_LOCK_UIS (controller);</span>
+<span class="lineNum">     333 </span>                :<span class="lineCov">          5 :   controller-&gt;uis = g_list_remove (controller-&gt;uis, connection);</span>
+<span class="lineNum">     334 </span>                :<span class="lineCov">          5 :   GST_SWITCH_CONTROLLER_UNLOCK_UIS (controller);</span>
 <span class="lineNum">     335 </span>                :            : 
-<span class="lineNum">     336 </span>                :<span class="lineNoCov">          0 :   INFO (&quot;closed: %p, %d (%d uis)&quot;, connection, vanished,</span>
+<span class="lineNum">     336 </span>                :<span class="lineCov">          5 :   INFO (&quot;closed: %p, %d (%d uis)&quot;, connection, vanished,</span>
 <span class="lineNum">     337 </span>                :            :       g_list_length (controller-&gt;uis));
-<span class="lineNum">     338 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     338 </span>                :<span class="lineCov">          5 : }</span>
 <span class="lineNum">     339 </span>                :            : 
 <span class="lineNum">     340 </span>                :            : static GVariant *gst_switch_controller_call_client (GstSwitchController *
 <span class="lineNum">     341 </span>                :            :     controller, GDBusConnection * connection, gint role,
@@ -421,21 +421,21 @@
 <span class="lineNum">     349 </span>                :            : } GstSwitchAddNewClientParams;
 <a name="350"><span class="lineNum">     350 </span>                :            : </a>
 <span class="lineNum">     351 </span>                :            : static gboolean
-<span class="lineNum">     352 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_add_new_client (GstSwitchAddNewClientParams * params)</span>
+<span class="lineNum">     352 </span>                :<span class="lineCov">          7 : gst_switch_controller_add_new_client (GstSwitchAddNewClientParams * params)</span>
 <span class="lineNum">     353 </span>                :            : {
-<span class="lineNum">     354 </span>                :<span class="lineNoCov">          0 :   GDBusConnection *connection = params-&gt;connection;</span>
-<span class="lineNum">     355 </span>                :<span class="lineNoCov">          0 :   GstSwitchController *controller = params-&gt;controller;</span>
-<span class="lineNum">     356 </span>                :<span class="lineNoCov">          0 :   gint role = CLIENT_ROLE_NONE;</span>
+<span class="lineNum">     354 </span>                :<span class="lineCov">          7 :   GDBusConnection *connection = params-&gt;connection;</span>
+<span class="lineNum">     355 </span>                :<span class="lineCov">          7 :   GstSwitchController *controller = params-&gt;controller;</span>
+<span class="lineNum">     356 </span>                :<span class="lineCov">          7 :   gint role = CLIENT_ROLE_NONE;</span>
 <span class="lineNum">     357 </span>                :            :   {
-<span class="lineNum">     358 </span>                :<span class="lineNoCov">          0 :     gint tests[] = { CLIENT_ROLE_UI, CLIENT_ROLE_CAPTURE, };</span>
-<span class="lineNum">     359 </span>                :<span class="lineNoCov">          0 :     GVariant *parameters = NULL, *res = NULL;</span>
-<span class="lineNum">     360 </span>                :<span class="lineNoCov">          0 :     int n = 0;</span>
-<span class="lineNum">     361 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (; n &lt; sizeof (tests); ++n) {</span>
-<span class="lineNum">     362 </span>                :<span class="lineNoCov">          0 :       role = CLIENT_ROLE_NONE;</span>
-<span class="lineNum">     363 </span>                :<span class="lineNoCov">          0 :       parameters = g_variant_new (&quot;()&quot;);</span>
-<span class="lineNum">     364 </span>                :<span class="lineNoCov">          0 :       res = gst_switch_controller_call_client (controller,</span>
+<span class="lineNum">     358 </span>                :<span class="lineCov">          7 :     gint tests[] = { CLIENT_ROLE_UI, CLIENT_ROLE_CAPTURE, };</span>
+<span class="lineNum">     359 </span>                :<span class="lineCov">          7 :     GVariant *parameters = NULL, *res = NULL;</span>
+<span class="lineNum">     360 </span>                :<span class="lineCov">          7 :     int n = 0;</span>
+<span class="lineNum">     361 </span>        [<span class="branchCov" title="Branch 0 was taken 56 times"> + </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span>]:<span class="lineCov">         63 :     for (; n &lt; sizeof (tests); ++n) {</span>
+<span class="lineNum">     362 </span>                :<span class="lineCov">         56 :       role = CLIENT_ROLE_NONE;</span>
+<span class="lineNum">     363 </span>                :<span class="lineCov">         56 :       parameters = g_variant_new (&quot;()&quot;);</span>
+<span class="lineNum">     364 </span>                :<span class="lineCov">         56 :       res = gst_switch_controller_call_client (controller,</span>
 <span class="lineNum">     365 </span>                :            :           connection, tests[n], &quot;role&quot;, parameters, G_VARIANT_TYPE (&quot;(i)&quot;));
-<span class="lineNum">     366 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :       if (res) {</span>
+<span class="lineNum">     366 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 56 times"> + </span>]:<span class="lineCov">         56 :       if (res) {</span>
 <span class="lineNum">     367 </span>                :<span class="lineNoCov">          0 :         g_variant_get (res, &quot;(i)&quot;, &amp;role);</span>
 <span class="lineNum">     368 </span>                :<span class="lineNoCov">          0 :         g_variant_unref (res);</span>
 <span class="lineNum">     369 </span>                :<span class="lineNoCov">          0 :         break;</span>
@@ -443,7 +443,7 @@
 <span class="lineNum">     371 </span>                :            :     }
 <span class="lineNum">     372 </span>                :            :   }
 <span class="lineNum">     373 </span>                :            : 
-<span class="lineNum">     374 </span>     [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   switch (role) {</span>
+<span class="lineNum">     374 </span>     [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 7 times"> + </span>]:<span class="lineCov">          7 :   switch (role) {</span>
 <span class="lineNum">     375 </span>                :            :     case CLIENT_ROLE_UI:
 <span class="lineNum">     376 </span>                :<span class="lineNoCov">          0 :       GST_SWITCH_CONTROLLER_LOCK_UIS (controller);</span>
 <span class="lineNum">     377 </span>                :<span class="lineNoCov">          0 :       controller-&gt;uis = g_list_append (controller-&gt;uis, connection);</span>
@@ -455,15 +455,15 @@
 <span class="lineNum">     383 </span>                :<span class="lineNoCov">          0 :       GST_SWITCH_CONTROLLER_UNLOCK_CAPTURES (controller);</span>
 <span class="lineNum">     384 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     385 </span>                :            :     default:
-<span class="lineNum">     386 </span>                :<span class="lineNoCov">          0 :       g_object_unref (connection);</span>
-<span class="lineNum">     387 </span>                :<span class="lineNoCov">          0 :       ERROR (&quot;unknown role: %d&quot;, role);</span>
-<span class="lineNum">     388 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     386 </span>                :<span class="lineCov">          7 :       g_object_unref (connection);</span>
+<span class="lineNum">     387 </span>                :<span class="lineCov">          7 :       ERROR (&quot;unknown role: %d&quot;, role);</span>
+<span class="lineNum">     388 </span>                :<span class="lineCov">          7 :       break;</span>
 <span class="lineNum">     389 </span>                :            :   }
 <span class="lineNum">     390 </span>                :            : 
-<span class="lineNum">     391 </span>                :<span class="lineNoCov">          0 :   g_free (params);</span>
+<span class="lineNum">     391 </span>                :<span class="lineCov">          7 :   g_free (params);</span>
 <span class="lineNum">     392 </span>                :            : 
 <span class="lineNum">     393 </span>                :            :   /* Return FALSE for one-shot */
-<span class="lineNum">     394 </span>                :<span class="lineNoCov">          0 :   return FALSE;</span>
+<span class="lineNum">     394 </span>                :<span class="lineCov">          7 :   return FALSE;</span>
 <span class="lineNum">     395 </span>                :            : }
 <span class="lineNum">     396 </span>                :            : 
 <span class="lineNum">     397 </span>                :            : /**
@@ -471,21 +471,21 @@
 <span class="lineNum">     399 </span>                :            :  * @memberof GstSwitchController
 <a name="400"><span class="lineNum">     400 </span>                :            :  */</a>
 <span class="lineNum">     401 </span>                :            : static gboolean
-<span class="lineNum">     402 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_on_new_connection (GDBusServer * server,</span>
+<span class="lineNum">     402 </span>                :<span class="lineCov">         14 : gst_switch_controller_on_new_connection (GDBusServer * server,</span>
 <span class="lineNum">     403 </span>                :            :     GDBusConnection * connection, gpointer user_data)
 <span class="lineNum">     404 </span>                :            : {
-<span class="lineNum">     405 </span>                :<span class="lineNoCov">          0 :   GstSwitchController *controller = GST_SWITCH_CONTROLLER (user_data);</span>
-<span class="lineNum">     406 </span>                :<span class="lineNoCov">          0 :   GstSwitchAddNewClientParams *params = NULL;</span>
-<span class="lineNum">     407 </span>                :<span class="lineNoCov">          0 :   guint register_id = 0;</span>
-<span class="lineNum">     408 </span>                :<span class="lineNoCov">          0 :   GError *error = NULL;</span>
+<span class="lineNum">     405 </span>                :<span class="lineCov">         14 :   GstSwitchController *controller = GST_SWITCH_CONTROLLER (user_data);</span>
+<span class="lineNum">     406 </span>                :<span class="lineCov">         14 :   GstSwitchAddNewClientParams *params = NULL;</span>
+<span class="lineNum">     407 </span>                :<span class="lineCov">         14 :   guint register_id = 0;</span>
+<span class="lineNum">     408 </span>                :<span class="lineCov">         14 :   GError *error = NULL;</span>
 <span class="lineNum">     409 </span>                :            : 
 <span class="lineNum">     410 </span>                :            :   //INFO (&quot;new-connection...&quot;);
 <span class="lineNum">     411 </span>                :            : 
-<span class="lineNum">     412 </span>                :<span class="lineNoCov">          0 :   register_id = g_dbus_connection_register_object (connection, SWITCH_CONTROLLER_OBJECT_PATH, introspection_data-&gt;interfaces[0], &amp;gst_switch_controller_interface_vtable, controller,   /* user_data */</span>
+<span class="lineNum">     412 </span>                :<span class="lineCov">         14 :   register_id = g_dbus_connection_register_object (connection, SWITCH_CONTROLLER_OBJECT_PATH, introspection_data-&gt;interfaces[0], &amp;gst_switch_controller_interface_vtable, controller,   /* user_data */</span>
 <span class="lineNum">     413 </span>                :            :       NULL,                     /* user_data_free_func */
 <span class="lineNum">     414 </span>                :            :       &amp;error);
 <span class="lineNum">     415 </span>                :            : 
-<span class="lineNum">     416 </span>[<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>][<span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (register_id &lt;= 0 || error != NULL) {</span>
+<span class="lineNum">     416 </span>[<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>][<span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 14 times"> + </span>]:<span class="lineCov">         14 :   if (register_id &lt;= 0 || error != NULL) {</span>
 <span class="lineNum">     417 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;failed to register controller: %s&quot;, error-&gt;message);</span>
 <span class="lineNum">     418 </span>                :<span class="lineNoCov">          0 :     return TRUE;</span>
 <span class="lineNum">     419 </span>                :            :   }
@@ -496,17 +496,17 @@
 <span class="lineNum">     424 </span>                :            :      introspection_data-&gt;interfaces[0]-&gt;name);
 <span class="lineNum">     425 </span>                :            :    */
 <span class="lineNum">     426 </span>                :            : 
-<span class="lineNum">     427 </span>                :<span class="lineNoCov">          0 :   g_signal_connect (connection, &quot;closed&quot;,</span>
+<span class="lineNum">     427 </span>                :<span class="lineCov">         14 :   g_signal_connect (connection, &quot;closed&quot;,</span>
 <span class="lineNum">     428 </span>                :            :       G_CALLBACK (gst_switch_controller_on_connection_closed), controller);
 <span class="lineNum">     429 </span>                :            : 
-<span class="lineNum">     430 </span>                :<span class="lineNoCov">          0 :   params = g_new0 (GstSwitchAddNewClientParams, 1);</span>
-<span class="lineNum">     431 </span>                :<span class="lineNoCov">          0 :   params-&gt;controller = controller;</span>
-<span class="lineNum">     432 </span>                :<span class="lineNoCov">          0 :   params-&gt;connection = connection;</span>
-<span class="lineNum">     433 </span>                :<span class="lineNoCov">          0 :   g_object_ref (connection);</span>
+<span class="lineNum">     430 </span>                :<span class="lineCov">         14 :   params = g_new0 (GstSwitchAddNewClientParams, 1);</span>
+<span class="lineNum">     431 </span>                :<span class="lineCov">         14 :   params-&gt;controller = controller;</span>
+<span class="lineNum">     432 </span>                :<span class="lineCov">         14 :   params-&gt;connection = connection;</span>
+<span class="lineNum">     433 </span>                :<span class="lineCov">         14 :   g_object_ref (connection);</span>
 <span class="lineNum">     434 </span>                :            : 
-<span class="lineNum">     435 </span>                :<span class="lineNoCov">          0 :   g_timeout_add (500, (GSourceFunc) gst_switch_controller_add_new_client,</span>
+<span class="lineNum">     435 </span>                :<span class="lineCov">         14 :   g_timeout_add (500, (GSourceFunc) gst_switch_controller_add_new_client,</span>
 <span class="lineNum">     436 </span>                :            :       params);
-<span class="lineNum">     437 </span>                :<span class="lineNoCov">          0 :   return TRUE;</span>
+<span class="lineNum">     437 </span>                :<span class="lineCov">         14 :   return TRUE;</span>
 <span class="lineNum">     438 </span>                :            : }
 <span class="lineNum">     439 </span>                :            : 
 <span class="lineNum">     440 </span>                :            : /**
@@ -514,12 +514,12 @@
 <span class="lineNum">     442 </span>                :            :  * @memberof GstSwitchController
 <a name="443"><span class="lineNum">     443 </span>                :            :  */</a>
 <span class="lineNum">     444 </span>                :            : static gboolean
-<span class="lineNum">     445 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_authorize_authenticated_peer (GDBusAuthObserver *</span>
+<span class="lineNum">     445 </span>                :<span class="lineCov">         14 : gst_switch_controller_authorize_authenticated_peer (GDBusAuthObserver *</span>
 <span class="lineNum">     446 </span>                :            :     observer,
 <span class="lineNum">     447 </span>                :            :     GIOStream * stream, GCredentials * credentials, gpointer user_data)
 <span class="lineNum">     448 </span>                :            : {
-<span class="lineNum">     449 </span>                :<span class="lineNoCov">          0 :   INFO (&quot;authorize: %s&quot;, g_credentials_to_string (credentials));</span>
-<span class="lineNum">     450 </span>                :<span class="lineNoCov">          0 :   return TRUE;</span>
+<span class="lineNum">     449 </span>                :<span class="lineCov">         14 :   INFO (&quot;authorize: %s&quot;, g_credentials_to_string (credentials));</span>
+<span class="lineNum">     450 </span>                :<span class="lineCov">         14 :   return TRUE;</span>
 <span class="lineNum">     451 </span>                :            : }
 <span class="lineNum">     452 </span>                :            : 
 <span class="lineNum">     453 </span>                :            : /**
@@ -528,43 +528,43 @@
 <span class="lineNum">     456 </span>                :            :  * @see GObject
 <a name="457"><span class="lineNum">     457 </span>                :            :  */</a>
 <span class="lineNum">     458 </span>                :            : static void
-<span class="lineNum">     459 </span>                :<span class="lineCov">          3 : gst_switch_controller_init (GstSwitchController * controller)</span>
+<span class="lineNum">     459 </span>                :<span class="lineCov">         18 : gst_switch_controller_init (GstSwitchController * controller)</span>
 <span class="lineNum">     460 </span>                :            : {
-<span class="lineNum">     461 </span>                :<span class="lineCov">          3 :   gchar *guid = g_dbus_generate_guid ();</span>
-<span class="lineNum">     462 </span>                :<span class="lineCov">          3 :   GDBusServerFlags flags = G_DBUS_SERVER_FLAGS_NONE;</span>
+<span class="lineNum">     461 </span>                :<span class="lineCov">         18 :   gchar *guid = g_dbus_generate_guid ();</span>
+<span class="lineNum">     462 </span>                :<span class="lineCov">         18 :   GDBusServerFlags flags = G_DBUS_SERVER_FLAGS_NONE;</span>
 <span class="lineNum">     463 </span>                :            :   GDBusAuthObserver *auth_observer;
-<span class="lineNum">     464 </span>                :<span class="lineCov">          3 :   GError *error = NULL;</span>
+<span class="lineNum">     464 </span>                :<span class="lineCov">         18 :   GError *error = NULL;</span>
 <span class="lineNum">     465 </span>                :            : 
-<span class="lineNum">     466 </span>                :<span class="lineCov">          3 :   g_mutex_init (&amp;controller-&gt;uis_lock);</span>
-<span class="lineNum">     467 </span>                :<span class="lineCov">          3 :   g_mutex_init (&amp;controller-&gt;captures_lock);</span>
-<span class="lineNum">     468 </span>                :<span class="lineCov">          3 :   controller-&gt;uis = NULL;</span>
-<span class="lineNum">     469 </span>                :<span class="lineCov">          3 :   controller-&gt;captures = NULL;</span>
+<span class="lineNum">     466 </span>                :<span class="lineCov">         18 :   g_mutex_init (&amp;controller-&gt;uis_lock);</span>
+<span class="lineNum">     467 </span>                :<span class="lineCov">         18 :   g_mutex_init (&amp;controller-&gt;captures_lock);</span>
+<span class="lineNum">     468 </span>                :<span class="lineCov">         18 :   controller-&gt;uis = NULL;</span>
+<span class="lineNum">     469 </span>                :<span class="lineCov">         18 :   controller-&gt;captures = NULL;</span>
 <span class="lineNum">     470 </span>                :            : 
-<span class="lineNum">     471 </span>                :<span class="lineCov">          3 :   flags |= G_DBUS_SERVER_FLAGS_RUN_IN_THREAD;</span>
-<span class="lineNum">     472 </span>                :<span class="lineCov">          3 :   flags |= G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS;</span>
+<span class="lineNum">     471 </span>                :<span class="lineCov">         18 :   flags |= G_DBUS_SERVER_FLAGS_RUN_IN_THREAD;</span>
+<span class="lineNum">     472 </span>                :<span class="lineCov">         18 :   flags |= G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS;</span>
 <span class="lineNum">     473 </span>                :            : 
-<span class="lineNum">     474 </span>                :<span class="lineCov">          3 :   auth_observer = g_dbus_auth_observer_new ();</span>
-<span class="lineNum">     475 </span>                :<span class="lineCov">          3 :   controller-&gt;bus_server = g_dbus_server_new_sync (SWITCH_CONTROLLER_ADDRESS, flags, guid, auth_observer, NULL, /* GCancellable */</span>
+<span class="lineNum">     474 </span>                :<span class="lineCov">         18 :   auth_observer = g_dbus_auth_observer_new ();</span>
+<span class="lineNum">     475 </span>                :<span class="lineCov">         18 :   controller-&gt;bus_server = g_dbus_server_new_sync (SWITCH_CONTROLLER_ADDRESS, flags, guid, auth_observer, NULL, /* GCancellable */</span>
 <span class="lineNum">     476 </span>                :            :       &amp;error);
 <span class="lineNum">     477 </span>                :            : 
-<span class="lineNum">     478 </span>                :<span class="lineCov">          3 :   g_free (guid);</span>
+<span class="lineNum">     478 </span>                :<span class="lineCov">         18 :   g_free (guid);</span>
 <span class="lineNum">     479 </span>                :            : 
-<span class="lineNum">     480 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   if (controller-&gt;bus_server == NULL)</span>
+<span class="lineNum">     480 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span>]:<span class="lineCov">         18 :   if (controller-&gt;bus_server == NULL)</span>
 <span class="lineNum">     481 </span>                :<span class="lineNoCov">          0 :     goto error_new_server;</span>
 <span class="lineNum">     482 </span>                :            : 
-<span class="lineNum">     483 </span>                :<span class="lineCov">          3 :   INFO (&quot;Controller is listening at: %s&quot;,</span>
+<span class="lineNum">     483 </span>                :<span class="lineCov">         18 :   INFO (&quot;Controller is listening at: %s&quot;,</span>
 <span class="lineNum">     484 </span>                :            :       g_dbus_server_get_client_address (controller-&gt;bus_server));
 <span class="lineNum">     485 </span>                :            : 
-<span class="lineNum">     486 </span>                :<span class="lineCov">          3 :   g_signal_connect (controller-&gt;bus_server, &quot;new-connection&quot;,</span>
+<span class="lineNum">     486 </span>                :<span class="lineCov">         18 :   g_signal_connect (controller-&gt;bus_server, &quot;new-connection&quot;,</span>
 <span class="lineNum">     487 </span>                :            :       G_CALLBACK (gst_switch_controller_on_new_connection), controller);
 <span class="lineNum">     488 </span>                :            : 
-<span class="lineNum">     489 </span>                :<span class="lineCov">          3 :   g_signal_connect (auth_observer, &quot;authorize-authenticated-peer&quot;,</span>
+<span class="lineNum">     489 </span>                :<span class="lineCov">         18 :   g_signal_connect (auth_observer, &quot;authorize-authenticated-peer&quot;,</span>
 <span class="lineNum">     490 </span>                :            :       G_CALLBACK
 <span class="lineNum">     491 </span>                :            :       (gst_switch_controller_authorize_authenticated_peer), controller);
 <span class="lineNum">     492 </span>                :            : 
-<span class="lineNum">     493 </span>                :<span class="lineCov">          3 :   g_dbus_server_start (controller-&gt;bus_server);</span>
+<span class="lineNum">     493 </span>                :<span class="lineCov">         18 :   g_dbus_server_start (controller-&gt;bus_server);</span>
 <span class="lineNum">     494 </span>                :            : 
-<span class="lineNum">     495 </span>                :<span class="lineCov">          3 :   g_object_unref (auth_observer);</span>
+<span class="lineNum">     495 </span>                :<span class="lineCov">         18 :   g_object_unref (auth_observer);</span>
 <span class="lineNum">     496 </span>                :            : 
 <span class="lineNum">     497 </span>                :            :   // TODO: singleton object
 <span class="lineNum">     498 </span>                :            :   return;
@@ -573,7 +573,7 @@
 <span class="lineNum">     501 </span>                :            : error_new_server:
 <span class="lineNum">     502 </span>                :            :   {
 <span class="lineNum">     503 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (error)</span>
-<span class="lineNum">     504 </span>                :<span class="lineCov">          3 :       ERROR (&quot;%s&quot;, error-&gt;message);</span>
+<span class="lineNum">     504 </span>                :<span class="lineCov">         18 :       ERROR (&quot;%s&quot;, error-&gt;message);</span>
 <span class="lineNum">     505 </span>                :            :     return;
 <span class="lineNum">     506 </span>                :            :   }
 <span class="lineNum">     507 </span>                :            : }
@@ -584,23 +584,23 @@
 <span class="lineNum">     512 </span>                :            :  * @see GObject
 <a name="513"><span class="lineNum">     513 </span>                :            :  */</a>
 <span class="lineNum">     514 </span>                :            : static void
-<span class="lineNum">     515 </span>                :<span class="lineCov">          3 : gst_switch_controller_finalize (GstSwitchController * controller)</span>
+<span class="lineNum">     515 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_finalize (GstSwitchController * controller)</span>
 <span class="lineNum">     516 </span>                :            : {
-<span class="lineNum">     517 </span>                :<span class="lineCov">          3 :   INFO (&quot;gst_switch_controller finalized&quot;);</span>
-<span class="lineNum">     518 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (controller-&gt;bus_server) {</span>
-<span class="lineNum">     519 </span>                :<span class="lineCov">          3 :     g_dbus_server_stop (controller-&gt;bus_server);</span>
-<span class="lineNum">     520 </span>        [<span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span>]:<span class="lineCov">          3 :     g_assert (!g_dbus_server_is_active (controller-&gt;bus_server));</span>
-<span class="lineNum">     521 </span>                :<span class="lineCov">          3 :     g_object_unref (controller-&gt;bus_server);</span>
-<span class="lineNum">     522 </span>                :<span class="lineCov">          3 :     controller-&gt;bus_server = NULL;</span>
+<span class="lineNum">     517 </span>                :<span class="lineNoCov">          0 :   INFO (&quot;gst_switch_controller finalized&quot;);</span>
+<span class="lineNum">     518 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;bus_server) {</span>
+<span class="lineNum">     519 </span>                :<span class="lineNoCov">          0 :     g_dbus_server_stop (controller-&gt;bus_server);</span>
+<span class="lineNum">     520 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :     g_assert (!g_dbus_server_is_active (controller-&gt;bus_server));</span>
+<span class="lineNum">     521 </span>                :<span class="lineNoCov">          0 :     g_object_unref (controller-&gt;bus_server);</span>
+<span class="lineNum">     522 </span>                :<span class="lineNoCov">          0 :     controller-&gt;bus_server = NULL;</span>
 <span class="lineNum">     523 </span>                :            :   }
 <span class="lineNum">     524 </span>                :            : 
-<span class="lineNum">     525 </span>                :<span class="lineCov">          3 :   g_mutex_clear (&amp;controller-&gt;uis_lock);</span>
-<span class="lineNum">     526 </span>                :<span class="lineCov">          3 :   g_mutex_clear (&amp;controller-&gt;captures_lock);</span>
+<span class="lineNum">     525 </span>                :<span class="lineNoCov">          0 :   g_mutex_clear (&amp;controller-&gt;uis_lock);</span>
+<span class="lineNum">     526 </span>                :<span class="lineNoCov">          0 :   g_mutex_clear (&amp;controller-&gt;captures_lock);</span>
 <span class="lineNum">     527 </span>                :            : 
-<span class="lineNum">     528 </span>        [<span class="branchCov" title="Branch 1 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">          3 :   if (G_OBJECT_CLASS (gst_switch_controller_parent_class)-&gt;finalize)</span>
-<span class="lineNum">     529 </span>                :<span class="lineCov">          3 :     (*G_OBJECT_CLASS (gst_switch_controller_parent_class)-&gt;finalize)</span>
-<span class="lineNum">     530 </span>                :<span class="lineCov">          3 :         (G_OBJECT (controller));</span>
-<span class="lineNum">     531 </span>                :<span class="lineCov">          3 : }</span>
+<span class="lineNum">     528 </span>        [<span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (G_OBJECT_CLASS (gst_switch_controller_parent_class)-&gt;finalize)</span>
+<span class="lineNum">     529 </span>                :<span class="lineNoCov">          0 :     (*G_OBJECT_CLASS (gst_switch_controller_parent_class)-&gt;finalize)</span>
+<span class="lineNum">     530 </span>                :<span class="lineNoCov">          0 :         (G_OBJECT (controller));</span>
+<span class="lineNum">     531 </span>                :<span class="lineNoCov">          0 : }</span>
 <span class="lineNum">     532 </span>                :            : 
 <span class="lineNum">     533 </span>                :            : /**
 <span class="lineNum">     534 </span>                :            :  * @brief Check if the controller is valid.
@@ -609,13 +609,13 @@
 <span class="lineNum">     537 </span>                :            :  * @memberof GstSwitchController
 <a name="538"><span class="lineNum">     538 </span>                :            :  */</a>
 <span class="lineNum">     539 </span>                :            : gboolean
-<span class="lineNum">     540 </span>                :<span class="lineCov">          3 : gst_switch_controller_is_valid (GstSwitchController * controller)</span>
+<span class="lineNum">     540 </span>                :<span class="lineCov">         18 : gst_switch_controller_is_valid (GstSwitchController * controller)</span>
 <span class="lineNum">     541 </span>                :            : {
-<span class="lineNum">     542 </span>                :<span class="lineCov">          3 :   gboolean valid = FALSE;</span>
-<span class="lineNum">     543 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (controller-&gt;bus_server) {</span>
-<span class="lineNum">     544 </span>                :<span class="lineCov">          3 :     valid = TRUE;</span>
+<span class="lineNum">     542 </span>                :<span class="lineCov">         18 :   gboolean valid = FALSE;</span>
+<span class="lineNum">     543 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         18 :   if (controller-&gt;bus_server) {</span>
+<span class="lineNum">     544 </span>                :<span class="lineCov">         18 :     valid = TRUE;</span>
 <span class="lineNum">     545 </span>                :            :   }
-<span class="lineNum">     546 </span>                :<span class="lineCov">          3 :   return valid;</span>
+<span class="lineNum">     546 </span>                :<span class="lineCov">         18 :   return valid;</span>
 <span class="lineNum">     547 </span>                :            : }
 <span class="lineNum">     548 </span>                :            : 
 <span class="lineNum">     549 </span>                :            : /**
@@ -623,48 +623,48 @@
 <span class="lineNum">     551 </span>                :            :  * @memberof GstSwitchController
 <a name="552"><span class="lineNum">     552 </span>                :            :  */</a>
 <span class="lineNum">     553 </span>                :            : static GVariant *
-<span class="lineNum">     554 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_call_client (GstSwitchController * controller,</span>
+<span class="lineNum">     554 </span>                :<span class="lineCov">         56 : gst_switch_controller_call_client (GstSwitchController * controller,</span>
 <span class="lineNum">     555 </span>                :            :     GDBusConnection * connection, gint role, const gchar * method_name,
 <span class="lineNum">     556 </span>                :            :     GVariant * parameters, const GVariantType * reply_type)
 <span class="lineNum">     557 </span>                :            : {
-<span class="lineNum">     558 </span>                :<span class="lineNoCov">          0 :   GVariant *value = NULL;</span>
-<span class="lineNum">     559 </span>                :<span class="lineNoCov">          0 :   GError *error = NULL;</span>
+<span class="lineNum">     558 </span>                :<span class="lineCov">         56 :   GVariant *value = NULL;</span>
+<span class="lineNum">     559 </span>                :<span class="lineCov">         56 :   GError *error = NULL;</span>
 <span class="lineNum">     560 </span>                :            : 
 <span class="lineNum">     561 </span>                :            :   /*
 <span class="lineNum">     562 </span>                :            :      INFO (&quot;calling: %s/%s&quot;, SWITCH_CONTROLLER_OBJECT_NAME, method_name);
 <span class="lineNum">     563 </span>                :            :    */
 <span class="lineNum">     564 </span>                :            : 
-<span class="lineNum">     565 </span>                :<span class="lineNoCov">          0 :   const char *path = &quot;&quot;;</span>
-<span class="lineNum">     566 </span>                :<span class="lineNoCov">          0 :   const char *name = &quot;&quot;;</span>
-<span class="lineNum">     567 </span>     [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   switch (role) {</span>
+<span class="lineNum">     565 </span>                :<span class="lineCov">         56 :   const char *path = &quot;&quot;;</span>
+<span class="lineNum">     566 </span>                :<span class="lineCov">         56 :   const char *name = &quot;&quot;;</span>
+<span class="lineNum">     567 </span>     [<span class="branchCov" title="Branch 0 was taken 7 times"> + </span><span class="branchCov" title="Branch 1 was taken 7 times"> + </span><span class="branchCov" title="Branch 2 was taken 42 times"> + </span>]:<span class="lineCov">         56 :   switch (role) {</span>
 <span class="lineNum">     568 </span>                :            :     case CLIENT_ROLE_UI:
-<span class="lineNum">     569 </span>                :<span class="lineNoCov">          0 :       path = SWITCH_UI_OBJECT_PATH;</span>
-<span class="lineNum">     570 </span>                :<span class="lineNoCov">          0 :       name = SWITCH_UI_OBJECT_NAME;</span>
-<span class="lineNum">     571 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     569 </span>                :<span class="lineCov">          7 :       path = SWITCH_UI_OBJECT_PATH;</span>
+<span class="lineNum">     570 </span>                :<span class="lineCov">          7 :       name = SWITCH_UI_OBJECT_NAME;</span>
+<span class="lineNum">     571 </span>                :<span class="lineCov">          7 :       break;</span>
 <span class="lineNum">     572 </span>                :            :     case CLIENT_ROLE_CAPTURE:
-<span class="lineNum">     573 </span>                :<span class="lineNoCov">          0 :       path = SWITCH_CAPTURE_OBJECT_PATH;</span>
-<span class="lineNum">     574 </span>                :<span class="lineNoCov">          0 :       name = SWITCH_CAPTURE_OBJECT_NAME;</span>
-<span class="lineNum">     575 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     573 </span>                :<span class="lineCov">          7 :       path = SWITCH_CAPTURE_OBJECT_PATH;</span>
+<span class="lineNum">     574 </span>                :<span class="lineCov">          7 :       name = SWITCH_CAPTURE_OBJECT_NAME;</span>
+<span class="lineNum">     575 </span>                :<span class="lineCov">          7 :       break;</span>
 <span class="lineNum">     576 </span>                :            :   }
 <span class="lineNum">     577 </span>                :            : 
-<span class="lineNum">     578 </span>                :<span class="lineNoCov">          0 :   value = g_dbus_connection_call_sync (connection, NULL,        /* bus_name */</span>
+<span class="lineNum">     578 </span>                :<span class="lineCov">         56 :   value = g_dbus_connection_call_sync (connection, NULL,        /* bus_name */</span>
 <span class="lineNum">     579 </span>                :            :       path, name, method_name, parameters, reply_type, G_DBUS_CALL_FLAGS_NONE, 5000,    /* timeout_msec */
 <span class="lineNum">     580 </span>                :            :       NULL /* TODO: cancellable */ ,
 <span class="lineNum">     581 </span>                :            :       &amp;error);
 <span class="lineNum">     582 </span>                :            : 
-<span class="lineNum">     583 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (error != NULL)</span>
-<span class="lineNum">     584 </span>                :<span class="lineNoCov">          0 :     goto error_call_sync;</span>
+<span class="lineNum">     583 </span>        [<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchCov" title="Branch 1 was taken 42 times"> + </span>]:<span class="lineCov">         56 :   if (error != NULL)</span>
+<span class="lineNum">     584 </span>                :<span class="lineCov">         14 :     goto error_call_sync;</span>
 <span class="lineNum">     585 </span>                :            : 
-<span class="lineNum">     586 </span>                :<span class="lineNoCov">          0 :   return value;</span>
+<span class="lineNum">     586 </span>                :<span class="lineCov">         42 :   return value;</span>
 <span class="lineNum">     587 </span>                :            : 
 <span class="lineNum">     588 </span>                :            :   /* ERRORS */
 <span class="lineNum">     589 </span>                :            : error_call_sync:
 <span class="lineNum">     590 </span>                :            :   {
-<span class="lineNum">     591 </span>                :<span class="lineNoCov">          0 :     ERROR (&quot;%s (%s)&quot;, error-&gt;message, method_name);</span>
-<span class="lineNum">     592 </span>                :<span class="lineNoCov">          0 :     g_error_free (error);</span>
-<span class="lineNum">     593 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if (value)</span>
+<span class="lineNum">     591 </span>                :<span class="lineCov">         14 :     ERROR (&quot;%s (%s)&quot;, error-&gt;message, method_name);</span>
+<span class="lineNum">     592 </span>                :<span class="lineCov">         14 :     g_error_free (error);</span>
+<span class="lineNum">     593 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 14 times"> + </span>]:<span class="lineCov">         14 :     if (value)</span>
 <span class="lineNum">     594 </span>                :<span class="lineNoCov">          0 :       g_variant_unref (value);</span>
-<span class="lineNum">     595 </span>                :<span class="lineNoCov">          0 :     return NULL;</span>
+<span class="lineNum">     595 </span>                :<span class="lineCov">         56 :     return NULL;</span>
 <span class="lineNum">     596 </span>                :            :   }
 <span class="lineNum">     597 </span>                :            : }
 <span class="lineNum">     598 </span>                :            : 
@@ -673,30 +673,30 @@
 <span class="lineNum">     601 </span>                :            :  * @memberof GstSwitchController
 <a name="602"><span class="lineNum">     602 </span>                :            :  */</a>
 <span class="lineNum">     603 </span>                :            : static void
-<span class="lineNum">     604 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_call_clients (GstSwitchController * controller,</span>
+<span class="lineNum">     604 </span>                :<span class="lineCov">         74 : gst_switch_controller_call_clients (GstSwitchController * controller,</span>
 <span class="lineNum">     605 </span>                :            :     gint role, const gchar * method_name,
 <span class="lineNum">     606 </span>                :            :     GVariant * parameters, const GVariantType * reply_type)
 <span class="lineNum">     607 </span>                :            : {
 <span class="lineNum">     608 </span>                :            :   GDBusConnection *connection;
 <span class="lineNum">     609 </span>                :            :   GVariant *value;
-<span class="lineNum">     610 </span>                :<span class="lineNoCov">          0 :   GList *ui, *clients = NULL;</span>
+<span class="lineNum">     610 </span>                :<span class="lineCov">         74 :   GList *ui, *clients = NULL;</span>
 <span class="lineNum">     611 </span>                :            : 
-<span class="lineNum">     612 </span>                :<span class="lineNoCov">          0 :   g_variant_ref_sink (parameters);</span>
+<span class="lineNum">     612 </span>                :<span class="lineCov">         74 :   g_variant_ref_sink (parameters);</span>
 <span class="lineNum">     613 </span>                :            : 
-<span class="lineNum">     614 </span>     [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   switch (role) {</span>
+<span class="lineNum">     614 </span>     [<span class="branchCov" title="Branch 0 was taken 74 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         74 :   switch (role) {</span>
 <span class="lineNum">     615 </span>                :            :     case CLIENT_ROLE_UI:
-<span class="lineNum">     616 </span>                :<span class="lineNoCov">          0 :       GST_SWITCH_CONTROLLER_LOCK_UIS (controller);</span>
-<span class="lineNum">     617 </span>                :<span class="lineNoCov">          0 :       clients = controller-&gt;uis;</span>
-<span class="lineNum">     618 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     616 </span>                :<span class="lineCov">         74 :       GST_SWITCH_CONTROLLER_LOCK_UIS (controller);</span>
+<span class="lineNum">     617 </span>                :<span class="lineCov">         74 :       clients = controller-&gt;uis;</span>
+<span class="lineNum">     618 </span>                :<span class="lineCov">         74 :       break;</span>
 <span class="lineNum">     619 </span>                :            :     case CLIENT_ROLE_CAPTURE:
 <span class="lineNum">     620 </span>                :<span class="lineNoCov">          0 :       GST_SWITCH_CONTROLLER_LOCK_CAPTURES (controller);</span>
 <span class="lineNum">     621 </span>                :<span class="lineNoCov">          0 :       clients = controller-&gt;captures;</span>
 <span class="lineNum">     622 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     623 </span>                :            :   }
 <span class="lineNum">     624 </span>                :            : 
-<span class="lineNum">     625 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (clients == NULL) {</span>
-<span class="lineNum">     626 </span>                :<span class="lineNoCov">          0 :     WARN (&quot;%s: no connections&quot;, method_name);</span>
-<span class="lineNum">     627 </span>                :<span class="lineNoCov">          0 :     goto out;</span>
+<span class="lineNum">     625 </span>        [<span class="branchCov" title="Branch 0 was taken 74 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         74 :   if (clients == NULL) {</span>
+<span class="lineNum">     626 </span>                :<span class="lineCov">         74 :     WARN (&quot;%s: no connections&quot;, method_name);</span>
+<span class="lineNum">     627 </span>                :<span class="lineCov">         74 :     goto out;</span>
 <span class="lineNum">     628 </span>                :            :   }
 <span class="lineNum">     629 </span>                :            : 
 <span class="lineNum">     630 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   for (ui = clients; ui;) {</span>
@@ -720,19 +720,19 @@
 <span class="lineNum">     648 </span>                :            :   }
 <span class="lineNum">     649 </span>                :            : 
 <span class="lineNum">     650 </span>                :            : out:
-<span class="lineNum">     651 </span>                :<span class="lineNoCov">          0 :   g_variant_unref (parameters);</span>
+<span class="lineNum">     651 </span>                :<span class="lineCov">         74 :   g_variant_unref (parameters);</span>
 <span class="lineNum">     652 </span>                :            : 
-<span class="lineNum">     653 </span>     [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span>]:<span class="lineNoCov">          0 :   switch (role) {</span>
+<span class="lineNum">     653 </span>     [<span class="branchCov" title="Branch 0 was taken 74 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span>]:<span class="lineCov">         74 :   switch (role) {</span>
 <span class="lineNum">     654 </span>                :            :     case CLIENT_ROLE_UI:
-<span class="lineNum">     655 </span>                :<span class="lineNoCov">          0 :       controller-&gt;uis = clients;</span>
-<span class="lineNum">     656 </span>                :<span class="lineNoCov">          0 :       GST_SWITCH_CONTROLLER_UNLOCK_UIS (controller);</span>
-<span class="lineNum">     657 </span>                :<span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     655 </span>                :<span class="lineCov">         74 :       controller-&gt;uis = clients;</span>
+<span class="lineNum">     656 </span>                :<span class="lineCov">         74 :       GST_SWITCH_CONTROLLER_UNLOCK_UIS (controller);</span>
+<span class="lineNum">     657 </span>                :<span class="lineCov">         74 :       break;</span>
 <span class="lineNum">     658 </span>                :            :     case CLIENT_ROLE_CAPTURE:
 <span class="lineNum">     659 </span>                :<span class="lineNoCov">          0 :       controller-&gt;captures = clients;</span>
 <span class="lineNum">     660 </span>                :<span class="lineNoCov">          0 :       GST_SWITCH_CONTROLLER_UNLOCK_CAPTURES (controller);</span>
 <span class="lineNum">     661 </span>                :<span class="lineNoCov">          0 :       break;</span>
 <span class="lineNum">     662 </span>                :            :   }
-<span class="lineNum">     663 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     663 </span>                :<span class="lineCov">         74 : }</span>
 <span class="lineNum">     664 </span>                :            : 
 <span class="lineNum">     665 </span>                :            : /**
 <span class="lineNum">     666 </span>                :            :  * Convenient wrapper method for calling remoting method &quot;set_audio_port&quot;
@@ -753,12 +753,12 @@
 <span class="lineNum">     681 </span>                :            :  * @memberof GstSwitchController
 <a name="682"><span class="lineNum">     682 </span>                :            :  */</a>
 <span class="lineNum">     683 </span>                :            : static void
-<span class="lineNum">     684 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_set_ui_compose_port (GstSwitchController * controller,</span>
+<span class="lineNum">     684 </span>                :<span class="lineCov">         18 : gst_switch_controller_set_ui_compose_port (GstSwitchController * controller,</span>
 <span class="lineNum">     685 </span>                :            :     gint port)
 <span class="lineNum">     686 </span>                :            : {
-<span class="lineNum">     687 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
+<span class="lineNum">     687 </span>                :<span class="lineCov">         18 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
 <span class="lineNum">     688 </span>                :            :       &quot;set_compose_port&quot;, g_variant_new (&quot;(i)&quot;, port), G_VARIANT_TYPE (&quot;()&quot;));
-<span class="lineNum">     689 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     689 </span>                :<span class="lineCov">         18 : }</span>
 <span class="lineNum">     690 </span>                :            : 
 <span class="lineNum">     691 </span>                :            : /**
 <span class="lineNum">     692 </span>                :            :  * @memberof GstSwitchController
@@ -766,12 +766,12 @@
 <span class="lineNum">     694 </span>                :            :  * clients.
 <a name="695"><span class="lineNum">     695 </span>                :            :  */</a>
 <span class="lineNum">     696 </span>                :            : static void
-<span class="lineNum">     697 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_set_ui_encode_port (GstSwitchController * controller,</span>
+<span class="lineNum">     697 </span>                :<span class="lineCov">         18 : gst_switch_controller_set_ui_encode_port (GstSwitchController * controller,</span>
 <span class="lineNum">     698 </span>                :            :     gint port)
 <span class="lineNum">     699 </span>                :            : {
-<span class="lineNum">     700 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
+<span class="lineNum">     700 </span>                :<span class="lineCov">         18 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
 <span class="lineNum">     701 </span>                :            :       &quot;set_encode_port&quot;, g_variant_new (&quot;(i)&quot;, port), G_VARIANT_TYPE (&quot;()&quot;));
-<span class="lineNum">     702 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     702 </span>                :<span class="lineCov">         18 : }</span>
 <span class="lineNum">     703 </span>                :            : 
 <span class="lineNum">     704 </span>                :            : /**
 <span class="lineNum">     705 </span>                :            :  * @memberof GstSwitchController
@@ -780,13 +780,13 @@
 <span class="lineNum">     708 </span>                :            :  * clients.
 <a name="709"><span class="lineNum">     709 </span>                :            :  */</a>
 <span class="lineNum">     710 </span>                :            : static void
-<span class="lineNum">     711 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_add_ui_preview_port (GstSwitchController * controller,</span>
+<span class="lineNum">     711 </span>                :<span class="lineCov">         17 : gst_switch_controller_add_ui_preview_port (GstSwitchController * controller,</span>
 <span class="lineNum">     712 </span>                :            :     gint port, gint serve, gint type)
 <span class="lineNum">     713 </span>                :            : {
-<span class="lineNum">     714 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
+<span class="lineNum">     714 </span>                :<span class="lineCov">         17 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
 <span class="lineNum">     715 </span>                :            :       &quot;add_preview_port&quot;, g_variant_new (&quot;(iii)&quot;, port, serve, type),
 <span class="lineNum">     716 </span>                :            :       G_VARIANT_TYPE (&quot;()&quot;));
-<span class="lineNum">     717 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     717 </span>                :<span class="lineCov">         17 : }</span>
 <span class="lineNum">     718 </span>                :            : 
 <span class="lineNum">     719 </span>                :            : /**
 <span class="lineNum">     720 </span>                :            :  * @memberof GstSwitchController
@@ -848,13 +848,13 @@
 <span class="lineNum">     776 </span>                :            :  *  Tell the compose port to the clients.
 <a name="777"><span class="lineNum">     777 </span>                :            :  */</a>
 <span class="lineNum">     778 </span>                :            : void
-<span class="lineNum">     779 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_tell_compose_port (GstSwitchController * controller,</span>
+<span class="lineNum">     779 </span>                :<span class="lineCov">         18 : gst_switch_controller_tell_compose_port (GstSwitchController * controller,</span>
 <span class="lineNum">     780 </span>                :            :     gint port)
 <span class="lineNum">     781 </span>                :            : {
-<span class="lineNum">     782 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_emit_ui_signal (controller, &quot;compose_port&quot;,</span>
+<span class="lineNum">     782 </span>                :<span class="lineCov">         18 :   gst_switch_controller_emit_ui_signal (controller, &quot;compose_port&quot;,</span>
 <span class="lineNum">     783 </span>                :            :       g_variant_new (&quot;(i)&quot;, port));
-<span class="lineNum">     784 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_set_ui_compose_port (controller, port);</span>
-<span class="lineNum">     785 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     784 </span>                :<span class="lineCov">         18 :   gst_switch_controller_set_ui_compose_port (controller, port);</span>
+<span class="lineNum">     785 </span>                :<span class="lineCov">         18 : }</span>
 <span class="lineNum">     786 </span>                :            : 
 <span class="lineNum">     787 </span>                :            : /**
 <span class="lineNum">     788 </span>                :            :  *  @memberof GstSwitchController
@@ -864,13 +864,13 @@
 <span class="lineNum">     792 </span>                :            :  *  Tell the encode port to the clients.
 <a name="793"><span class="lineNum">     793 </span>                :            :  */</a>
 <span class="lineNum">     794 </span>                :            : void
-<span class="lineNum">     795 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_tell_encode_port (GstSwitchController * controller,</span>
+<span class="lineNum">     795 </span>                :<span class="lineCov">         18 : gst_switch_controller_tell_encode_port (GstSwitchController * controller,</span>
 <span class="lineNum">     796 </span>                :            :     gint port)
 <span class="lineNum">     797 </span>                :            : {
-<span class="lineNum">     798 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_emit_ui_signal (controller, &quot;encode_port&quot;,</span>
+<span class="lineNum">     798 </span>                :<span class="lineCov">         18 :   gst_switch_controller_emit_ui_signal (controller, &quot;encode_port&quot;,</span>
 <span class="lineNum">     799 </span>                :            :       g_variant_new (&quot;(i)&quot;, port));
-<span class="lineNum">     800 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_set_ui_encode_port (controller, port);</span>
-<span class="lineNum">     801 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     800 </span>                :<span class="lineCov">         18 :   gst_switch_controller_set_ui_encode_port (controller, port);</span>
+<span class="lineNum">     801 </span>                :<span class="lineCov">         18 : }</span>
 <span class="lineNum">     802 </span>                :            : 
 <span class="lineNum">     803 </span>                :            : /**
 <span class="lineNum">     804 </span>                :            :  *  @memberof GstSwitchController
@@ -882,13 +882,13 @@
 <span class="lineNum">     810 </span>                :            :  *  Tell the preview port to the clients.
 <a name="811"><span class="lineNum">     811 </span>                :            :  */</a>
 <span class="lineNum">     812 </span>                :            : void
-<span class="lineNum">     813 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_tell_preview_port (GstSwitchController * controller,</span>
+<span class="lineNum">     813 </span>                :<span class="lineCov">         17 : gst_switch_controller_tell_preview_port (GstSwitchController * controller,</span>
 <span class="lineNum">     814 </span>                :            :     gint port, gint serve, gint type)
 <span class="lineNum">     815 </span>                :            : {
-<span class="lineNum">     816 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_emit_ui_signal (controller, &quot;preview_port&quot;,</span>
+<span class="lineNum">     816 </span>                :<span class="lineCov">         17 :   gst_switch_controller_emit_ui_signal (controller, &quot;preview_port&quot;,</span>
 <span class="lineNum">     817 </span>                :            :       g_variant_new (&quot;(iii)&quot;, port, serve, type));
-<span class="lineNum">     818 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_add_ui_preview_port (controller, port, serve, type);</span>
-<span class="lineNum">     819 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     818 </span>                :<span class="lineCov">         17 :   gst_switch_controller_add_ui_preview_port (controller, port, serve, type);</span>
+<span class="lineNum">     819 </span>                :<span class="lineCov">         17 : }</span>
 <span class="lineNum">     820 </span>                :            : 
 <span class="lineNum">     821 </span>                :            : /**
 <span class="lineNum">     822 </span>                :            :  *  @memberof GstSwitchController
@@ -898,12 +898,12 @@
 <span class="lineNum">     826 </span>                :            :  *  Tell the clients that new composite mode is online.
 <a name="827"><span class="lineNum">     827 </span>                :            :  */</a>
 <span class="lineNum">     828 </span>                :            : void
-<span class="lineNum">     829 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_tell_new_mode_onlne (GstSwitchController * controller,</span>
+<span class="lineNum">     829 </span>                :<span class="lineCov">         21 : gst_switch_controller_tell_new_mode_onlne (GstSwitchController * controller,</span>
 <span class="lineNum">     830 </span>                :            :     gint mode)
 <span class="lineNum">     831 </span>                :            : {
-<span class="lineNum">     832 </span>                :<span class="lineNoCov">          0 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
+<span class="lineNum">     832 </span>                :<span class="lineCov">         21 :   gst_switch_controller_call_clients (controller, CLIENT_ROLE_UI,</span>
 <span class="lineNum">     833 </span>                :            :       &quot;new_mode_online&quot;, g_variant_new (&quot;(i)&quot;, mode), G_VARIANT_TYPE (&quot;()&quot;));
-<span class="lineNum">     834 </span>                :<span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     834 </span>                :<span class="lineCov">         21 : }</span>
 <a name="835"><span class="lineNum">     835 </span>                :            : </a>
 <span class="lineNum">     836 </span>                :            : gboolean
 <span class="lineNum">     837 </span>                :<span class="lineNoCov">          0 : gst_switch_controller_select_face (GstSwitchController * controller,</span>
@@ -939,14 +939,14 @@
 <span class="lineNum">     867 </span>                :            :  * Remoting method stub of &quot;get_compose_port&quot;.
 <a name="868"><span class="lineNum">     868 </span>                :            :  */</a>
 <span class="lineNum">     869 </span>                :            : static GVariant *
-<span class="lineNum">     870 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__get_compose_port (GstSwitchController * controller,</span>
+<span class="lineNum">     870 </span>                :<span class="lineCov">          1 : gst_switch_controller__get_compose_port (GstSwitchController * controller,</span>
 <span class="lineNum">     871 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">     872 </span>                :            : {
-<span class="lineNum">     873 </span>                :<span class="lineNoCov">          0 :   gint port = 0;</span>
-<span class="lineNum">     874 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">     875 </span>                :<span class="lineNoCov">          0 :     port = gst_switch_server_get_composite_sink_port (controller-&gt;server);</span>
+<span class="lineNum">     873 </span>                :<span class="lineCov">          1 :   gint port = 0;</span>
+<span class="lineNum">     874 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (controller-&gt;server) {</span>
+<span class="lineNum">     875 </span>                :<span class="lineCov">          1 :     port = gst_switch_server_get_composite_sink_port (controller-&gt;server);</span>
 <span class="lineNum">     876 </span>                :            :   }
-<span class="lineNum">     877 </span>                :<span class="lineNoCov">          0 :   return g_variant_new (&quot;(i)&quot;, port);</span>
+<span class="lineNum">     877 </span>                :<span class="lineCov">          1 :   return g_variant_new (&quot;(i)&quot;, port);</span>
 <span class="lineNum">     878 </span>                :            : }
 <span class="lineNum">     879 </span>                :            : 
 <span class="lineNum">     880 </span>                :            : /**
@@ -955,14 +955,14 @@
 <span class="lineNum">     883 </span>                :            :  * Remoting method stub of &quot;get_encode_port&quot;.
 <a name="884"><span class="lineNum">     884 </span>                :            :  */</a>
 <span class="lineNum">     885 </span>                :            : static GVariant *
-<span class="lineNum">     886 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__get_encode_port (GstSwitchController * controller,</span>
+<span class="lineNum">     886 </span>                :<span class="lineCov">          1 : gst_switch_controller__get_encode_port (GstSwitchController * controller,</span>
 <span class="lineNum">     887 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">     888 </span>                :            : {
-<span class="lineNum">     889 </span>                :<span class="lineNoCov">          0 :   gint port = 0;</span>
-<span class="lineNum">     890 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">     891 </span>                :<span class="lineNoCov">          0 :     port = gst_switch_server_get_encode_sink_port (controller-&gt;server);</span>
+<span class="lineNum">     889 </span>                :<span class="lineCov">          1 :   gint port = 0;</span>
+<span class="lineNum">     890 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (controller-&gt;server) {</span>
+<span class="lineNum">     891 </span>                :<span class="lineCov">          1 :     port = gst_switch_server_get_encode_sink_port (controller-&gt;server);</span>
 <span class="lineNum">     892 </span>                :            :   }
-<span class="lineNum">     893 </span>                :<span class="lineNoCov">          0 :   return g_variant_new (&quot;(i)&quot;, port);</span>
+<span class="lineNum">     893 </span>                :<span class="lineCov">          1 :   return g_variant_new (&quot;(i)&quot;, port);</span>
 <span class="lineNum">     894 </span>                :            : }
 <span class="lineNum">     895 </span>                :            : 
 <span class="lineNum">     896 </span>                :            : /**
@@ -971,14 +971,14 @@
 <span class="lineNum">     899 </span>                :            :  * Remoting method stub of &quot;get_audio_port&quot;.
 <a name="900"><span class="lineNum">     900 </span>                :            :  */</a>
 <span class="lineNum">     901 </span>                :            : static GVariant *
-<span class="lineNum">     902 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__get_audio_port (GstSwitchController * controller,</span>
+<span class="lineNum">     902 </span>                :<span class="lineCov">          2 : gst_switch_controller__get_audio_port (GstSwitchController * controller,</span>
 <span class="lineNum">     903 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">     904 </span>                :            : {
-<span class="lineNum">     905 </span>                :<span class="lineNoCov">          0 :   gint port = 0;</span>
-<span class="lineNum">     906 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">     907 </span>                :<span class="lineNoCov">          0 :     port = gst_switch_server_get_audio_sink_port (controller-&gt;server);</span>
+<span class="lineNum">     905 </span>                :<span class="lineCov">          2 :   gint port = 0;</span>
+<span class="lineNum">     906 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :   if (controller-&gt;server) {</span>
+<span class="lineNum">     907 </span>                :<span class="lineCov">          2 :     port = gst_switch_server_get_audio_sink_port (controller-&gt;server);</span>
 <span class="lineNum">     908 </span>                :            :   }
-<span class="lineNum">     909 </span>                :<span class="lineNoCov">          0 :   return g_variant_new (&quot;(i)&quot;, port);</span>
+<span class="lineNum">     909 </span>                :<span class="lineCov">          2 :   return g_variant_new (&quot;(i)&quot;, port);</span>
 <span class="lineNum">     910 </span>                :            : }
 <span class="lineNum">     911 </span>                :            : 
 <span class="lineNum">     912 </span>                :            : /**
@@ -987,30 +987,30 @@
 <span class="lineNum">     915 </span>                :            :  * Remoting method stub of &quot;get_preview_ports&quot;.
 <a name="916"><span class="lineNum">     916 </span>                :            :  */</a>
 <span class="lineNum">     917 </span>                :            : static GVariant *
-<span class="lineNum">     918 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__get_preview_ports (GstSwitchController * controller,</span>
+<span class="lineNum">     918 </span>                :<span class="lineCov">          1 : gst_switch_controller__get_preview_ports (GstSwitchController * controller,</span>
 <span class="lineNum">     919 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">     920 </span>                :            : {
-<span class="lineNum">     921 </span>                :<span class="lineNoCov">          0 :   GVariant *result = NULL;</span>
-<span class="lineNum">     922 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">     923 </span>                :<span class="lineNoCov">          0 :     GArray *serves = NULL, *types = NULL;</span>
-<span class="lineNum">     924 </span>                :<span class="lineNoCov">          0 :     GArray *ports =</span>
-<span class="lineNum">     925 </span>                :<span class="lineNoCov">          0 :         gst_switch_server_get_preview_sink_ports (controller-&gt;server, &amp;serves,</span>
+<span class="lineNum">     921 </span>                :<span class="lineCov">          1 :   GVariant *result = NULL;</span>
+<span class="lineNum">     922 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (controller-&gt;server) {</span>
+<span class="lineNum">     923 </span>                :<span class="lineCov">          1 :     GArray *serves = NULL, *types = NULL;</span>
+<span class="lineNum">     924 </span>                :<span class="lineCov">          1 :     GArray *ports =</span>
+<span class="lineNum">     925 </span>                :<span class="lineCov">          1 :         gst_switch_server_get_preview_sink_ports (controller-&gt;server, &amp;serves,</span>
 <span class="lineNum">     926 </span>                :            :         &amp;types);
 <span class="lineNum">     927 </span>                :            :     int n;
 <span class="lineNum">     928 </span>                :            :     GVariantBuilder *builder;
 <span class="lineNum">     929 </span>                :            :     GVariant *value;
 <span class="lineNum">     930 </span>                :            :     gchar *res;
 <span class="lineNum">     931 </span>                :            : 
-<span class="lineNum">     932 </span>                :<span class="lineNoCov">          0 :     builder = g_variant_builder_new (G_VARIANT_TYPE (&quot;a(iii)&quot;));</span>
-<span class="lineNum">     933 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     for (n = 0; n &lt; ports-&gt;len; ++n) {</span>
-<span class="lineNum">     934 </span>                :<span class="lineNoCov">          0 :       g_variant_builder_add (builder, &quot;(iii)&quot;,</span>
-<span class="lineNum">     935 </span>                :<span class="lineNoCov">          0 :           g_array_index (ports, gint, n),</span>
-<span class="lineNum">     936 </span>                :<span class="lineNoCov">          0 :           g_array_index (serves, gint, n), g_array_index (types, gint, n));</span>
+<span class="lineNum">     932 </span>                :<span class="lineCov">          1 :     builder = g_variant_builder_new (G_VARIANT_TYPE (&quot;a(iii)&quot;));</span>
+<span class="lineNum">     933 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     for (n = 0; n &lt; ports-&gt;len; ++n) {</span>
+<span class="lineNum">     934 </span>                :<span class="lineCov">          2 :       g_variant_builder_add (builder, &quot;(iii)&quot;,</span>
+<span class="lineNum">     935 </span>                :<span class="lineCov">          2 :           g_array_index (ports, gint, n),</span>
+<span class="lineNum">     936 </span>                :<span class="lineCov">          4 :           g_array_index (serves, gint, n), g_array_index (types, gint, n));</span>
 <span class="lineNum">     937 </span>                :            :     }
-<span class="lineNum">     938 </span>                :<span class="lineNoCov">          0 :     value = g_variant_builder_end (builder);</span>
+<span class="lineNum">     938 </span>                :<span class="lineCov">          1 :     value = g_variant_builder_end (builder);</span>
 <span class="lineNum">     939 </span>                :            :     //result = g_variant_new_tuple (&amp;value, 1);
-<span class="lineNum">     940 </span>                :<span class="lineNoCov">          0 :     res = g_variant_print (value, FALSE);</span>
-<span class="lineNum">     941 </span>                :<span class="lineNoCov">          0 :     result = g_variant_new (&quot;(s)&quot;, res);</span>
+<span class="lineNum">     940 </span>                :<span class="lineCov">          1 :     res = g_variant_print (value, FALSE);</span>
+<span class="lineNum">     941 </span>                :<span class="lineCov">          1 :     result = g_variant_new (&quot;(s)&quot;, res);</span>
 <span class="lineNum">     942 </span>                :            : 
 <span class="lineNum">     943 </span>                :            :     /*
 <span class="lineNum">     944 </span>                :            :        INFO (&quot;value: %s (%d)&quot;, g_variant_get_type_string (value),
@@ -1018,11 +1018,11 @@
 <span class="lineNum">     946 </span>                :            :        INFO (&quot;result: %s, %s&quot;, g_variant_get_type_string (result), res);
 <span class="lineNum">     947 </span>                :            :      */
 <span class="lineNum">     948 </span>                :            : 
-<span class="lineNum">     949 </span>                :<span class="lineNoCov">          0 :     g_free (res);</span>
-<span class="lineNum">     950 </span>                :<span class="lineNoCov">          0 :     g_array_free (ports, TRUE);</span>
-<span class="lineNum">     951 </span>                :<span class="lineNoCov">          0 :     g_array_free (types, TRUE);</span>
+<span class="lineNum">     949 </span>                :<span class="lineCov">          1 :     g_free (res);</span>
+<span class="lineNum">     950 </span>                :<span class="lineCov">          1 :     g_array_free (ports, TRUE);</span>
+<span class="lineNum">     951 </span>                :<span class="lineCov">          1 :     g_array_free (types, TRUE);</span>
 <span class="lineNum">     952 </span>                :            :   }
-<span class="lineNum">     953 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">     953 </span>                :<span class="lineCov">          1 :   return result;</span>
 <span class="lineNum">     954 </span>                :            : }
 <span class="lineNum">     955 </span>                :            : 
 <span class="lineNum">     956 </span>                :            : /**
@@ -1031,18 +1031,18 @@
 <span class="lineNum">     959 </span>                :            :  * Remoting method stub of &quot;set_composite_mode&quot;.
 <a name="960"><span class="lineNum">     960 </span>                :            :  */</a>
 <span class="lineNum">     961 </span>                :            : static GVariant *
-<span class="lineNum">     962 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__set_composite_mode (GstSwitchController * controller,</span>
+<span class="lineNum">     962 </span>                :<span class="lineCov">          3 : gst_switch_controller__set_composite_mode (GstSwitchController * controller,</span>
 <span class="lineNum">     963 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">     964 </span>                :            : {
-<span class="lineNum">     965 </span>                :<span class="lineNoCov">          0 :   GVariant *result = NULL;</span>
-<span class="lineNum">     966 </span>                :<span class="lineNoCov">          0 :   gboolean ok = FALSE;</span>
+<span class="lineNum">     965 </span>                :<span class="lineCov">          3 :   GVariant *result = NULL;</span>
+<span class="lineNum">     966 </span>                :<span class="lineCov">          3 :   gboolean ok = FALSE;</span>
 <span class="lineNum">     967 </span>                :            :   gint mode;
-<span class="lineNum">     968 </span>                :<span class="lineNoCov">          0 :   g_variant_get (parameters, &quot;(i)&quot;, &amp;mode);</span>
-<span class="lineNum">     969 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">     970 </span>                :<span class="lineNoCov">          0 :     ok = gst_switch_server_set_composite_mode (controller-&gt;server, mode);</span>
-<span class="lineNum">     971 </span>                :<span class="lineNoCov">          0 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
+<span class="lineNum">     968 </span>                :<span class="lineCov">          3 :   g_variant_get (parameters, &quot;(i)&quot;, &amp;mode);</span>
+<span class="lineNum">     969 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :   if (controller-&gt;server) {</span>
+<span class="lineNum">     970 </span>                :<span class="lineCov">          3 :     ok = gst_switch_server_set_composite_mode (controller-&gt;server, mode);</span>
+<span class="lineNum">     971 </span>                :<span class="lineCov">          3 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
 <span class="lineNum">     972 </span>                :            :   }
-<span class="lineNum">     973 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">     973 </span>                :<span class="lineCov">          3 :   return result;</span>
 <span class="lineNum">     974 </span>                :            : }
 <span class="lineNum">     975 </span>                :            : 
 <span class="lineNum">     976 </span>                :            : /**
@@ -1051,16 +1051,16 @@
 <span class="lineNum">     979 </span>                :            :  * Remoting method stub of &quot;new_record&quot;.
 <a name="980"><span class="lineNum">     980 </span>                :            :  */</a>
 <span class="lineNum">     981 </span>                :            : static GVariant *
-<span class="lineNum">     982 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__new_record (GstSwitchController * controller,</span>
+<span class="lineNum">     982 </span>                :<span class="lineCov">          1 : gst_switch_controller__new_record (GstSwitchController * controller,</span>
 <span class="lineNum">     983 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">     984 </span>                :            : {
-<span class="lineNum">     985 </span>                :<span class="lineNoCov">          0 :   GVariant *result = NULL;</span>
-<span class="lineNum">     986 </span>                :<span class="lineNoCov">          0 :   gboolean ok = FALSE;</span>
-<span class="lineNum">     987 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">     988 </span>                :<span class="lineNoCov">          0 :     ok = gst_switch_server_new_record (controller-&gt;server);</span>
-<span class="lineNum">     989 </span>                :<span class="lineNoCov">          0 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
+<span class="lineNum">     985 </span>                :<span class="lineCov">          1 :   GVariant *result = NULL;</span>
+<span class="lineNum">     986 </span>                :<span class="lineCov">          1 :   gboolean ok = FALSE;</span>
+<span class="lineNum">     987 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (controller-&gt;server) {</span>
+<span class="lineNum">     988 </span>                :<span class="lineCov">          1 :     ok = gst_switch_server_new_record (controller-&gt;server);</span>
+<span class="lineNum">     989 </span>                :<span class="lineCov">          1 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
 <span class="lineNum">     990 </span>                :            :   }
-<span class="lineNum">     991 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">     991 </span>                :<span class="lineCov">          1 :   return result;</span>
 <span class="lineNum">     992 </span>                :            : }
 <span class="lineNum">     993 </span>                :            : 
 <span class="lineNum">     994 </span>                :            : /**
@@ -1069,18 +1069,18 @@
 <span class="lineNum">     997 </span>                :            :  * Remoting method stub of &quot;adjust_pip&quot;.
 <a name="998"><span class="lineNum">     998 </span>                :            :  */</a>
 <span class="lineNum">     999 </span>                :            : static GVariant *
-<span class="lineNum">    1000 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__adjust_pip (GstSwitchController * controller,</span>
+<span class="lineNum">    1000 </span>                :<span class="lineCov">          1 : gst_switch_controller__adjust_pip (GstSwitchController * controller,</span>
 <span class="lineNum">    1001 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">    1002 </span>                :            : {
-<span class="lineNum">    1003 </span>                :<span class="lineNoCov">          0 :   GVariant *result = NULL;</span>
+<span class="lineNum">    1003 </span>                :<span class="lineCov">          1 :   GVariant *result = NULL;</span>
 <span class="lineNum">    1004 </span>                :            :   gint dx, dy, dw, dh;
-<span class="lineNum">    1005 </span>                :<span class="lineNoCov">          0 :   guint res = 0;</span>
-<span class="lineNum">    1006 </span>                :<span class="lineNoCov">          0 :   g_variant_get (parameters, &quot;(iiii)&quot;, &amp;dx, &amp;dy, &amp;dw, &amp;dh);</span>
-<span class="lineNum">    1007 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">    1008 </span>                :<span class="lineNoCov">          0 :     res = gst_switch_server_adjust_pip (controller-&gt;server, dx, dy, dw, dh);</span>
-<span class="lineNum">    1009 </span>                :<span class="lineNoCov">          0 :     result = g_variant_new (&quot;(u)&quot;, res);</span>
+<span class="lineNum">    1005 </span>                :<span class="lineCov">          1 :   guint res = 0;</span>
+<span class="lineNum">    1006 </span>                :<span class="lineCov">          1 :   g_variant_get (parameters, &quot;(iiii)&quot;, &amp;dx, &amp;dy, &amp;dw, &amp;dh);</span>
+<span class="lineNum">    1007 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (controller-&gt;server) {</span>
+<span class="lineNum">    1008 </span>                :<span class="lineCov">          1 :     res = gst_switch_server_adjust_pip (controller-&gt;server, dx, dy, dw, dh);</span>
+<span class="lineNum">    1009 </span>                :<span class="lineCov">          1 :     result = g_variant_new (&quot;(u)&quot;, res);</span>
 <span class="lineNum">    1010 </span>                :            :   }
-<span class="lineNum">    1011 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">    1011 </span>                :<span class="lineCov">          1 :   return result;</span>
 <span class="lineNum">    1012 </span>                :            : }
 <span class="lineNum">    1013 </span>                :            : 
 <span class="lineNum">    1014 </span>                :            : /**
@@ -1089,18 +1089,18 @@
 <span class="lineNum">    1017 </span>                :            :  * Remoting method stub of &quot;switch&quot;.
 <a name="1018"><span class="lineNum">    1018 </span>                :            :  */</a>
 <span class="lineNum">    1019 </span>                :            : static GVariant *
-<span class="lineNum">    1020 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__switch (GstSwitchController * controller,</span>
+<span class="lineNum">    1020 </span>                :<span class="lineCov">          1 : gst_switch_controller__switch (GstSwitchController * controller,</span>
 <span class="lineNum">    1021 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">    1022 </span>                :            : {
-<span class="lineNum">    1023 </span>                :<span class="lineNoCov">          0 :   GVariant *result = NULL;</span>
+<span class="lineNum">    1023 </span>                :<span class="lineCov">          1 :   GVariant *result = NULL;</span>
 <span class="lineNum">    1024 </span>                :            :   gint channel, port;
-<span class="lineNum">    1025 </span>                :<span class="lineNoCov">          0 :   gboolean ok = FALSE;</span>
-<span class="lineNum">    1026 </span>                :<span class="lineNoCov">          0 :   g_variant_get (parameters, &quot;(ii)&quot;, &amp;channel, &amp;port);</span>
-<span class="lineNum">    1027 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">    1028 </span>                :<span class="lineNoCov">          0 :     ok = gst_switch_server_switch (controller-&gt;server, channel, port);</span>
-<span class="lineNum">    1029 </span>                :<span class="lineNoCov">          0 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
+<span class="lineNum">    1025 </span>                :<span class="lineCov">          1 :   gboolean ok = FALSE;</span>
+<span class="lineNum">    1026 </span>                :<span class="lineCov">          1 :   g_variant_get (parameters, &quot;(ii)&quot;, &amp;channel, &amp;port);</span>
+<span class="lineNum">    1027 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (controller-&gt;server) {</span>
+<span class="lineNum">    1028 </span>                :<span class="lineCov">          1 :     ok = gst_switch_server_switch (controller-&gt;server, channel, port);</span>
+<span class="lineNum">    1029 </span>                :<span class="lineCov">          1 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
 <span class="lineNum">    1030 </span>                :            :   }
-<span class="lineNum">    1031 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">    1031 </span>                :<span class="lineCov">          1 :   return result;</span>
 <span class="lineNum">    1032 </span>                :            : }
 <span class="lineNum">    1033 </span>                :            : 
 <span class="lineNum">    1034 </span>                :            : /**
@@ -1109,18 +1109,18 @@
 <span class="lineNum">    1037 </span>                :            :  * Remoting method stub of &quot;click_video&quot;.
 <a name="1038"><span class="lineNum">    1038 </span>                :            :  */</a>
 <span class="lineNum">    1039 </span>                :            : static GVariant *
-<span class="lineNum">    1040 </span>                :<span class="lineNoCov">          0 : gst_switch_controller__click_video (GstSwitchController * controller,</span>
+<span class="lineNum">    1040 </span>                :<span class="lineCov">          1 : gst_switch_controller__click_video (GstSwitchController * controller,</span>
 <span class="lineNum">    1041 </span>                :            :     GDBusConnection * connection, GVariant * parameters)
 <span class="lineNum">    1042 </span>                :            : {
-<span class="lineNum">    1043 </span>                :<span class="lineNoCov">          0 :   GVariant *result = NULL;</span>
-<span class="lineNum">    1044 </span>                :<span class="lineNoCov">          0 :   gboolean ok = FALSE;</span>
+<span class="lineNum">    1043 </span>                :<span class="lineCov">          1 :   GVariant *result = NULL;</span>
+<span class="lineNum">    1044 </span>                :<span class="lineCov">          1 :   gboolean ok = FALSE;</span>
 <span class="lineNum">    1045 </span>                :            :   gint x, y, vw, vh;
-<span class="lineNum">    1046 </span>                :<span class="lineNoCov">          0 :   g_variant_get (parameters, &quot;(iiii)&quot;, &amp;x, &amp;y, &amp;vw, &amp;vh);</span>
-<span class="lineNum">    1047 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   if (controller-&gt;server) {</span>
-<span class="lineNum">    1048 </span>                :<span class="lineNoCov">          0 :     ok = gst_switch_server_click_video (controller-&gt;server, x, y, vw, vh);</span>
-<span class="lineNum">    1049 </span>                :<span class="lineNoCov">          0 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
+<span class="lineNum">    1046 </span>                :<span class="lineCov">          1 :   g_variant_get (parameters, &quot;(iiii)&quot;, &amp;x, &amp;y, &amp;vw, &amp;vh);</span>
+<span class="lineNum">    1047 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   if (controller-&gt;server) {</span>
+<span class="lineNum">    1048 </span>                :<span class="lineCov">          1 :     ok = gst_switch_server_click_video (controller-&gt;server, x, y, vw, vh);</span>
+<span class="lineNum">    1049 </span>                :<span class="lineCov">          1 :     result = g_variant_new (&quot;(b)&quot;, ok);</span>
 <span class="lineNum">    1050 </span>                :            :   }
-<span class="lineNum">    1051 </span>                :<span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">    1051 </span>                :<span class="lineCov">          1 :   return result;</span>
 <span class="lineNum">    1052 </span>                :            : }
 <span class="lineNum">    1053 </span>                :            : 
 <span class="lineNum">    1054 </span>                :            : /**
@@ -1181,27 +1181,27 @@
 <span class="lineNum">    1109 </span>                :            :  * @memberof GstSwitchControllerClass
 <a name="1110"><span class="lineNum">    1110 </span>                :            :  */</a>
 <span class="lineNum">    1111 </span>                :            : static void
-<span class="lineNum">    1112 </span>                :<span class="lineCov">          3 : gst_switch_controller_class_init (GstSwitchControllerClass * klass)</span>
+<span class="lineNum">    1112 </span>                :<span class="lineCov">         18 : gst_switch_controller_class_init (GstSwitchControllerClass * klass)</span>
 <span class="lineNum">    1113 </span>                :            : {
-<span class="lineNum">    1114 </span>                :<span class="lineCov">          3 :   GObjectClass *object_class = G_OBJECT_CLASS (klass);</span>
+<span class="lineNum">    1114 </span>                :<span class="lineCov">         18 :   GObjectClass *object_class = G_OBJECT_CLASS (klass);</span>
 <span class="lineNum">    1115 </span>                :            : 
-<span class="lineNum">    1116 </span>                :<span class="lineCov">          3 :   object_class-&gt;finalize = (GObjectFinalizeFunc) gst_switch_controller_finalize;</span>
-<span class="lineNum">    1117 </span>                :<span class="lineCov">          3 :   object_class-&gt;get_property =</span>
+<span class="lineNum">    1116 </span>                :<span class="lineCov">         18 :   object_class-&gt;finalize = (GObjectFinalizeFunc) gst_switch_controller_finalize;</span>
+<span class="lineNum">    1117 </span>                :<span class="lineCov">         18 :   object_class-&gt;get_property =</span>
 <span class="lineNum">    1118 </span>                :            :       (GObjectGetPropertyFunc) gst_switch_controller_get_property;
-<span class="lineNum">    1119 </span>                :<span class="lineCov">          3 :   object_class-&gt;set_property =</span>
+<span class="lineNum">    1119 </span>                :<span class="lineCov">         18 :   object_class-&gt;set_property =</span>
 <span class="lineNum">    1120 </span>                :            :       (GObjectSetPropertyFunc) gst_switch_controller_set_property;
 <span class="lineNum">    1121 </span>                :            : 
-<span class="lineNum">    1122 </span>                :<span class="lineCov">          3 :   klass-&gt;methods = g_hash_table_new (g_str_hash, g_str_equal);</span>
+<span class="lineNum">    1122 </span>                :<span class="lineCov">         18 :   klass-&gt;methods = g_hash_table_new (g_str_hash, g_str_equal);</span>
 <span class="lineNum">    1123 </span>                :            : 
-<span class="lineNum">    1124 </span>                :<span class="lineCov">          3 :   MethodTableEntry *entry = &amp;gst_switch_controller_method_table[0];</span>
-<span class="lineNum">    1125 </span>[<span class="branchCov" title="Branch 0 was taken 33 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 33 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         36 :   for (; entry-&gt;name &amp;&amp; entry-&gt;func; ++entry) {</span>
-<span class="lineNum">    1126 </span>                :<span class="lineCov">         33 :     g_hash_table_insert (klass-&gt;methods, (gpointer) entry-&gt;name,</span>
-<span class="lineNum">    1127 </span>                :<span class="lineCov">         33 :         (gpointer) entry-&gt;func);</span>
+<span class="lineNum">    1124 </span>                :<span class="lineCov">         18 :   MethodTableEntry *entry = &amp;gst_switch_controller_method_table[0];</span>
+<span class="lineNum">    1125 </span>[<span class="branchCov" title="Branch 0 was taken 198 times"> + </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span>][<span class="branchCov" title="Branch 2 was taken 198 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        216 :   for (; entry-&gt;name &amp;&amp; entry-&gt;func; ++entry) {</span>
+<span class="lineNum">    1126 </span>                :<span class="lineCov">        198 :     g_hash_table_insert (klass-&gt;methods, (gpointer) entry-&gt;name,</span>
+<span class="lineNum">    1127 </span>                :<span class="lineCov">        198 :         (gpointer) entry-&gt;func);</span>
 <span class="lineNum">    1128 </span>                :            :   }
 <span class="lineNum">    1129 </span>                :            : 
-<span class="lineNum">    1130 </span>                :<span class="lineCov">          3 :   introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);</span>
-<span class="lineNum">    1131 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">          3 :   g_assert (introspection_data != NULL);</span>
-<span class="lineNum">    1132 </span>                :<span class="lineCov">          3 : }</span>
+<span class="lineNum">    1130 </span>                :<span class="lineCov">         18 :   introspection_data = g_dbus_node_info_new_for_xml (introspection_xml, NULL);</span>
+<span class="lineNum">    1131 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span>]:<span class="lineCov">         18 :   g_assert (introspection_data != NULL);</span>
+<span class="lineNum">    1132 </span>                :<span class="lineCov">         18 : }</span>
 </pre>
       </td>
     </tr>
