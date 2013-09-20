@@ -1,7 +1,0 @@
-dbus Module
-===========
-
-.. automodule:: dbus
-    :members:
-    :undoc-members:
-    :show-inheritance:

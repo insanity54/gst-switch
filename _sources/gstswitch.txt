@@ -1,7 +1,0 @@
-gstswitch Module
-================
-
-.. automodule:: gstswitch
-    :members:
-    :undoc-members:
-    :show-inheritance:
