@@ -1,13 +1,17 @@
-#IMPORTS
-#all dbus variables need to be setup here
+"""
+connection deals with all low level method calls over dbus
+The Connection object is capable of invoking remote methods over dbus
+"""
+
 from gi.repository import Gio, GLib
-from exception import ConnectionError
+from .exception import ConnectionError
 import sys
 
 __all__ = ["Connection", ]
 
 
 class Connection(object):
+
     """Class which makes all remote object class.
     Deals with lower level connection and remote method invoking
 
@@ -20,12 +24,17 @@ class Connection(object):
     def __init__(
             self,
             address="unix:abstract=gstswitch",
-            bus_name=None,
+            bus_name='info.duzy.gst.switch.SwitchController',
             object_path="/info/duzy/gst/switch/SwitchController",
-            default_interface="info.duzy.gst.switch.SwitchControllerInterface"):
+            default_interface=("info.duzy.gst.switch."
+                               "SwitchControllerInterface")):
 
         super(Connection, self).__init__()
         self.connection = None
+        self._address = None
+        self._bus_name = None
+        self._object_path = None
+        self._default_interface = None
 
         self.address = address
         self.bus_name = bus_name
@@ -34,6 +43,8 @@ class Connection(object):
 
     @property
     def address(self):
+        """Get the address
+        """
         return self._address
 
     @address.setter
@@ -54,6 +65,7 @@ class Connection(object):
 
     @property
     def bus_name(self):
+        """Get the bus name"""
         if self._bus_name is None:
             return None
         return self._bus_name
@@ -61,7 +73,8 @@ class Connection(object):
     @bus_name.setter
     def bus_name(self, bus_name):
         """Set the Bus Name
-        http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus
+        http://dbus.freedesktop.org/doc/dbus-specification.html\
+        #message-protocol-names-bus
         """
         if bus_name is None:
             self._bus_name = None
@@ -71,12 +84,14 @@ class Connection(object):
 
     @property
     def object_path(self):
+        """Get the object path"""
         return self._object_path
 
     @object_path.setter
     def object_path(self, object_path):
         """Set the object_path
-        http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-marshaling-object-path
+        http://dbus.freedesktop.org/doc/dbus-specification.html\
+        #message-protocol-marshaling-object-path
         """
         if not object_path:
             raise ValueError("object_path '{0} cannot be blank'")
@@ -93,12 +108,14 @@ class Connection(object):
 
     @property
     def default_interface(self):
+        """Get the default interface"""
         return self._default_interface
 
     @default_interface.setter
     def default_interface(self, default_interface):
         """Set the default_interface
-        http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-interface
+        http://dbus.freedesktop.org/doc/dbus-specification.html\
+        #message-protocol-names-interface
         """
         if not default_interface:
             raise ValueError("default_interface '{0} cannot be blank'")
@@ -216,7 +233,8 @@ class Connection(object):
         Calls get_preview_ports remotely
 
         :param: None
-        :returns: tuple with first element a string in the form of '[(3002, 1, 7), (3003, 1, 8)]'
+        :returns: tuple with first element a string in the form of
+        '[(3002, 1, 7), (3003, 1, 8)]'
         """
         try:
             args = None
@@ -319,7 +337,7 @@ class Connection(object):
             raise ConnectionError(new_message)
 
     def adjust_pip(self, xpos, ypos, width, height):
-        """adjust_pip(in  i dx,
+        """adjust_pip(in i dx,
                            in  i dy,
                            in  i dw,
                            in  i dh,
@@ -330,7 +348,8 @@ class Connection(object):
         :param ypos: the Y position of the PIP
         :param width: the width of the PIP
         :param height: the height of the PIP
-        :returns: tuple with first element as result - PIP has been changed succefully
+        :returns: tuple with first element as result -
+        PIP has been changed succefully
         """
         try:
             args = GLib.Variant('(iiii)', (xpos, ypos, width, height,))

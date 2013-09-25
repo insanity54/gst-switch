@@ -1,5 +1,13 @@
-gstswitch Package
-=================
+gst-switch python API
+=====================
+
+:mod:`gstswitch` Package
+------------------------
+
+.. automodule:: gstswitch.__init__
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 :mod:`connection` Module
 ------------------------

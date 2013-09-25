@@ -5,6 +5,8 @@
 *.pyc
 *.gcda
 *.gcov
+*.txt
+imgurbash.sh.*
 .coverage
 /INSTALL
 /Makefile
@@ -33,6 +35,8 @@
 /plugins/.libs/
 /plugins/Makefile
 /plugins/Makefile.in
+/python-api/imgurbash.sh*
+/python-api/.cache/
 /python-api/reports/
 /python-api/htmlcov/
 /stamp-h1

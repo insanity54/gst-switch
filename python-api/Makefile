@@ -1,30 +1,53 @@
-.PHONY: lint unittests pytest integration test
+.PHONY: lint unittests pytest integration test clean all
 
 lint:
-	mkdir -p reports
-	mkdir -p reports/pylint
-	-pylint --rcfile=.pylintrc gstswitch
-	mv -f *.html reports/pylint
-	@echo "Lint report generated in reports/pylint"
+	@rm -rf tests/unittests/__pycache__
+	@rm -rf tests/integrationtests/__pycache__
+	@rm -rf reports
+	pylint --rcfile=.pylintrc_gstswitch gstswitch
+	pylint --rcfile=.pylintrc_unittests tests/unittests/*
+	pylint --rcfile=.pylintrc_integrationtests tests/integrationtests/*.py
+	@echo "Code style is okay!!"
 
-# runs py.test also
 unittests:
-	mkdir -p reports
-	mkdir -p reports/coverage/unittests
-	-py.test --cov-report html --cov gstswitch tests/unittests/ -v -s
-	mv htmlcov/*.* reports/coverage/unittests
-	rmdir htmlcov
+	@rm -rf reports
+	@mkdir -p reports/coverage/unittests
+	py.test --cov gstswitch tests/unittests/ --pep8 -v -s
+	@make clean
 
-pytest:
-	-py.test tests/unittests -v
+pep8:
+	pep8 gstswitch
+	@echo "gstswitch is pep8 clean!!"
+	pep8 tests/unittests
+	@echo "unittests are pep8 clean!!"
+	pep8 tests/integrationtests
+	@echo "integration tests are pep8 clean!!"
 
 integration:
-	mkdir -p reports
-	mkdir -p reports/coverage/integration
-	-py.test --cov-report html --cov gstswitch tests/integrationtests/ -s -v 2>/dev/null
-	mv htmlcov/*.* reports/coverage/integration
+	@rm -f ../tools/*.c.gcov
+	@rm -f ../tools/*.gcda
+	-wget http://imgur.com/tools/imgurbash.sh
+	-chmod +x imgurbash.sh
+	@rm -rf reports
+	@mkdir -p reports/coverage/integration
+	py.test --cov gstswitch tests/integrationtests/ --pep8 -s -v 
+	-@mv htmlcov/*.* reports/coverage/integration
+	-rm imgurbash.sh*
+
+performance:
+	py.test tests/performancetests/*.py -v -s
+	make clean
+
+clean:
+	rm -rf .cache
+	rm -rf reports
 	rm -f *.data
 	rm -f tests/integrationtests/*.data
+	rm -f *.log
+	rm -f *.html
+	rm -f *.sh.*
+	rm -f *.sh
+	rm -f .coverage
 
-test: unittests integration
 
+test: lint unittests integration clean

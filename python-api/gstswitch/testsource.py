@@ -1,3 +1,9 @@
+"""
+The testsource contains all gstreamer pipelines
+It provides the abse for all the other gstreamer
+components are build upon.
+"""
+
 import gi
 gi.require_version('Gst', '1.0')
 from gi.repository import GObject, Gst
@@ -5,21 +11,21 @@ from gi.repository import GObject, Gst
 GObject.threads_init()
 Gst.init(None)
 
-from exception import RangeError
+from .exception import RangeError
 import random
 
 # from pipeline import *
-#IMPORTS
+# IMPORTS
 
 __all__ = ["Preview", "VideoSrc", "AudioSrc"]
 
 
 class BasePipeline(Gst.Pipeline):
+
     """A Basic pipeline
     """
 
     def __init__(self):
-        super(BasePipeline, self).__init__()
         Gst.Pipeline.__init__(self)
         self._playing = False
 
@@ -38,7 +44,8 @@ class BasePipeline(Gst.Pipeline):
         self._playing = False
         self.set_state(Gst.State.NULL)
 
-    def make(self, elem, description=''):
+    @classmethod
+    def make(cls, elem, description=''):
         """Make a new gstreamer pipeline element
         :param elem: The name of the element to be made
         :param description: Description of the element to be made
@@ -49,6 +56,7 @@ class BasePipeline(Gst.Pipeline):
 
 
 class VideoPipeline(BasePipeline):
+
     """A Video Pipeline which can be used by a Video Test Source
     :param port: The port of where the TCP stream will be sent
     Should be same as video port of gst-switch-src
@@ -62,7 +70,7 @@ class VideoPipeline(BasePipeline):
     def __init__(
             self,
             port,
-            host='127.0.0.1',
+            host='localhost',
             width=300,
             height=200,
             pattern=None,
@@ -122,7 +130,8 @@ class VideoPipeline(BasePipeline):
         element = self.make("capsfilter", "vfilter")
         width = str(width)
         height = str(height)
-        capsstring = "video/x-raw, format=(string)I420, width={0}, height={1}".format(width, height)
+        capsstring = "video/x-raw, format=(string)I420, width={0},\
+         height={1}".format(width, height)
         print capsstring
         caps = Gst.Caps.from_string(capsstring)
         element.set_property('caps', caps)
@@ -162,13 +171,14 @@ class VideoPipeline(BasePipeline):
         return element
 
 
-
 class AudioPipeline(BasePipeline):
+
     """docstring for AudioPipeline"""
+
     def __init__(
             self,
             port,
-            host='127.0.0.1',
+            host='localhost',
             freq=110,
             wave=None):
         super(AudioPipeline, self).__init__()
@@ -185,6 +195,10 @@ class AudioPipeline(BasePipeline):
         gdppay.link(sink)
 
     def make_audiotestsrc(self, freq, wave=None):
+        """Return a Audio Source Element
+        :freq: The Frequency
+        :wave: The wave pattern (valid between 1 and 12)
+        """
         element = self.make('audiotestsrc', 'src')
         element.set_property('freq', int(freq))
         element.set_property('wave', int(wave))
@@ -206,19 +220,19 @@ class AudioPipeline(BasePipeline):
         element.set_property('host', self.host)
         element.set_property('port', int(port))
         return element
-        
-        
 
 
 class PreviewPipeline(BasePipeline):
+
     """Pipeline for usage by a Preview
     :param port: The preview port
     """
+
     def __init__(self, port):
         super(PreviewPipeline, self).__init__()
-        self.host = '127.0.0.1'
+        self.host = 'localhost'
         self.preview_port = port
-        src = self.make_tcpclientsrc(port)
+        src = self.make_tcpclientsrc()
         self.add(src)
         gdpdepay = self.make_gdpdepay()
         self.add(gdpdepay)
@@ -227,7 +241,7 @@ class PreviewPipeline(BasePipeline):
         self.add(sink)
         gdpdepay.link(sink)
 
-    def make_tcpclientsrc(self, port):
+    def make_tcpclientsrc(self):
         """Return a TCP Client Source element
         :param port: The port of the server
         :returns: A TCP Client Source element
@@ -253,6 +267,7 @@ class PreviewPipeline(BasePipeline):
 
 
 class VideoSrc(object):
+
     """A Test Video Source
     :param width: The width of the output video
     :param height: The height of the output video
@@ -261,7 +276,7 @@ class VideoSrc(object):
     :param timeoverlay: True to enable a running time over video
     :param clockoverlay: True to enable current clock time over video
     """
-    HOST = '127.0.0.1'
+    HOST = 'localhost'
 
     def __init__(
             self,
@@ -272,6 +287,13 @@ class VideoSrc(object):
             timeoverlay=False,
             clockoverlay=False):
         super(VideoSrc, self).__init__()
+        self._port = None
+        self._width = None
+        self._height = None
+        self._pattern = None
+        self._timeoverlay = None
+        self._clockoverlay = None
+
         self.port = port
         self.width = width
         self.height = height
@@ -289,10 +311,16 @@ class VideoSrc(object):
 
     @property
     def port(self):
+        """Get the Video Port"""
         return self._port
 
     @port.setter
     def port(self, port):
+        """Set the video Port
+        :raises RangeError: Port not in range 1 to 65535
+        :raises TypeError: Port cannot be converted to integer
+        :raises ValueError: Port cannot be left blank
+        """
         if not port:
             raise ValueError("Port: '{0}' cannot be blank"
                              .format(port))
@@ -305,54 +333,72 @@ class VideoSrc(object):
                     self._port = port
             except TypeError:
                 raise TypeError("Port must be a string or number,"
-                    "not, '{0}'".format(type(port)))
+                                "not, '{0}'".format(type(port)))
             except ValueError:
                 raise TypeError("Port must be a valid number")
 
     @property
     def width(self):
+        """Get the width"""
         return self._width
 
     @width.setter
     def width(self, width):
+        """Set the Width
+        raises ValueError: Width must be a positive value
+        raises ValueError: Width must not be blank
+        raises TypeError: Width must be convertable into a float
+        """
         if not width:
             raise ValueError("Width: '{0}' cannot be blank"
-                .format(width))
+                             .format(width))
         try:
             i = float(width)
-            if i <= 0 :
+            if i <= 0:
                 raise ValueError("Width: '{0}' must be a valid positive value")
             else:
                 self._width = width
         except TypeError:
             raise TypeError("Width must be a valid value not '{0}'"
-                .format(type(width)))
+                            .format(type(width)))
 
     @property
     def height(self):
+        """Get the height"""
         return self._height
 
     @height.setter
     def height(self, height):
+        """Set the height
+        raises ValueError: Height must be a positive value
+        raises ValueError: Height must not be blank
+        raises TypeError: Height must be convertable into a float
+        """
         if not height:
             raise ValueError("Height: '{0}' cannot be blank"
-                .format(height))
+                             .format(height))
         try:
             i = float(height)
-            if i <= 0 :
-                raise ValueError("Height: '{0}' must be a valid positive value")
+            if i <= 0:
+                raise ValueError(
+                    "Height: '{0}' must be a valid positive value")
             else:
                 self._height = height
         except TypeError:
             raise TypeError("Height must be a valid value not '{0}'"
-                .format(type(height)))
+                            .format(type(height)))
 
     @property
     def pattern(self):
+        """Get the Pattern"""
         return self._pattern
 
     @pattern.setter
     def pattern(self, pattern):
+        """Set the Pattern
+        :raises RangeError: Pattern must be in range 0 to 19
+        :raises TypeError: Pattern must be convertable to an integer
+        """
         try:
             i = int(float(pattern))
             if i < 0 or i > 19:
@@ -364,29 +410,37 @@ class VideoSrc(object):
 
     @property
     def timeoverlay(self):
+        """Get the timeoverlay"""
         return self._timeoverlay
 
     @timeoverlay.setter
     def timeoverlay(self, timeoverlay):
-        t = str(timeoverlay)
-        if t == 'True' or t == 'False':
+        """Set the timeoverlay
+        :raises ValueError: Timeoverlay must be True or False
+        """
+        timeover = str(timeoverlay)
+        if timeover == 'True' or timeover == 'False':
             self._timeoverlay = timeoverlay
         else:
             raise ValueError("Timeoverlay: '{0}' must be True of False"
-                .format(timeoverlay))
+                             .format(timeoverlay))
 
     @property
     def clockoverlay(self):
+        """Get the Clockoverlay"""
         return self._clockoverlay
 
     @clockoverlay.setter
     def clockoverlay(self, clockoverlay):
-        t = str(clockoverlay)
-        if t == 'True' or t == 'False':
+        """Set the Clockoverlay
+        :raises ValueError: Clockoverlay must be True or False
+        """
+        clockover = str(clockoverlay)
+        if clockover == 'True' or clockover == 'False':
             self._clockoverlay = clockoverlay
         else:
             raise ValueError("Clockoverlay: '{0}' must be True of False"
-                .format(clockoverlay))
+                             .format(clockoverlay))
 
     def run(self):
         """Run the pipeline"""
@@ -400,7 +454,8 @@ class VideoSrc(object):
         """End/disable the pipeline"""
         self.pipeline.disable()
 
-    def generate_pattern(self, pattern):
+    @classmethod
+    def generate_pattern(cls, pattern):
         """Generate a random pattern if not specified
         """
         if pattern is None:
@@ -410,9 +465,10 @@ class VideoSrc(object):
 
 
 class AudioSrc(object):
+
     """docstring for AudioSrc"""
 
-    HOST = '127.0.0.1'
+    HOST = 'localhost'
 
     def __init__(
             self,
@@ -420,6 +476,10 @@ class AudioSrc(object):
             freq=110,
             wave=None):
         super(AudioSrc, self).__init__()
+        self._port = None
+        self._freq = None
+        self._wave = None
+
         self.port = port
         self.freq = freq
         self.wave = self.generate_wave(wave)
@@ -431,10 +491,16 @@ class AudioSrc(object):
 
     @property
     def port(self):
+        """Get the Audio Port"""
         return self._port
 
     @port.setter
     def port(self, port):
+        """Set the Audio Port
+        :raises RangeError: Port not in range 1 to 65535
+        :raises TypeError: Port cannot be converted to integer
+        :raises ValueError: Port cannot be left blank
+        """
         if not port:
             raise ValueError("Port: '{0}' cannot be blank"
                              .format(port))
@@ -447,39 +513,49 @@ class AudioSrc(object):
                     self._port = port
             except TypeError:
                 raise TypeError("Port must be a string or number,"
-                    "not, '{0}'".format(type(port)))
+                                "not, '{0}'".format(type(port)))
             except ValueError:
                 raise TypeError("Port must be a valid number")
 
     @property
     def freq(self):
+        """Get the Frequency"""
         return self._freq
 
     @freq.setter
     def freq(self, freq):
+        """Set the Frequency
+        raises ValueError: Width must be a positive value
+        raises ValueError: Width must not be blank
+        raises TypeError: Width must be convertable into a float
+        """
         if not freq:
             raise ValueError("Frequency: '{0}' cannot be blank"
                              .format(freq))
         else:
             try:
                 i = int(freq)
-                if i<1:
+                if i < 1:
                     raise RangeError("Frequency must be a positive value")
                 else:
                     self._freq = freq
             except TypeError:
                 raise TypeError("Frequency must be a string or number,"
-                    "not, '{0}'".format(type(freq)))
+                                "not, '{0}'".format(type(freq)))
             except ValueError:
                 raise TypeError("Frequency must be a valid number")
 
-
     @property
     def wave(self):
+        """Get the wave number"""
         return self._wave
 
     @wave.setter
     def wave(self, wave):
+        """Set the Wave number
+        :raises RangeError: Wave must be in range 0 to 12
+        :raises TypeError: Wave must be convertable to integer
+        """
         try:
             i = int(float(wave))
             if i < 0 or i > 12:
@@ -501,31 +577,41 @@ class AudioSrc(object):
         """End/disable the pipeline"""
         self.pipeline.disable()
 
-    def generate_wave(self, wave):
+    @classmethod
+    def generate_wave(cls, wave):
         """Generate a random wave if not specified
         """
         if wave is None:
             wave = random.randint(0, 12)
         wave = str(wave)
         return wave
-        
 
 
 class Preview(object):
+
     """A Preview Element
     :param port: The preview port
     """
+
     def __init__(self, port):
         super(Preview, self).__init__()
+        self._preview_port = None
+
         self.preview_port = port
         self.pipeline = PreviewPipeline(self.preview_port)
 
     @property
     def preview_port(self):
+        """Get the Preview Port"""
         return self._preview_port
 
     @preview_port.setter
     def preview_port(self, preview_port):
+        """Set the Preview Port
+        :raises RangeError: Port not in range 1 to 65535
+        :raises TypeError: Port cannot be converted to integer
+        :raises ValueError: Port cannot be left blank
+        """
         if not preview_port:
             raise ValueError("preview_port: '{0}' cannot be blank"
                              .format(preview_port))
@@ -533,15 +619,15 @@ class Preview(object):
             try:
                 i = int(preview_port)
                 if i < 1 or i > 65535:
-                    raise RangeError('preview_port must be in range 1 to 65535')
+                    raise RangeError(
+                        'preview_port must be in range 1 to 65535')
                 else:
                     self._preview_port = preview_port
             except TypeError:
                 raise TypeError("preview_port must be a string or number,"
-                    "not, '{0}'".format(type(preview_port)))
+                                "not, '{0}'".format(type(preview_port)))
             except ValueError:
                 raise TypeError("Port must be a valid number")
-
 
     def run(self):
         """Run the pipeline"""

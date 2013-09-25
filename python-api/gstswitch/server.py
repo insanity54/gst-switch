@@ -1,9 +1,14 @@
+"""
+The server deals with all operations controlling gst-switch-srv
+These include all OS related tasks
+"""
+
 import os
 import signal
 import subprocess
 
 from errno import ENOENT
-from exception import PathError, ServerProcessError
+from .exception import PathError, ServerProcessError
 from time import sleep
 
 
@@ -12,10 +17,13 @@ __all__ = ["Server", ]
 
 TOOLS_DIR = '/'.join(os.getcwd().split('/')[:-1]) + '/tools/'
 
+
 class Server(object):
+
     """Control all server related operations
 
-    :param path: Path where all executables gst-switch-srv, gst-launch-1.0, etc are located
+    :param path: Path where all executables
+    gst-switch-srv, gst-launch-1.0, etc are located
     :param video_port: The video port number - default = 3000
     :param audio_port: The audio port number - default = 4000
     :param control_port: The control port number - default = 5000
@@ -33,6 +41,14 @@ class Server(object):
             record_file='record.data'):
 
         super(Server, self).__init__()
+
+        self._path = None
+        self._video_port = None
+        self._audio_port = None
+        self._control_port = None
+        self._record_file = None
+        self.gst_option_string = None
+
         self.path = path
         self.video_port = video_port
         self.audio_port = audio_port
@@ -44,6 +60,7 @@ class Server(object):
 
     @property
     def path(self):
+        """Get the path"""
         return self._path
 
     @path.setter
@@ -58,6 +75,7 @@ class Server(object):
 
     @property
     def video_port(self):
+        """Get the video port"""
         return self._video_port
 
     @video_port.setter
@@ -83,6 +101,7 @@ class Server(object):
 
     @property
     def audio_port(self):
+        """Get the audio port"""
         return self._audio_port
 
     @audio_port.setter
@@ -108,6 +127,7 @@ class Server(object):
 
     @property
     def control_port(self):
+        """Get the control port"""
         return self._control_port
 
     @control_port.setter
@@ -124,7 +144,8 @@ class Server(object):
             try:
                 i = int(control_port)
                 if i < 1 or i > 65535:
-                    raise ValueError('Control Port must be in range 1 to 65535')
+                    raise ValueError(
+                        'Control Port must be in range 1 to 65535')
                 else:
                     self._control_port = control_port
             except TypeError:
@@ -133,6 +154,7 @@ class Server(object):
 
     @property
     def record_file(self):
+        """Get the record file"""
         return self._record_file
 
     @record_file.setter
@@ -156,19 +178,20 @@ class Server(object):
         """Launch the server process
 
         :param: None
-        :gst-option: Any gstreamer option. Refer to http://www.linuxmanpages.com/man1/gst-launch-0.8.1.php#lbAF.
+        :gst-option: Any gstreamer option.
+        Refer to http://www.linuxmanpages.com/man1/gst-launch-0.8.1.php#lbAF.
         Multiple can be added separated by spaces
         :returns: nothing
         :raises IOError: Fail to open /dev/null (os.devnull)
         :raises PathError: Unable to find gst-switch-srv at path specified
-        :raises ServerProcessError: Running gst-switch-srv gives a OS based error.
+        :raises ServerProcessError: Running gst-switch-srv
+        gives a OS based error.
         """
         self.gst_option_string = gst_option
         print "Starting server"
         self.proc = self._run_process()
         if self.proc:
             self.pid = self.proc.pid
-        # TODO: Sleep time may vary
         sleep(self.SLEEP_TIME)
 
     def _run_process(self):
@@ -214,18 +237,20 @@ class Server(object):
                 raise ServerProcessError("Internal error "
                                          "while launching process")
 
-
-    def make_coverage(self):
+    @classmethod
+    def make_coverage(cls):
+        """Generate coverage
+        Calls 'make coverage' to generate coverage in .gcov files
+        """
         cmd = 'make -C {0} coverage'.format(TOOLS_DIR)
         print TOOLS_DIR
-        with open(os.devnull, 'w') as tempf:
-                    proc = subprocess.Popen(
-                        cmd.split(),
-                        bufsize=-1,
-                        shell=False)
-                    out, err = proc.communicate()
-                    print out
-
+        with open(os.devnull, 'w'):
+            proc = subprocess.Popen(
+                cmd.split(),
+                bufsize=-1,
+                shell=False)
+            out, _ = proc.communicate()
+            print out
 
     def terminate(self, cov=False):
         """Terminate the server.
@@ -268,13 +293,12 @@ class Server(object):
             try:
                 if cov:
                     self.gcov_flush()
-                    self.make_coverage
+                    self.make_coverage()
                 os.kill(self.pid, signal.SIGKILL)
                 self.proc = None
                 return True
             except OSError:
                 raise ServerProcessError('Cannot kill process')
-
 
     def gcov_flush(self):
         """Generate gcov coverage by sending the signal SIGUSR1
@@ -296,5 +320,3 @@ class Server(object):
                 return True
             except OSError:
                 raise ServerProcessError('Unable to send signal')
-
-

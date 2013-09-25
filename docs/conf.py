@@ -12,7 +12,13 @@
 # serve to show the default.
 
 import sys, os
-sys.path.insert(0, os.path.abspath(os.path.join(__file__, "../../python-api")))
+sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../python-api'))
+sys.path.insert(0, os.path.abspath('../python-api/gstswitch'))
+sys.path.insert(0, os.path.abspath('../python-api/tests'))
+sys.path.insert(0, os.path.abspath('../python-api/tests/unittests'))
+sys.path.insert(0, os.path.abspath('../python-api/tests/integrationtests'))
+sys.path.insert(0, os.path.abspath('fake-lib'))
 # print sys.path
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
