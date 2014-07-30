@@ -1,13 +1,13 @@
 # Build Status
-[![Build Status](https://travis-ci.org/timvideos/gst-switch.png?branch=master)](https://travis-ci.org/timvideos/gst-switch)
-[![Coverage Status](https://coveralls.io/repos/timvideos/gst-switch/badge.png)](https://coveralls.io/r/timvideos/gst-switch)
+[![Build Status](https://travis-ci.org/insanity54/gst-switch.png?branch=master)](https://travis-ci.org/insanity54/gst-switch)
+[![Coverage Status](https://coveralls.io/repos/insanity54/gst-switch/badge.png)](https://coveralls.io/r/insanity54/gst-switch)
 
 # gst-switch
 ## Purpose
-This project is intended to be a replacement of DV-switch based on GStreamer.
+This project is intended to be a replacement of DV-switch based on GStreamer. I (insanity54) have updated some things to get the project building on ubuntu 14.04
 ##Installing gst-switch
 ```bash
-wget https://raw.github.com/timvideos/gst-switch/master/scripts/install2.sh
+wget https://raw.github.com/insanity54/gst-switch/master/scripts/install2.sh
 chmod +x install2.sh
 ./install2.sh
 ```

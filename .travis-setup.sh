@@ -111,7 +111,7 @@ sudo make install || {
        exit -1
     }
 cd ..
-git clone https://github.com/hyades/gst-plugins-bad.git
+git clone https://github.com/insanity54/gst-plugins-bad.git
 cd gst-plugins-bad
 ./autogen.sh --prefix=/usr || {
 printf "Failed to do autogen!!!\n"
